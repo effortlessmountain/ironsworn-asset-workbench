@@ -1,0 +1,135 @@
+body {
+    font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.container {
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    flex-wrap      : wrap;
+    height         : 80vh;
+    /* wee bit hacky */
+}
+
+.asset {
+    border         : 2px solid black;
+    font-size      : 14.6px;
+    height         : 440px;
+    width          : 314px;
+    line-height    : 1.3em;
+    display        : flex;
+    flex-direction : column;
+    justify-content: space-between;
+}
+
+.top {
+    text-transform: uppercase;
+    font-weight   : bolder;
+    font-family   : 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.type {
+    background-color: black;
+    color           : white;
+    padding         : 15px 0 5px 15px;
+}
+
+.asset-name {
+    font-size: 20px;
+    padding  : 10px 15px;
+}
+
+.header-circle {
+    /* TODO position in a better way? CSS Grid? */
+    color          : white;
+    background     : black;
+    border         : 3px solid white;
+    border-radius  : 50%;
+    width          : 56px;
+    height         : 56px;
+    float          : right;
+    margin-top     : -28px;
+    margin-right   : 8px;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+}
+
+.header-icon {
+    font-size: 50px;
+}
+
+.write-in {
+    border-bottom: 2px solid black;
+}
+
+.write-in::after {
+    content:":"
+}
+
+.write-in,
+.description {
+    margin-left  : 15px;
+    margin-bottom: 10px;
+    margin-right : 15px;
+}
+
+.ability {
+    margin: 0 20px 5px 35px;
+}
+
+.ability-name {
+    font-weight: bold;
+}
+
+.ability-name::after {
+    content: ":"
+}
+
+.dot {
+    position   : absolute;
+    margin-left: -20px;
+    margin-top : -1px;
+    font-size  : 23px;
+}
+
+.filled::before {
+    content: "●";
+}
+
+.unfilled::before {
+    content: "○"
+}
+
+.track {
+    display        : flex;
+    justify-content: center;
+    margin-bottom  : 10px;
+}
+
+.value {
+    width          : 14%;
+    height         : 30px;
+    border         : 2px solid black;
+    font-weight    : bolder;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    font-size: 16px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.value::before {
+    content: "+";
+}
+
+.value.empty::before,
+.value.zero::before {
+    content: "";
+}
+
+
+.value.empty {
+    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke'/></svg>");
+    background-size: 100% 100%, auto;
+}
