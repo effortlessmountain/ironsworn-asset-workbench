@@ -78,7 +78,7 @@ const createDescription = (description) => {
     return description ? `<div class="description">${description}</div>` : ""
 }
 
-const createAbilitiesHtml = (abilities) => {
+const createAbilitiesHtml = (abilities = []) => {
     const createAbilityName = (name) => {
         return name ? `<span class="ability-name">${name}</span>` : ""
     }
@@ -114,7 +114,7 @@ const createTrackHtml = (track) => {
     }
 }
 
-const createAssetHtml = (asset) => {
+const createAssetHtml = (asset = {}) => {
     return `<div class="asset">
                 <div class="main-matter">
                     <div class="top">
@@ -136,4 +136,34 @@ const createAssetHtml = (asset) => {
             </div>`
 }
 
-document.querySelector(".container").innerHTML += [bonded, berserker, caveLion].map(createAssetHtml).join("")
+const assetInput = document.querySelector('.interface-input')
+const assetContainer = document.querySelector(".assets")
+const updateButton = document.querySelector(".update")
+const showSingleAssetButton = document.querySelector(".show-single")
+const showMultipleAssetButton = document.querySelector(".show-multiple")
+
+const showSingleAssetExample = () => {
+    assetInput.value = JSON.stringify(caveLion, null, 2)
+    assetContainer.innerHTML = createAssetHtml(caveLion)
+}
+
+const showMultipleAssetExample = () => {
+    assetInput.value = JSON.stringify([bonded, berserker, caveLion], null, 2)
+    assetContainer.innerHTML = [bonded, berserker, caveLion].map(createAssetHtml).join("")
+}
+
+
+
+updateButton.onclick = () => {
+    let data = JSON.parse(assetInput.value)
+    if (Array.isArray(data)) {
+        assetContainer.innerHTML = data.map(createAssetHtml).join('')
+    } else {
+        assetContainer.innerHTML = createAssetHtml(data)
+    }
+}
+
+showSingleAssetButton.onclick = showSingleAssetExample
+showMultipleAssetButton.onclick = showMultipleAssetExample
+
+showSingleAssetExample()

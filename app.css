@@ -4,11 +4,30 @@ body {
 
 .container {
     display        : flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items    : center;
     flex-wrap      : wrap;
     height         : 80vh;
     /* wee bit hacky */
+}
+
+
+.assets {
+    display: flex;
+}
+
+.interface {
+    height         : 100%;
+    display        : flex;
+    align-items    : center;
+    flex-direction : column;
+    justify-content: space-around;
+}
+
+.interface-input {
+    height: 90%;
+    width : 400px;
+
 }
 
 .asset {
@@ -64,7 +83,7 @@ body {
 }
 
 .write-in::after {
-    content:":"
+    content: ":"
 }
 
 .write-in,
@@ -115,8 +134,8 @@ body {
     display        : flex;
     justify-content: center;
     align-items    : center;
-    font-size: 16px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size      : 16px;
+    font-family    : Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .value::before {
