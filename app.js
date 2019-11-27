@@ -142,20 +142,16 @@
     const assetInput = document.querySelector('.interface-input')
     const assetContainer = document.querySelector(".assets")
     const updateButton = document.querySelector(".update")
-    const showSingleAssetButton = document.querySelector(".show-single")
-    const showMultipleAssetButton = document.querySelector(".show-multiple")
+    const showBondedAssetButton = document.querySelector("#bonded-example")
+    const showBerserkerAssetButton = document.querySelector("#berserker-example")
+    const showCaveLionAssetButton = document.querySelector("#cave-lion-example")
     const downloadButton = document.querySelector("#download")
     const closeDownloadbutton = document.querySelector("#done-downloading")
     const downloadContainer = document.querySelector(".image-container")
 
-    const showSingleAssetExample = () => {
-        assetInput.value = JSON.stringify(caveLion, null, 2)
-        assetContainer.innerHTML = createAssetHtml(caveLion)
-    }
-
-    const showMultipleAssetExample = () => {
-        assetInput.value = JSON.stringify([bonded, berserker, caveLion], null, 2)
-        assetContainer.innerHTML = [bonded, berserker, caveLion].map(createAssetHtml).join("")
+    const showSingleAssetExample = (asset) => {
+        assetInput.value = JSON.stringify(asset, null, 2)
+        assetContainer.innerHTML = createAssetHtml(asset)
     }
 
     const showScreen = (screen) => {
@@ -188,12 +184,13 @@
     }
 
 
-    showSingleAssetButton.onclick = showSingleAssetExample
-    showMultipleAssetButton.onclick = showMultipleAssetExample
+    showBondedAssetButton.onclick = () => showSingleAssetExample(bonded)
+    showBerserkerAssetButton.onclick = () => showSingleAssetExample(berserker)
+    showCaveLionAssetButton.onclick = () => showSingleAssetExample(caveLion)
     downloadButton.onclick = screenshot
     closeDownloadbutton.onclick = closeDownload
 
-    showSingleAssetExample()
+    showSingleAssetExample(caveLion)
 
 
 })()
