@@ -1,3 +1,8 @@
+:root {
+    --darkest: #221a0f;
+    --gray   : #414042;
+}
+
 body {
     font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
@@ -7,17 +12,17 @@ body {
     justify-content: space-around;
     align-items    : center;
     flex-wrap      : wrap;
-    height         : 80vh;
-    /* wee bit hacky */
 }
 
 
 .assets {
-    display: flex;
+    display  : flex;
+    max-width: 2250px;
+    flex-wrap: wrap;
 }
 
 .interface {
-    height         : 100%;
+    height         : 80vh;
     display        : flex;
     align-items    : center;
     flex-direction : column;
@@ -31,7 +36,9 @@ body {
 }
 
 .asset {
-    border         : 0.13em solid black;
+    border         : 0.13em solid var(--gray);
+    color          : var(--darkest);
+    box-sizing     : border-box;
     font-size      : 2.2em;
     height         : 1050px;
     width          : 750px;
@@ -43,33 +50,32 @@ body {
 
 .top {
     text-transform: uppercase;
-    font-weight   : bolder;
-    font-family   : 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight   : 900;
+    font-family   : Geneva, Verdana, sans-serif
 }
 
 .type {
-    background-color: black;
-    background      : black;
+    background-color: var(--gray);
     color           : white;
-    padding         : .5em 0 .2em .5em;
+    padding         : .8em 0 .3em .95em;
+    font-size       : 1.03em;
 }
 
 .asset-name {
-    font-size: 1.3em;
-    padding  : .4em .5em;
+    font-size: 1.26em;
+    padding  : .7em .7em .53em .7em;
 }
 
 .header-circle {
-    /* TODO position in a better way? CSS Grid? */
     color          : white;
-    background     : black;
-    border         : .1em solid white;
+    background     : var(--gray);
+    border         : .19em solid white;
     border-radius  : 50%;
-    width          : 3em;
-    height         : 3em;
+    width          : 4em;
+    height         : 4em;
     float          : right;
-    margin-top     : -1.3em;
-    margin-right   : .8em;
+    margin-top     : -1.8em;
+    margin-right   : 1em;
     display        : flex;
     align-items    : center;
     justify-content: center;
@@ -79,24 +85,28 @@ body {
     font-size: 2.5em;
 }
 
+.details {
+    margin-left: .9em;
+    font-size  : 1.038em;
+}
+
 .write-in {
-    border-bottom: .1em solid black;
+    border-bottom: .14em solid var(--gray);
+    margin-right : .9em;
+    margin-bottom: .71em;
 }
 
 .write-in::after {
     content: ":"
 }
 
-.write-in,
 .description {
-    margin-left  : .7em;
-    margin-bottom: .5em;
-    margin-right : .7em;
+    margin-bottom: .28em;
 }
 
 .ability {
-    margin : 0 1em .3em 0em;
-    display: flex;
+    display    : flex;
+    line-height: 1.33em;
 }
 
 .ability-name {
@@ -108,8 +118,8 @@ body {
 }
 
 .dot {
-    margin   : -.04em .4em 0 .4em;
-    font-size: 1.4em;
+    margin   : -.06em .27em 0 -.03em;
+    font-size: 1.58em;
 }
 
 .filled::before {
@@ -123,23 +133,29 @@ body {
 .track {
     display        : flex;
     justify-content: center;
-    margin-bottom  : 1em;
+    margin-bottom  : .95em;
+    color          : var(--gray);
 }
 
 .value {
-    width          : 14%;
+    width          : 14.4%;
     height         : 2em;
-    border         : .1em solid black;
+    border         : .1em solid var(--gray);
+    border-left    : .05em solid var(--gray);
     font-weight    : bolder;
     display        : flex;
     justify-content: center;
     align-items    : center;
-    font-size      : 1em;
+    font-size      : 1.22em;
     font-family    : Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .value::before {
     content: "+";
+}
+
+.value.zero {
+    border-left: .1em solid var(--gray);
 }
 
 .value.empty::before,
@@ -149,6 +165,6 @@ body {
 
 
 .value.empty {
-    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke'/></svg>");
+    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke' style='stroke:rgb(65,64,66);stroke-width:4' /></svg>");
     background-size: 100% 100%, auto;
 }
