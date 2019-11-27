@@ -104,13 +104,14 @@ body {
 }
 
 .details {
-    margin-left: .9em;
-    font-size  : 1.038em;
+    margin-left : .9em;
+    margin-right: .7em;
+    font-size   : 1.02em;
 }
 
 .write-in {
     border-bottom: .14em solid var(--gray);
-    margin-right : .9em;
+    margin-right : .2em;
     margin-bottom: .71em;
 }
 
@@ -124,7 +125,7 @@ body {
 
 .ability {
     display    : flex;
-    line-height: 1.33em;
+    line-height: 1.28em;
 }
 
 .ability-name {
