@@ -85,10 +85,12 @@
         }
         return abilities.map((ability) => {
             return `<div class="ability">
-                    <i class="dot ${ability.filled ? "filled" : "unfilled"}"></i>
-                    ${createAbilityName(ability.name)}
-                    ${ability.text}
-                </div>`
+                        <i class="dot ${ability.filled ? "filled" : "unfilled"}"></i>
+                        <div class="ability-description">
+                            ${createAbilityName(ability.name)}
+                            ${ability.text}
+                        </div>
+                    </div>`
         }).join("")
     }
 

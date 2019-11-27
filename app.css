@@ -31,10 +31,10 @@ body {
 }
 
 .asset {
-    border         : 2px solid black;
-    font-size      : 14.6px;
-    height         : 440px;
-    width          : 314px;
+    border         : 0.13em solid black;
+    font-size      : 2.2em;
+    height         : 1050px;
+    width          : 750px;
     line-height    : 1.3em;
     display        : flex;
     flex-direction : column;
@@ -49,37 +49,38 @@ body {
 
 .type {
     background-color: black;
+    background      : black;
     color           : white;
-    padding         : 15px 0 5px 15px;
+    padding         : .5em 0 .2em .5em;
 }
 
 .asset-name {
-    font-size: 20px;
-    padding  : 10px 15px;
+    font-size: 1.3em;
+    padding  : .4em .5em;
 }
 
 .header-circle {
     /* TODO position in a better way? CSS Grid? */
     color          : white;
     background     : black;
-    border         : 3px solid white;
+    border         : .1em solid white;
     border-radius  : 50%;
-    width          : 56px;
-    height         : 56px;
+    width          : 3em;
+    height         : 3em;
     float          : right;
-    margin-top     : -28px;
-    margin-right   : 8px;
+    margin-top     : -1.3em;
+    margin-right   : .8em;
     display        : flex;
     align-items    : center;
     justify-content: center;
 }
 
 .header-icon {
-    font-size: 50px;
+    font-size: 2.5em;
 }
 
 .write-in {
-    border-bottom: 2px solid black;
+    border-bottom: .1em solid black;
 }
 
 .write-in::after {
@@ -88,13 +89,14 @@ body {
 
 .write-in,
 .description {
-    margin-left  : 15px;
-    margin-bottom: 10px;
-    margin-right : 15px;
+    margin-left  : .7em;
+    margin-bottom: .5em;
+    margin-right : .7em;
 }
 
 .ability {
-    margin: 0 20px 5px 35px;
+    margin : 0 1em .3em 0em;
+    display: flex;
 }
 
 .ability-name {
@@ -106,10 +108,8 @@ body {
 }
 
 .dot {
-    position   : absolute;
-    margin-left: -20px;
-    margin-top : -1px;
-    font-size  : 23px;
+    margin   : -.04em .4em 0 .4em;
+    font-size: 1.4em;
 }
 
 .filled::before {
@@ -123,18 +123,18 @@ body {
 .track {
     display        : flex;
     justify-content: center;
-    margin-bottom  : 10px;
+    margin-bottom  : 1em;
 }
 
 .value {
     width          : 14%;
-    height         : 30px;
-    border         : 2px solid black;
+    height         : 2em;
+    border         : .1em solid black;
     font-weight    : bolder;
     display        : flex;
     justify-content: center;
     align-items    : center;
-    font-size      : 16px;
+    font-size      : 1em;
     font-family    : Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
