@@ -7,6 +7,15 @@ body {
     font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
+.main-screen .download {
+    display: none;
+}
+
+.download-screen .assets,
+.download-screen .interface {
+    display: none;
+}
+
 .container {
     display        : flex;
     justify-content: space-around;
@@ -16,9 +25,12 @@ body {
 
 
 .assets {
-    display  : flex;
-    max-width: 2250px;
-    flex-wrap: wrap;
+    display        : flex;
+    max-width      : 2250px;
+    max-height     : 80vh;
+    flex-wrap      : wrap;
+    align-items    : center;
+    justify-content: center;
 }
 
 .interface {
@@ -33,6 +45,12 @@ body {
     height: 90%;
     width : 400px;
 
+}
+
+.credits {
+    max-width : 500px;
+    color     : var(--gray);
+    text-align: center;
 }
 
 .asset {
@@ -168,3 +186,5 @@ body {
     background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke' style='stroke:rgb(65,64,66);stroke-width:4' /></svg>");
     background-size: 100% 100%, auto;
 }
+
+.download {}

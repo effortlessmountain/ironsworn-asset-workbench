@@ -1,24 +1,37 @@
 <html>
 
 <head>
+    <title>Ironsworn Asset Workbench</title>
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="print.css">
 </head>
 
-<body>
-    <h1>Ironsworn Asset Workbench</h1>
-
+<body class="main-screen">
+    <div class="download">
+        <p>Right click and 'Save as...' to download. If the image is truncated,
+            try making your browser window bigger before pressing 'download'</p>
+        <button id="done-downloading">close</button>
+        <div class="image-container"></div>
+    </div>
     <div class="container">
         <div class="assets"></div>
         <div class="interface">
+            <h3>Ironsworn Asset Workbench v0.2</h3>
             <button class="show-single">Show Single Example Asset</button>
             <button class="show-multiple">Show Multiple Example Assets</button>
             <textarea class="interface-input" spellcheck="false"></textarea>
             <button class="update">update</button>
+            <button id="download">download</button>
+            <p class="credits">
+                Ironsworn and the official Ironsworn assets Copyright ©2019 Shawn Tomkin and used under
+                the Creative Commons Attribution-NonCommercial-
+                ShareAlike 4.0 International license.
+            </p>
         </div>
     </div>
 
     <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
 </body>
 
 </html>

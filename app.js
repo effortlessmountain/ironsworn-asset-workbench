@@ -144,6 +144,9 @@
     const updateButton = document.querySelector(".update")
     const showSingleAssetButton = document.querySelector(".show-single")
     const showMultipleAssetButton = document.querySelector(".show-multiple")
+    const downloadButton = document.querySelector("#download")
+    const closeDownloadbutton = document.querySelector("#done-downloading")
+    const downloadContainer = document.querySelector(".image-container")
 
     const showSingleAssetExample = () => {
         assetInput.value = JSON.stringify(caveLion, null, 2)
@@ -155,7 +158,25 @@
         assetContainer.innerHTML = [bonded, berserker, caveLion].map(createAssetHtml).join("")
     }
 
+    const showScreen = (screen) => {
+        if (screen === "download") {
+            document.body.className = "download-screen"
+        } else if (screen === "main") {
+            document.body.className = "main-screen"
+        }
+    }
 
+    const screenshot = () => {
+        html2canvas(document.querySelector('.asset')).then(canvas => {
+            downloadContainer.appendChild(canvas)
+            showScreen('download')
+        })
+    }
+
+    const closeDownload = () => {
+        downloadContainer.innerHTML = ""
+        showScreen('main')
+    }
 
     updateButton.onclick = () => {
         let data = JSON.parse(assetInput.value)
@@ -166,9 +187,13 @@
         }
     }
 
+
     showSingleAssetButton.onclick = showSingleAssetExample
     showMultipleAssetButton.onclick = showMultipleAssetExample
+    downloadButton.onclick = screenshot
+    closeDownloadbutton.onclick = closeDownload
 
     showSingleAssetExample()
+
 
 })()
