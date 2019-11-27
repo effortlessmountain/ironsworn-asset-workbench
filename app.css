@@ -1,5 +1,19 @@
+:root {
+    --darkest: #221a0f;
+    --gray   : #414042;
+}
+
 body {
-    font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.main-screen .download {
+    display: none;
+}
+
+.download-screen .assets,
+.download-screen .interface {
+    display: none;
 }
 
 .container {
@@ -7,21 +21,34 @@ body {
     justify-content: space-around;
     align-items    : center;
     flex-wrap      : wrap;
-    height         : 80vh;
-    /* wee bit hacky */
-}
-
-
-.assets {
-    display: flex;
 }
 
 .interface {
-    height         : 100%;
+    color          : var(--darkest);
+    height         : 80vh;
     display        : flex;
     align-items    : center;
     flex-direction : column;
     justify-content: space-around;
+}
+
+button {
+    width: 190px;
+    font-size     : 100%;
+    font-family   : inherit;
+    border        : 0;
+    padding       : 5px;
+    margin        : 5px;
+    border-radius : 5px;
+    background    : white;
+    border        : 2px solid var(--gray);
+    font-weight   : bold;
+    text-transform: uppercase;
+}
+
+button:hover {
+    color           : white;
+    background-color: var(--gray);
 }
 
 .interface-input {
@@ -30,11 +57,29 @@ body {
 
 }
 
+.credits {
+    max-width : 500px;
+    color     : var(--gray);
+    text-align: center;
+}
+
+.assets {
+    display        : flex;
+    max-width      : 2250px;
+    max-height     : 80vh;
+    flex-wrap      : wrap;
+    align-items    : center;
+    justify-content: center;
+}
+
 .asset {
-    border         : 2px solid black;
-    font-size      : 14.6px;
-    height         : 440px;
-    width          : 314px;
+    font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    border         : 0.13em solid var(--gray);
+    color          : var(--darkest);
+    box-sizing     : border-box;
+    font-size      : 2.2em;
+    height         : 1050px;
+    width          : 750px;
     line-height    : 1.3em;
     display        : flex;
     flex-direction : column;
@@ -43,58 +88,64 @@ body {
 
 .top {
     text-transform: uppercase;
-    font-weight   : bolder;
-    font-family   : 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight   : 900;
+    font-family   : Geneva, Verdana, sans-serif
 }
 
 .type {
-    background-color: black;
+    background-color: var(--gray);
     color           : white;
-    padding         : 15px 0 5px 15px;
+    padding         : .8em 0 .3em .95em;
+    font-size       : 1.03em;
 }
 
 .asset-name {
-    font-size: 20px;
-    padding  : 10px 15px;
+    font-size: 1.26em;
+    padding  : .7em .7em .53em .7em;
 }
 
 .header-circle {
-    /* TODO position in a better way? CSS Grid? */
     color          : white;
-    background     : black;
-    border         : 3px solid white;
+    background     : var(--gray);
+    border         : .19em solid white;
     border-radius  : 50%;
-    width          : 56px;
-    height         : 56px;
+    width          : 4em;
+    height         : 4em;
     float          : right;
-    margin-top     : -28px;
-    margin-right   : 8px;
+    margin-top     : -1.8em;
+    margin-right   : 1em;
     display        : flex;
     align-items    : center;
     justify-content: center;
 }
 
 .header-icon {
-    font-size: 50px;
+    font-size: 2.5em;
+}
+
+.details {
+    margin-left : .9em;
+    margin-right: .7em;
+    font-size   : 1.02em;
 }
 
 .write-in {
-    border-bottom: 2px solid black;
+    border-bottom: .14em solid var(--gray);
+    margin-right : .2em;
+    margin-bottom: .71em;
 }
 
 .write-in::after {
     content: ":"
 }
 
-.write-in,
 .description {
-    margin-left  : 15px;
-    margin-bottom: 10px;
-    margin-right : 15px;
+    margin-bottom: .28em;
 }
 
 .ability {
-    margin: 0 20px 5px 35px;
+    display    : flex;
+    line-height: 1.28em;
 }
 
 .ability-name {
@@ -106,10 +157,8 @@ body {
 }
 
 .dot {
-    position   : absolute;
-    margin-left: -20px;
-    margin-top : -1px;
-    font-size  : 23px;
+    margin   : -.06em .27em 0 -.03em;
+    font-size: 1.58em;
 }
 
 .filled::before {
@@ -123,23 +172,29 @@ body {
 .track {
     display        : flex;
     justify-content: center;
-    margin-bottom  : 10px;
+    margin-bottom  : .95em;
+    color          : var(--gray);
 }
 
 .value {
-    width          : 14%;
-    height         : 30px;
-    border         : 2px solid black;
+    width          : 14.4%;
+    height         : 2em;
+    border         : .1em solid var(--gray);
+    border-left    : .05em solid var(--gray);
     font-weight    : bolder;
     display        : flex;
     justify-content: center;
     align-items    : center;
-    font-size      : 16px;
+    font-size      : 1.22em;
     font-family    : Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .value::before {
     content: "+";
+}
+
+.value.zero {
+    border-left: .1em solid var(--gray);
 }
 
 .value.empty::before,
@@ -149,6 +204,8 @@ body {
 
 
 .value.empty {
-    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke'/></svg>");
+    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke' style='stroke:rgb(65,64,66);stroke-width:4' /></svg>");
     background-size: 100% 100%, auto;
 }
+
+.download {}
