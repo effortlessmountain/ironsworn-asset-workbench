@@ -70,6 +70,15 @@
         ]
     }
 
+    const calculateScale = () => {
+        if (window.innerHeight > 1100) {
+            return "full"
+        } else if (window.innerHeight > 750) {
+            return "two-thirds"
+        } else {
+            return "one-half"
+        }
+    }
 
     const createWriteIn = (writeIn) => {
         return writeIn ? `<div class="write-in">${writeIn}</div>` : ""
@@ -117,8 +126,8 @@
         }
     }
 
-    const createAssetHtml = (asset = {}) => {
-        return `<div class="asset">
+    const createAssetHtml = (asset = {}, scale = "full") => {
+        return `<div class="asset ${scale}">
                 <div class="main-matter">
                     <div class="top">
                         <div class="type">${asset.type}</div>
@@ -139,6 +148,7 @@
             </div>`
     }
 
+
     const assetInput = document.querySelector('.interface-input')
     const assetContainer = document.querySelector(".assets")
     const updateButton = document.querySelector(".update")
@@ -151,7 +161,7 @@
 
     const showSingleAssetExample = (asset) => {
         assetInput.value = JSON.stringify(asset, null, 2)
-        assetContainer.innerHTML = createAssetHtml(asset)
+        assetContainer.innerHTML = createAssetHtml(asset, window.IAW_scale)
     }
 
     const showScreen = (screen) => {
@@ -162,11 +172,30 @@
         }
     }
 
+    const saveImage = (uri, filename) => {
+        const link = document.createElement('a')
+        link.href = uri
+        link.download = filename
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+    }
+
     const screenshot = () => {
-        html2canvas(document.querySelector('.asset')).then(canvas => {
-            downloadContainer.appendChild(canvas)
-            showScreen('download')
-        })
+        const asset = document.querySelector('.asset')
+        // asset.setAttribute("style", "width:375px;height:525px;font-size:1.1em")
+        html2canvas(asset,
+            {
+                // width: "750",
+                // height: "1050",
+                // scale: 2
+                // windowHeight: "1080px",
+                // windowWidth: "1920px"
+            }).then(canvas => {
+                downloadContainer.appendChild(canvas)
+                // saveImage(canvas.toDataURL(), 'asset.png') //TODO name after asset's name
+                showScreen('download')
+            })
     }
 
     const closeDownload = () => {
@@ -179,7 +208,7 @@
         if (Array.isArray(data)) {
             assetContainer.innerHTML = data.map(createAssetHtml).join('')
         } else {
-            assetContainer.innerHTML = createAssetHtml(data)
+            assetContainer.innerHTML = createAssetHtml(data, window.IAW_scale)
         }
     }
 
@@ -190,7 +219,35 @@
     downloadButton.onclick = screenshot
     closeDownloadbutton.onclick = closeDownload
 
-    showSingleAssetExample(caveLion)
 
+
+    const scaleOneThirdButton = document.querySelector("#scale-one-third")
+    const scaleOneHalfButton = document.querySelector("#scale-one-half")
+    const scaleTwoThirdsButton = document.querySelector("#scale-two-thirds")
+    const scaleFullButton = document.querySelector("#scale-full")
+
+    const selectScaleButton = (size) => {
+        document.querySelector(`#scale-${size}`).classList = "scale-button selected"
+    }
+
+    const changeSize = (size) => {
+        document.querySelector(".asset").classList = `asset ${size}`
+        const buttons = document.querySelectorAll(".scale-button")
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].classList = "scale-button"
+        }
+        selectScaleButton(size)
+        window.IAW_scale = size
+    }
+
+    scaleOneThirdButton.onclick = () => changeSize("one-third")
+    scaleOneHalfButton.onclick = () => changeSize("one-half")
+    scaleTwoThirdsButton.onclick = () => changeSize("two-thirds")
+    scaleFullButton.onclick = () => changeSize("full")
+
+    // initialize
+    window.IAW_scale = calculateScale()
+    selectScaleButton(window.IAW_scale)
+    showSingleAssetExample(caveLion)
 
 })()

@@ -15,13 +15,29 @@
     <div class="container">
         <div class="assets"></div>
         <div class="interface">
-            <h3>Ironsworn Asset Workbench v0.2</h3>
-            <button class="show-example" id="bonded-example">Load Bonded Example Asset</button>
-            <button class="show-example" id="berserker-example">Load Berserker Example Asset</button>
-            <button class="show-example" id="cave-lion-example">Load Cave Lion Example Asset</button>
-            <textarea class="interface-input" spellcheck="false"></textarea>
-            <button class="update">update</button>
-            <button id="download">download</button>
+            <h2>Ironsworn Asset Workbench v0.3</h2>
+            <div class="scale-controls">
+                <span>Scale (also affects Download size)</span>
+                <div class="scale-buttons">
+                    <button class="scale-button" id="scale-one-third">250px by 350px</button>
+                    <button class="scale-button" id="scale-one-half">375px by 525px</button>
+                    <button class="scale-button" id="scale-two-thirds">500px by 700px</button>
+                    <button class="scale-button" id="scale-full">750px by 1050px</button>
+                </div>
+            </div>
+            <div class="example-controls">
+                <button class="show-example" id="bonded-example">Load Bonded Example Asset</button>
+                <button class="show-example" id="berserker-example">Load Berserker Example Asset</button>
+                <button class="show-example" id="cave-lion-example">Load Cave Lion Example Asset</button>
+            </div>
+
+            <div class="editor">
+                <textarea class="interface-input" spellcheck="false"></textarea>
+                <button class="update">update</button>
+            </div>
+            <div class="export">
+                <button id="download">download</button>
+            </div>
             <p class="credits">
                 Ironsworn and the official Ironsworn assets Copyright ©2019 Shawn Tomkin and used under
                 the Creative Commons Attribution-NonCommercial-

@@ -1,3 +1,5 @@
+v0.3
+* adds Scale selections and chooses one automatically on page load
 
 v0.2
 * Standardized on 1050px height by 750px width size.

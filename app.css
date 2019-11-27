@@ -1,6 +1,9 @@
 :root {
-    --darkest: #221a0f;
-    --gray   : #414042;
+    --darkest        : #221a0f;
+    --gray           : #414042;
+    --asset-width    : 750px;
+    --asset-height   : 1050px;
+    --asset-font-size: 2.2em;
 }
 
 body {
@@ -19,21 +22,21 @@ body {
 .container {
     display        : flex;
     justify-content: space-around;
-    align-items    : center;
+    align-items    : flex-start;
     flex-wrap      : wrap;
 }
 
 .interface {
-    color          : var(--darkest);
-    height         : 80vh;
-    display        : flex;
-    align-items    : center;
-    flex-direction : column;
-    justify-content: space-around;
+    color             : var(--darkest);
+    /* height         : 80vh; */
+    display           : flex;
+    align-items       : center;
+    flex-direction    : column;
+    justify-content   : space-around;
 }
 
 button {
-    width: 190px;
+    width         : 190px;
     font-size     : 100%;
     font-family   : inherit;
     border        : 0;
@@ -46,15 +49,37 @@ button {
     text-transform: uppercase;
 }
 
-button:hover {
+button:hover,
+button.selected {
     color           : white;
     background-color: var(--gray);
 }
 
 .interface-input {
-    height: 90%;
-    width : 400px;
+    height    : 90%;
+    width     : 100%;
+    min-height: 500px;
+    min-width : 400px;
+}
 
+.editor {
+    display       : flex;
+    flex-direction: column;
+    border        : 5px solid var(--gray);
+    padding       : 20px;
+}
+
+.scale-controls {
+    /* border     : 3px solid var(--gray); */
+    padding       : 5px;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+}
+
+.scale-buttons {
+    display  : flex;
+    flex-wrap: wrap;
 }
 
 .credits {
@@ -66,20 +91,19 @@ button:hover {
 .assets {
     display        : flex;
     max-width      : 2250px;
-    max-height     : 80vh;
     flex-wrap      : wrap;
     align-items    : center;
     justify-content: center;
 }
 
 .asset {
-    font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-family    : Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
     border         : 0.13em solid var(--gray);
     color          : var(--darkest);
     box-sizing     : border-box;
-    font-size      : 2.2em;
-    height         : 1050px;
-    width          : 750px;
+    font-size      : var(--asset-font-size);
+    height         : var(--asset-height);
+    width          : var(--asset-width);
     line-height    : 1.3em;
     display        : flex;
     flex-direction : column;
@@ -202,10 +226,40 @@ button:hover {
     content: "";
 }
 
-
-.value.empty {
+.asset.full .value.empty {
     background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke' style='stroke:rgb(65,64,66);stroke-width:4' /></svg>");
     background-size: 100% 100%, auto;
 }
 
-.download {}
+.asset.two-thirds {
+    height   : calc(var(--asset-height)*(2/3));
+    width    : calc(var(--asset-width)*(2/3));
+    font-size: calc(var(--asset-font-size)*(2/3));
+}
+
+.asset.two-thirds .value.empty {
+    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke' style='stroke:rgb(65,64,66);stroke-width:3' /></svg>");
+    background-size: 100% 100%, auto;
+}
+
+.asset.one-half {
+    height   : calc(var(--asset-height)/2);
+    width    : calc(var(--asset-width)/2);
+    font-size: calc(var(--asset-font-size)/2);
+}
+
+.asset.one-half .value.empty {
+    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke' style='stroke:rgb(65,64,66);stroke-width:2' /></svg>");
+    background-size: 100% 100%, auto;
+}
+
+.asset.one-third {
+    height   : calc(var(--asset-height)/3);
+    width    : calc(var(--asset-width)/3);
+    font-size: calc(var(--asset-font-size)/3);
+}
+
+.asset.one-third .value.empty {
+    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke' style='stroke:rgb(65,64,66);stroke-width:1' /></svg>");
+    background-size: 100% 100%, auto;
+}
