@@ -4,7 +4,7 @@
 }
 
 body {
-    font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .main-screen .download {
@@ -23,22 +23,32 @@ body {
     flex-wrap      : wrap;
 }
 
-
-.assets {
-    display        : flex;
-    max-width      : 2250px;
-    max-height     : 80vh;
-    flex-wrap      : wrap;
-    align-items    : center;
-    justify-content: center;
-}
-
 .interface {
+    color          : var(--darkest);
     height         : 80vh;
     display        : flex;
     align-items    : center;
     flex-direction : column;
     justify-content: space-around;
+}
+
+button {
+    width: 190px;
+    font-size     : 100%;
+    font-family   : inherit;
+    border        : 0;
+    padding       : 5px;
+    margin        : 5px;
+    border-radius : 5px;
+    background    : white;
+    border        : 2px solid var(--gray);
+    font-weight   : bold;
+    text-transform: uppercase;
+}
+
+button:hover {
+    color           : white;
+    background-color: var(--gray);
 }
 
 .interface-input {
@@ -53,7 +63,17 @@ body {
     text-align: center;
 }
 
+.assets {
+    display        : flex;
+    max-width      : 2250px;
+    max-height     : 80vh;
+    flex-wrap      : wrap;
+    align-items    : center;
+    justify-content: center;
+}
+
 .asset {
+    font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, serif;
     border         : 0.13em solid var(--gray);
     color          : var(--darkest);
     box-sizing     : border-box;
