@@ -163,7 +163,6 @@
             let innerEntries = ""
 
             for (let i = 1; i <= trackLength; i++) {
-                console.log("hello dis is ", i)
                 innerEntries += createTrackValueHtml(track, i)
             }
             return `<div class="track">
