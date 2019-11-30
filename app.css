@@ -198,15 +198,29 @@ button.selected {
     content: "○"
 }
 
+li {
+    list-style-position: outside;
+    margin-left        : 1em;
+}
+
 .track {
     display        : flex;
     justify-content: center;
     margin-bottom  : .95em;
     color          : var(--gray);
+    width          : 91.5%;
+    align-self     : center;
+}
+
+.value.text {
+    padding    : .7em;
+    text-align : center;
+    font-size  : 1.1em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .value {
-    width          : 14.4%;
+    width          : 100%;
     height         : 2em;
     border         : .1em solid var(--gray);
     border-left    : .05em solid var(--gray);
@@ -219,11 +233,11 @@ button.selected {
 }
 
 .value svg {
-    width: 100%;
+    width : 100%;
     height: auto;
 }
 
-.value.first {
+.value:first-child {
     border-left: .1em solid var(--gray);
 }
 
