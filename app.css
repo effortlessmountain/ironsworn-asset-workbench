@@ -10,6 +10,11 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+.render .download,
+.render .container {
+    display: none;
+}
+
 .main-screen .download {
     display: none;
 }
@@ -213,22 +218,13 @@ button.selected {
     font-family    : Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-.value::before {
-    content: "+";
+.value svg {
+    width: 100%;
+    height: auto;
 }
 
-.value.zero {
+.value.first {
     border-left: .1em solid var(--gray);
-}
-
-.value.empty::before,
-.value.zero::before {
-    content: "";
-}
-
-.asset.full .value.empty {
-    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke' style='stroke:rgb(65,64,66);stroke-width:4' /></svg>");
-    background-size: 100% 100%, auto;
 }
 
 .asset.two-thirds {
@@ -237,29 +233,14 @@ button.selected {
     font-size: calc(var(--asset-font-size)*(2/3));
 }
 
-.asset.two-thirds .value.empty {
-    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke' style='stroke:rgb(65,64,66);stroke-width:3' /></svg>");
-    background-size: 100% 100%, auto;
-}
-
 .asset.one-half {
     height   : calc(var(--asset-height)/2);
     width    : calc(var(--asset-width)/2);
     font-size: calc(var(--asset-font-size)/2);
 }
 
-.asset.one-half .value.empty {
-    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke' style='stroke:rgb(65,64,66);stroke-width:2' /></svg>");
-    background-size: 100% 100%, auto;
-}
-
 .asset.one-third {
     height   : calc(var(--asset-height)/3);
     width    : calc(var(--asset-width)/3);
     font-size: calc(var(--asset-font-size)/3);
-}
-
-.asset.one-third .value.empty {
-    background     : url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><line x1='0' y1='100' x2='100' y2='0' stroke='black' vector-effect='non-scaling-stroke' style='stroke:rgb(65,64,66);stroke-width:1' /></svg>");
-    background-size: 100% 100%, auto;
 }
