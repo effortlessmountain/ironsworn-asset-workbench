@@ -1,6 +1,6 @@
 v0.4
-* Download of image versions should be much more robust now.
-* adds initial support for SVG icons (still some positioning to tweak)
+* Download of image versions is WAAAY more robust & consistent.
+* adds initial support for SVG icons (still some positioning to tweak, and is the most user hostile feature yet!)
 * Support tracks beyond +5 as well as text-based tracks (such as Ironclad's LIGHTLY ARMORED | GEARED FOR WAR)
 
 v0.3

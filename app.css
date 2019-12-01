@@ -11,16 +11,17 @@ body {
 }
 
 .render .download,
-.render .container {
-    display: none;
-}
-
-.main-screen .download {
-    display: none;
-}
-
-.download-screen .assets,
-.download-screen .interface {
+.render .container,
+.render .help,
+.main-screen .download,
+.main-screen .help,
+.main-screen .render,
+.download-screen .container,
+.download-screen .help,
+.download-screen .render,
+.help-screen .download,
+.help-screen .container,
+.help-screen .render {
     display: none;
 }
 

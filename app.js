@@ -231,10 +231,18 @@
             document.body.className = "download-screen"
         } else if (screen === "main") {
             document.body.className = "main-screen"
-        } else if (screen = "render") {
+        } else if (screen === "render") {
             document.body.className = "render"
+        } else if (screen === "help") {
+            document.body.className = "help-screen"
         }
     }
+
+    const showHelpButton = document.querySelector('#show-help')
+    showHelpButton.onclick = () => showScreen("help")
+    const closeHelpbutton = document.querySelector("#close-help")
+    closeHelpbutton.onclick = () => showScreen("main")
+
 
     const saveImage = (uri, filename) => {
         const link = document.createElement('a')
