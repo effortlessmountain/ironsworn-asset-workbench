@@ -40,7 +40,8 @@ body {
     justify-content   : space-around;
 }
 
-button {
+button,
+select {
     width         : 190px;
     font-size     : 100%;
     font-family   : inherit;
@@ -71,15 +72,17 @@ button.selected {
     display       : flex;
     flex-direction: column;
     border        : 5px solid var(--gray);
+    box-sizing    : border-box;
     padding       : 20px;
+    width         : 100%;
 }
 
-.scale-controls {
-    /* border     : 3px solid var(--gray); */
-    padding       : 5px;
-    display       : flex;
-    flex-direction: column;
-    align-items   : center;
+.top-row-controls {
+    /* border      : 3px solid var(--gray); */
+    width          : 100%;
+    display        : flex;
+    align-items    : center;
+    justify-content: space-between;
 }
 
 .scale-buttons {

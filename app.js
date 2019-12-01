@@ -300,33 +300,22 @@
 
 
 
-    const scaleOneThirdButton = document.querySelector("#scale-one-third")
-    const scaleOneHalfButton = document.querySelector("#scale-one-half")
-    const scaleTwoThirdsButton = document.querySelector("#scale-two-thirds")
-    const scaleFullButton = document.querySelector("#scale-full")
-
-    const selectScaleButton = (size) => {
-        document.querySelector(`#scale-${size}`).classList = "scale-button selected"
-    }
+    const scaleSelect = document.querySelector("#scale-select")
 
     const changeSize = (size) => {
         document.querySelector(".asset").classList = `asset ${size}`
-        const buttons = document.querySelectorAll(".scale-button")
-        for (let i = 0; i < buttons.length; i++) {
-            buttons[i].classList = "scale-button"
-        }
-        selectScaleButton(size)
         window.IAW_scale = size
     }
 
-    scaleOneThirdButton.onclick = () => changeSize("one-third")
-    scaleOneHalfButton.onclick = () => changeSize("one-half")
-    scaleTwoThirdsButton.onclick = () => changeSize("two-thirds")
-    scaleFullButton.onclick = () => changeSize("full")
+    scaleSelect.addEventListener('change', (evemt) => {
+        changeSize(event.target.value)
+    })
+
+    setScale = (size) => scaleSelect.value = size
 
     // initialize
     window.IAW_scale = calculateScale()
-    selectScaleButton(window.IAW_scale)
+    setScale(window.IAW_scale)
     showSingleAssetExample(ironclad)
 
 })()

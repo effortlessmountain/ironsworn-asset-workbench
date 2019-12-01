@@ -17,19 +17,25 @@
         <div class="assets"></div>
         <div class="interface">
             <h2>Ironsworn Asset Workbench v0.3</h2>
-            <div class="scale-controls">
-                <span>Scale (also affects Download size)</span>
-                <div class="scale-buttons">
-                    <button class="scale-button" id="scale-one-third">250px by 350px</button>
-                    <button class="scale-button" id="scale-one-half">375px by 525px</button>
-                    <button class="scale-button" id="scale-two-thirds">500px by 700px</button>
-                    <button class="scale-button" id="scale-full">750px by 1050px</button>
+            <div class="top-row-controls">
+                <div>
+                    <label>Scale (also affects Download size)</label>
+                    <select id="scale-select">
+                        <option value="one-third">250px by 350px</option>
+                        <option value="one-half">375px by 525px</option>
+                        <option value="two-thirds">500px by 700px</option>
+                        <option value="full">750px by 1050px</option>
+                    </select>
+                </div>
+                <div>
+                    <!-- <button id="help-button">How do I...?</button> -->
                 </div>
             </div>
             <div class="example-controls">
-                <button class="show-example" id="lightbearer-example">Load Lightbearer Example Asset</button>
-                <button class="show-example" id="ironclad-example">Load Ironclad Example Asset</button>
-                <button class="show-example" id="cave-lion-example">Load Cave Lion Example Asset</button>
+                <label>Load Example Asset:</label>
+                <button class="show-example" id="lightbearer-example">Lightbearer</button>
+                <button class="show-example" id="ironclad-example">Ironclad</button>
+                <button class="show-example" id="cave-lion-example">Cave Lion</button>
             </div>
 
             <div class="editor">
