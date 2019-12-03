@@ -1,3 +1,6 @@
+v0.4.1
+* Use specific web fonts to gain consistency across browsers & operating systems.
+
 v0.4
 * Download of image versions is WAAAY more robust & consistent.
 * adds initial support for SVG icons (still some positioning to tweak, and is the most user hostile feature yet!)

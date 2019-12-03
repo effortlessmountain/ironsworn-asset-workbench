@@ -72,7 +72,7 @@
             {
                 filled: false,
                 name: "",
-                text: "When you <em>Endure Harm</em> in a fight, you may let the pain inflame your wildness (decide before rolling). The value of your action die is then halved, rounding up (1/2=1, 3/4=2, 5/6=3). If you score a strong hit, and choose to embrace the pain, take your modified action die value as +momentum."
+                text: "When you <em>Endure Harm</em> in a fight, and your health is above 0, you may let the pain inflame your wildness (decide before rolling). If you then score a strong hit and choose to embrace the pain, take +momentum equal to your remaining health. A weak hit counts as a miss."
             }
         ],
         icon: "▿"
@@ -324,6 +324,6 @@
     // initialize
     window.IAW_scale = calculateScale()
     setScale(window.IAW_scale)
-    showSingleAssetExample(ironclad)
+    showSingleAssetExample(berserker)
 
 })()
