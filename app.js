@@ -324,6 +324,6 @@
     // initialize
     window.IAW_scale = calculateScale()
     setScale(window.IAW_scale)
-    showSingleAssetExample(berserker)
+    showSingleAssetExample(ironclad)
 
 })()
