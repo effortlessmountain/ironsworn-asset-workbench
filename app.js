@@ -1,6 +1,6 @@
 import { caveLion, lightbearer, berserker, ironclad } from './src/exampleAssets.js'
 import { createAssetHtml } from './src/asset.js'
-
+import { showScreen } from './src/router.js'
 
 const calculateScale = () => {
     if (window.innerHeight > 1070) {
@@ -28,18 +28,6 @@ const showSingleAssetExample = (asset) => {
     assetInput.value = JSON.stringify(asset, null, 2)
     assetContainer.innerHTML = createAssetHtml(asset, assetScale)
     setSvgDimensions()
-}
-
-const showScreen = (screen) => {
-    if (screen === "download") {
-        document.body.className = "download-screen"
-    } else if (screen === "main") {
-        document.body.className = "main-screen"
-    } else if (screen === "render") {
-        document.body.className = "render"
-    } else if (screen === "help") {
-        document.body.className = "help-screen"
-    }
 }
 
 const showHelpButton = document.querySelector('#show-help')
