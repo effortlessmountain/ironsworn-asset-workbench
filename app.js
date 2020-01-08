@@ -12,6 +12,8 @@ const calculateScale = () => {
     }
 }
 
+let assetScale = calculateScale()
+
 const assetInput = document.querySelector('.interface-input')
 const assetContainer = document.querySelector(".assets")
 const updateButton = document.querySelector(".update")
@@ -24,7 +26,7 @@ const downloadContainer = document.querySelector(".image-container")
 
 const showSingleAssetExample = (asset) => {
     assetInput.value = JSON.stringify(asset, null, 2)
-    assetContainer.innerHTML = createAssetHtml(asset, window.IAW_scale)
+    assetContainer.innerHTML = createAssetHtml(asset, assetScale)
     setSvgDimensions()
 }
 
@@ -96,7 +98,7 @@ updateButton.onclick = () => {
     if (Array.isArray(data)) {
         assetContainer.innerHTML = data.map(createAssetHtml).join('')
     } else {
-        assetContainer.innerHTML = createAssetHtml(data, window.IAW_scale)
+        assetContainer.innerHTML = createAssetHtml(data, assetScale)
     }
     setSvgDimensions()
 }
@@ -114,7 +116,7 @@ const scaleSelect = document.querySelector("#scale-select")
 
 const changeSize = (size) => {
     document.querySelector(".asset").classList = `asset ${size}`
-    window.IAW_scale = size
+    assetScale = size
 }
 
 scaleSelect.addEventListener('change', (evemt) => {
@@ -124,6 +126,6 @@ scaleSelect.addEventListener('change', (evemt) => {
 const setScale = (size) => scaleSelect.value = size
 
 // initialize
-window.IAW_scale = calculateScale()
-setScale(window.IAW_scale)
+assetScale = calculateScale()
+setScale(assetScale)
 showSingleAssetExample(ironclad)
