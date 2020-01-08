@@ -319,7 +319,7 @@
         changeSize(event.target.value)
     })
 
-    setScale = (size) => scaleSelect.value = size
+    const setScale = (size) => scaleSelect.value = size
 
     // initialize
     window.IAW_scale = calculateScale()
