@@ -1,3 +1,11 @@
+export const setSvgDimensions = () => {
+    const svgs = document.querySelectorAll('svg')
+    svgs.forEach(svg => {
+        svg.setAttribute('height', svg.parentNode.offsetHeight)
+        svg.setAttribute('width', svg.parentNode.offsetWidth)
+    })
+}
+
 const createWriteIn = (writeIn) => {
     return writeIn ? `<div class="write-in">${writeIn}</div>` : ""
 }
