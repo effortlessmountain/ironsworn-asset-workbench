@@ -1,18 +1,7 @@
 import { caveLion, lightbearer, berserker, ironclad } from './src/exampleAssets.js'
 import { createAssetHtml } from './src/asset.js'
 import { showScreen } from './src/router.js'
-
-const calculateScale = () => {
-    if (window.innerHeight > 1070) {
-        return "full"
-    } else if (window.innerHeight > 750) {
-        return "two-thirds"
-    } else {
-        return "one-half"
-    }
-}
-
-let assetScale = calculateScale()
+import { assetScale } from './src/assetScaling.js'
 
 const assetInput = document.querySelector('.interface-input')
 const assetContainer = document.querySelector(".assets")
@@ -100,20 +89,5 @@ closeDownloadbutton.onclick = closeDownload
 
 
 
-const scaleSelect = document.querySelector("#scale-select")
 
-const changeSize = (size) => {
-    document.querySelector(".asset").classList = `asset ${size}`
-    assetScale = size
-}
-
-scaleSelect.addEventListener('change', (evemt) => {
-    changeSize(event.target.value)
-})
-
-const setScale = (size) => scaleSelect.value = size
-
-// initialize
-assetScale = calculateScale()
-setScale(assetScale)
 showSingleAssetExample(ironclad)
