@@ -1,5 +1,7 @@
-import { setSvgDimensions } from './asset.js'
+import { showAssetIn } from './asset.js'
+import { assetScale } from './assetScaling.js'
 import { showScreen } from './router.js'
+import { currentAsset } from './editor.js'
 
 // TODO: implement as 'Download' and make current 'Download' into 'Preview'
 const saveImage = (uri, filename) => {
@@ -13,14 +15,12 @@ const saveImage = (uri, filename) => {
 
 const downloadContainer = document.querySelector(".image-container")
 
-const screenshot = () => {
+const screenshot = (asset) => {
     const render = document.querySelector('.render')
-    const asset = document.querySelector('.asset')
-    render.appendChild(asset)
     showScreen('render')
+    showAssetIn(render, asset, assetScale)
     window.scrollTo(0, 0)
-    setSvgDimensions()
-    html2canvas(asset,
+    html2canvas(render,
         {
             allowTaint: true
             // width: "750",
@@ -37,7 +37,7 @@ const screenshot = () => {
 }
 
 const downloadButton = document.querySelector("#download")
-downloadButton.onclick = screenshot
+downloadButton.onclick = () => screenshot(currentAsset)
 
 
 const closeDownload = () => {

@@ -1,11 +1,3 @@
-export const setSvgDimensions = () => {
-    const svgs = document.querySelectorAll('svg')
-    svgs.forEach(svg => {
-        svg.setAttribute('height', svg.parentNode.offsetHeight)
-        svg.setAttribute('width', svg.parentNode.offsetWidth)
-    })
-}
-
 const createWriteIn = (writeIn) => {
     return writeIn ? `<div class="write-in">${writeIn}</div>` : ""
 }
@@ -95,4 +87,23 @@ export const createAssetHtml = (asset = {}, scale = "full") => {
             </div>
             ${createTrackHtml(asset.track)}
         </div>`
+}
+
+const setSvgDimensions = () => {
+    const svgs = document.querySelectorAll('svg')
+    svgs.forEach(svg => {
+        svg.setAttribute('height', svg.parentNode.offsetHeight)
+        svg.setAttribute('width', svg.parentNode.offsetWidth)
+    })
+}
+
+export const showAssetIn = (element, asset, scaling) => {
+    element.innerHTML = createAssetHtml(asset, scaling)
+    setSvgDimensions()
+}
+
+const assetContainer = document.querySelector(".assets")
+
+export const showAsset = (asset, scaling) => {
+    showAssetIn(assetContainer, asset, scaling)
 }
