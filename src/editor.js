@@ -11,6 +11,7 @@ export const updateCurrentAssetFromEditor = () => {
 }
 
 export const updateEditorWithAsset = (asset) => {
+    currentAsset = asset
     assetInput.value = JSON.stringify(asset, null, 2)
 }
 

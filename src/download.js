@@ -20,7 +20,7 @@ const screenshot = (asset) => {
     showScreen('render')
     showAssetIn(render, asset, assetScale)
     window.scrollTo(0, 0)
-    html2canvas(render,
+    html2canvas(render.firstChild,
         {
             allowTaint: true
             // width: "750",
@@ -32,7 +32,6 @@ const screenshot = (asset) => {
             downloadContainer.appendChild(canvas)
             // saveImage(canvas.toDataURL(), 'asset.png') //TODO name after asset's name
             showScreen('download')
-            document.querySelector('.assets').appendChild(asset)
         })
 }
 
