@@ -3,10 +3,6 @@ import { ironclad, lightbearer, caveLion, berserker } from './exampleAssets.js'
 import { assetScale } from './assetScaling.js'
 import { updateEditorWithAsset } from './editor.js'
 
-//TODO: move assetInput into an editor module and encapsulate better.
-// also consolidate mucking with the assetContainer in one place
-const assetInput = document.querySelector('.interface-input')
-
 const showSingleAssetExample = (asset) => {
     updateEditorWithAsset(asset)
     showAsset(asset, assetScale)
