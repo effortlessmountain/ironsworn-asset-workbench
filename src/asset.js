@@ -67,7 +67,7 @@ const createIcon = (icon) => {
     }
 }
 
-const createStyles = (detailsFontSize, assetTypeFontSize, assetNameFontSize, trackValueFontSize) => {
+const createStyles = (detailsFontSize, assetTypeFontSize, assetNameFontSize, trackFontSize) => {
     let styles = ""
     if (detailsFontSize) {
         styles += `
@@ -87,10 +87,10 @@ const createStyles = (detailsFontSize, assetTypeFontSize, assetNameFontSize, tra
                 font-size: ${assetTypeFontSize};
             }`
     }
-    if (trackValueFontSize) {
+    if (trackFontSize) {
         styles += `
             .value, .value.text, .value.number {
-                font-size: ${trackValueFontSize};
+                font-size: ${trackFontSize};
             }`
     }
     return `<style>${styles}</style>`
@@ -98,7 +98,7 @@ const createStyles = (detailsFontSize, assetTypeFontSize, assetNameFontSize, tra
 
 export const createAssetHtml = (asset = {}, scale = "full") => {
     return `<div class="asset ${scale}">
-            ${createStyles(asset.fontSize_details, asset.fontSize_assetType, asset.fontSize_assetName, asset.fontSize_trackValue)}
+            ${createStyles(asset.fontSize_details, asset.fontSize_assetType, asset.fontSize_assetName, asset.fontSize_track)}
             <div class="main-matter">
                 <div class="top">
                     <div class="type">${asset.type}</div>

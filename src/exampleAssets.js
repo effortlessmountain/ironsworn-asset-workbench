@@ -2,7 +2,7 @@ export const ironclad = {
     fontSize_details: "0.97em",
     fontSize_assetName: "1.26em",
     fontSize_assetType: "1.03em",
-    fontSize_trackValue: "1.42em",
+    fontSize_track: "1.42em",
     type: "combat talent",
     name: "Ironclad",
     writeIn: "",
