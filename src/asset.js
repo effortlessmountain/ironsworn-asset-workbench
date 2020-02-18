@@ -67,30 +67,31 @@ const createIcon = (icon) => {
     }
 }
 
-const createStyles = (detailsFontSize, assetTypeFontSize, assetNameFontSize, trackFontSize) => {
+const createStyles = (fonts = {}) => {
     let styles = ""
-    if (detailsFontSize) {
-        styles += `
-            .details {
-                font-size: ${detailsFontSize};
-            }`
-    }
-    if (assetNameFontSize) {
-        styles += `
-            .asset-name {
-                font-size: ${assetNameFontSize};
-            }`
-    }
-    if (assetTypeFontSize) {
+
+    if (fonts.assetTypeFontSize) {
         styles += `
             .type {
-                font-size: ${assetTypeFontSize};
+                font-size: ${fonts.assetTypeFontSize};
             }`
     }
-    if (trackFontSize) {
+    if (fonts.assetNameFontSize) {
+        styles += `
+            .asset-name {
+                font-size: ${fonts.assetNameFontSize};
+            }`
+    }
+    if (fonts.detailsFontSize) {
+        styles += `
+            .details {
+                font-size: ${fonts.detailsFontSize};
+            }`
+    }
+    if (fonts.trackFontSize) {
         styles += `
             .value, .value.text, .value.number {
-                font-size: ${trackFontSize};
+                font-size: ${fonts.trackFontSize};
             }`
     }
     return `<style>${styles}</style>`
@@ -98,7 +99,7 @@ const createStyles = (detailsFontSize, assetTypeFontSize, assetNameFontSize, tra
 
 export const createAssetHtml = (asset = {}, scale = "full") => {
     return `<div class="asset ${scale}">
-            ${createStyles(asset.fontSize_details, asset.fontSize_assetType, asset.fontSize_assetName, asset.fontSize_track)}
+            ${createStyles(asset.fonts)}
             <div class="main-matter">
                 <div class="top">
                     <div class="type">${asset.type}</div>
