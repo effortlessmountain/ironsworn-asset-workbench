@@ -67,34 +67,25 @@ const createIcon = (icon) => {
     }
 }
 
-const createStyles = (fonts = {}) => {
-    let styles = ""
+const populateIfExists = (text, value) => {
+    return value ? text.replace("REPLACE", value) : ""
+}
 
-    if (fonts.assetTypeFontSize) {
-        styles += `
-            .type {
-                font-size: ${fonts.assetTypeFontSize};
-            }`
-    }
-    if (fonts.assetNameFontSize) {
-        styles += `
-            .asset-name {
-                font-size: ${fonts.assetNameFontSize};
-            }`
-    }
-    if (fonts.detailsFontSize) {
-        styles += `
-            .details {
-                font-size: ${fonts.detailsFontSize};
-            }`
-    }
-    if (fonts.trackFontSize) {
-        styles += `
-            .value, .value.text, .value.number {
-                font-size: ${fonts.trackFontSize};
-            }`
-    }
-    return `<style>${styles}</style>`
+const createStyles = (fonts = {}) => {
+    return `<style>
+                .type {
+                    ${populateIfExists("font-size: REPLACE;", fonts.assetTypeFontSize)};
+                }
+                .asset-name {
+                    ${populateIfExists("font-size: REPLACE;", fonts.assetNameFontSize)};
+                }
+                .details {
+                    ${populateIfExists("font-size: REPLACE;", fonts.detailsFontSize)};
+                }
+                .value, .value.text, .value.number {
+                    ${populateIfExists("font-size: REPLACE;", fonts.trackFontSize)};
+                }
+            </style>`
 }
 
 export const createAssetHtml = (asset = {}, scale = "full") => {
