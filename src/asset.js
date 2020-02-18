@@ -67,8 +67,38 @@ const createIcon = (icon) => {
     }
 }
 
+const createStyles = (detailsFontSize, assetTypeFontSize, assetNameFontSize, trackValueFontSize) => {
+    let styles = ""
+    if (detailsFontSize) {
+        styles += `
+            .details {
+                font-size: ${detailsFontSize};
+            }`
+    }
+    if (assetNameFontSize) {
+        styles += `
+            .asset-name {
+                font-size: ${assetNameFontSize};
+            }`
+    }
+    if (assetTypeFontSize) {
+        styles += `
+            .type {
+                font-size: ${assetTypeFontSize};
+            }`
+    }
+    if (trackValueFontSize) {
+        styles += `
+            .value, .value.text, .value.number {
+                font-size: ${trackValueFontSize};
+            }`
+    }
+    return `<style>${styles}</style>`
+}
+
 export const createAssetHtml = (asset = {}, scale = "full") => {
     return `<div class="asset ${scale}">
+            ${createStyles(asset.fontSize_details, asset.fontSize_assetType, asset.fontSize_assetName, asset.fontSize_trackValue)}
             <div class="main-matter">
                 <div class="top">
                     <div class="type">${asset.type}</div>
