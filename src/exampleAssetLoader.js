@@ -8,7 +8,7 @@ const showSingleAssetExample = (asset) => {
     showAsset(asset, assetScale)
 }
 
-export const loadDefaultExampleAsset = () => showSingleAssetExample(ironclad)
+export const loadDefaultExampleAsset = () => showSingleAssetExample(caveLion)
 
 const showLightbearerAssetButton = document.querySelector("#lightbearer-example")
 showLightbearerAssetButton.onclick = () => showSingleAssetExample(lightbearer)
