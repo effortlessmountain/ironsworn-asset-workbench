@@ -94,7 +94,15 @@ const makeMergedConfig = (config) => {
   return Object.assign({}, defaultFontConfig, config)
 }
 
-const createStyles = (fonts = {}) => {
+interface FontConfig {
+    assetTypeFont: string,
+    assetNameFont: string,
+    detailsFont: string,
+    trackFont: string,
+}
+
+// TODO: fix hacky casting
+const createStyles = (fonts = {} as FontConfig) => {
     let googleFonts = createGoogleFontString(fonts.assetTypeFont, fonts.assetNameFont, fonts.detailsFont, fonts.trackFont)
 
     let fontConfig = makeMergedConfig(fonts)
@@ -120,7 +128,18 @@ const createStyles = (fonts = {}) => {
             </style>`
 }
 
-export const createAssetHtml = (asset = {}, scale = "full") => {
+interface Asset {
+    fonts: FontConfig,
+    type: string,
+    icon: object,
+    name: string,
+    writeIn: string,
+    description: string,
+    abilities: Array<object>,
+    track: Array<string>
+}
+
+export const createAssetHtml = (asset = {} as Asset, scale = "full") => {
     return `<div class="asset ${scale}">
             ${createStyles(asset.fonts)}
             <div class="main-matter">
@@ -146,8 +165,9 @@ export const createAssetHtml = (asset = {}, scale = "full") => {
 const setSvgDimensions = () => {
     const svgs = document.querySelectorAll('svg')
     svgs.forEach(svg => {
-        svg.setAttribute('height', svg.parentNode.offsetHeight)
-        svg.setAttribute('width', svg.parentNode.offsetWidth)
+        //TODO: less typecasting madness
+        svg.setAttribute('height', (svg.parentNode as HTMLElement).offsetHeight.toString())
+        svg.setAttribute('width', (svg.parentNode as HTMLElement).offsetWidth.toString())
     })
 }
 

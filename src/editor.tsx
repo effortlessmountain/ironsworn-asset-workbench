@@ -1,9 +1,9 @@
-import { assetScale } from './assetScaling.js'
-import { showAsset } from './asset.js'
+import { assetScale } from './assetScaling'
+import { showAsset } from './asset'
 
 export let currentAsset = {}
 
-const assetInput = document.querySelector('.interface-input')
+const assetInput: HTMLInputElement = document.querySelector('.interface-input')
 
 export const updateCurrentAssetFromEditor = () => {
     //TODO: fail gracefully on invalid JSON
@@ -15,7 +15,7 @@ export const updateEditorWithAsset = (asset) => {
     assetInput.value = JSON.stringify(asset, null, 2)
 }
 
-const updateButton = document.querySelector(".update")
+const updateButton: HTMLButtonElement = document.querySelector(".update")
 
 updateButton.onclick = () => {
     updateCurrentAssetFromEditor()

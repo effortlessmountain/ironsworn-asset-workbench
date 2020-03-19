@@ -1,7 +1,9 @@
-import { showAssetIn } from './asset.js'
-import { assetScale } from './assetScaling.js'
-import { showScreen } from './router.js'
-import { currentAsset } from './editor.js'
+import { showAssetIn } from './asset'
+import { assetScale } from './assetScaling'
+import { showScreen } from './router'
+import { currentAsset } from './editor'
+import html2canvas from 'html2canvas'
+
 
 // TODO: implement as 'Download' and make current 'Download' into 'Preview'
 const saveImage = (uri, filename) => {
@@ -20,7 +22,8 @@ const screenshot = (asset) => {
     showScreen('render')
     showAssetIn(render, asset, assetScale)
     window.scrollTo(0, 0)
-    html2canvas(render.firstChild,
+    //TODO: fix probably hacky casting
+    html2canvas(render.firstChild as HTMLElement,
         {
             allowTaint: true
             // width: "750",
@@ -35,7 +38,7 @@ const screenshot = (asset) => {
         })
 }
 
-const downloadButton = document.querySelector("#download")
+const downloadButton: HTMLButtonElement = document.querySelector("#download")
 downloadButton.onclick = () => screenshot(currentAsset)
 
 
@@ -44,5 +47,5 @@ const closeDownload = () => {
     showScreen('main')
 }
 
-const closeDownloadbutton = document.querySelector("#done-downloading")
+const closeDownloadbutton: HTMLButtonElement = document.querySelector("#done-downloading")
 closeDownloadbutton.onclick = closeDownload
