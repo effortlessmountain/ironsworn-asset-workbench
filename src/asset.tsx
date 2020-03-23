@@ -1,69 +1,86 @@
-const createWriteIn = (writeIn) => {
-    return writeIn ? `<div class="write-in">${writeIn}</div>` : ""
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const WriteIn = (props: { writeIn?: string }) => {
+    return props.writeIn ?
+        <div className="write-in">{props.writeIn}</div> :
+        null
 }
 
-const createDescription = (description) => {
-    return description ? `<div class="description">${description}</div>` : ""
+const Description = (props: { description: string }) => {
+    return props.description ?
+        <div className="description">{props.description}</div> :
+        null
 }
 
-const createAbilitiesHtml = (abilities = []) => {
+interface Ability {
+    name: string,
+    filled: boolean,
+    text: string
+}
+const Ability = (props: { ability: Ability, key: number }) => {
     const createAbilityName = (name) => {
-        return name ? `<span class="ability-name">${name}</span>` : ""
+        if (name) {
+            return <span className="ability-name">{name}</span>
+        }
     }
-    return abilities.map((ability) => {
-        return `<div class="ability">
-                    <i class="dot ${ability.filled ? "filled" : "unfilled"}"></i>
-                    <div class="ability-description">
-                        ${createAbilityName(ability.name)}
-                        ${ability.text}
-                    </div>
-                </div>`
-    }).join("")
+    return (
+        <div className="ability" key={props.key}>
+            <i className={props.ability.filled ? "dot filled" : "dot unfilled"}></i>
+            <div className="ability-description">
+                {createAbilityName(props.ability.name)}
+                {props.ability.text}
+            </div>
+        </div>)
 }
 
-const createTrackValueHtml = (track, value) => {
-    if (value > track) {
-        return `<div class="value empty">
+const TrackValue = (props: {track: number, value: number}) => {
+    if (props.value > props.track) {
+        return <div className="value empty">
                     <svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'>
-                        <line x1='0' y1='100' x2='100' y2='0' stroke='rgb(65,64,66)' style='stroke-width:3.5' />
+                        <line x1='0' y1='100' x2='100' y2='0' stroke='rgb(65,64,66)' style={{strokeWidth: 3.5}} />
                     </svg>
-                </div>`
+                </div>
     } else {
-        return `<div class="value number">+${value}</div>`
+        return <div className="value number">+{props.value}</div>
     }
 }
 
-const createTrackHtml = (track) => {
-    if (!track) {
-        return ""
-    } else if (Array.isArray(track)) {
-        const innerEntries = track.map(entry => {
-            return `<div class="value text">${entry}</div>`
-        }).join("")
-        return `<div class="track">
-                    ${innerEntries}
-                </div>`
+const Track = (props: {track: string[] | number}) => {
+    if (!props.track) {
+        return null
+    } else if (Array.isArray(props.track)) {
+        const innerEntries = props.track.map((entry, index) => {
+            return <div className="value text" key={index}>{entry}</div>
+        })
+        return <div className="track">
+                    {innerEntries}
+                </div>
     } else {
-        let trackLength = track > 5 ? track : 5
-        let innerEntries = ""
+        let trackLength = props.track > 5 ? props.track : 5
+        let innerEntries = []
 
         for (let i = 1; i <= trackLength; i++) {
-            innerEntries += createTrackValueHtml(track, i)
+            innerEntries.push(<TrackValue track={props.track} value={i} key={i}></TrackValue>)
         }
-        return `<div class="track">
-                    <div class="value">0</div>
-                    ${innerEntries}
-                </div>`
+        return <div className="track">
+                    <div className="value">0</div>
+                    {innerEntries}
+                </div>
     }
 }
 
-const createIcon = (icon) => {
+const Icon = (props: { icon: string | { svg: string } }) => {
+    let icon = props.icon
     if (typeof icon === "string") {
-        return `<i class="header-icon">${icon}</i>`
+        return <i className="header-icon">{icon}</i>
     } else if (typeof icon === "object") {
-        return `${icon.svg}`
+        //TODO: sanitize, or expand out and fish out the relevant data (probably with a schema update)
+        return (<span dangerouslySetInnerHTML={{ __html: icon.svg }}>
+
+        </span>)
     } else {
-        return ""
+        return <></>
     }
 }
 
@@ -91,7 +108,7 @@ const defaultFontConfig = {
 }
 
 const makeMergedConfig = (config) => {
-  return Object.assign({}, defaultFontConfig, config)
+    return Object.assign({}, defaultFontConfig, config)
 }
 
 interface FontConfig {
@@ -101,14 +118,22 @@ interface FontConfig {
     trackFont: string,
 }
 
-// TODO: fix hacky casting
-const createStyles = (fonts = {} as FontConfig) => {
+const AssetStyles = (props: { fonts: FontConfig }) => {
+    //TODO: put styles onto corresponding elements directly instead of living 'dangerously'.
+    let fonts = props.fonts || {
+        assetTypeFont: "",
+        assetNameFont: "",
+        detailsFont: "",
+        trackFont: ""
+    }
+    let fontConfig = makeMergedConfig(fonts)
     let googleFonts = createGoogleFontString(fonts.assetTypeFont, fonts.assetNameFont, fonts.detailsFont, fonts.trackFont)
 
-    let fontConfig = makeMergedConfig(fonts)
-
-    return `<link rel="stylesheet" href=${googleFonts}>
-            <style>
+    //TODO: type these properties. (curious it's not a compile-time error. Maybe with strict: true in tsconfig?).
+    return (<>
+        <link rel="stylesheet" href={googleFonts} />
+        <style dangerouslySetInnerHTML={{
+            __html: `
                 .type {
                     font-size: ${fontConfig.assetTypeFontSize};
                     font-family: "${fontConfig.assetTypeFont}";
@@ -124,42 +149,51 @@ const createStyles = (fonts = {} as FontConfig) => {
                 .value, .value.text, .value.number {
                     font-size: ${fontConfig.trackFontSize};
                     font-family: "${fontConfig.trackFont}";
-                }
-            </style>`
+                }`
+        }}>
+
+        </style>
+    </>)
 }
 
 interface Asset {
     fonts: FontConfig,
     type: string,
-    icon: object,
+    icon: string | { svg: string },
     name: string,
     writeIn: string,
     description: string,
-    abilities: Array<object>,
-    track: Array<string>
+    abilities: Ability[],
+    track: string[]
 }
 
-export const createAssetHtml = (asset = {} as Asset, scale = "full") => {
-    return `<div class="asset ${scale}">
-            ${createStyles(asset.fonts)}
-            <div class="main-matter">
-                <div class="top">
-                    <div class="type">${asset.type}</div>
-                    <div class="header-circle">
-                        ${createIcon(asset.icon)}
-                    </div>
-                    <div class="asset-name">${asset.name}</div>
+interface AssetProps {
+    asset: Asset,
+    scale: string
+}
+
+const Asset = (props: AssetProps) => {
+    let asset = props.asset
+    return (<div className="asset {props.scale}">
+        <AssetStyles fonts={asset.fonts}></AssetStyles>
+        <div className="main-matter">
+            <div className="top">
+                <div className="type">{asset.type}</div>
+                <div className="header-circle">
+                    <Icon icon={asset.icon} />
                 </div>
-                <div class="details">
-                    ${createWriteIn(asset.writeIn)}
-                    ${createDescription(asset.description)}
-                    <div class="abilities">
-                        ${createAbilitiesHtml(asset.abilities)}
-                    </div>
+                <div className="asset-name">{asset.name}</div>
+            </div>
+            <div className="details">
+                <WriteIn writeIn={asset.writeIn}></WriteIn>
+                <Description description={asset.description} />
+                <div className="abilities">
+                    {asset.abilities.map((ability, index) => <Ability ability={ability} key={index}></Ability>)}
                 </div>
             </div>
-            ${createTrackHtml(asset.track)}
-        </div>`
+        </div>
+        <Track track={asset.track} />
+    </div>)
 }
 
 const setSvgDimensions = () => {
@@ -172,7 +206,9 @@ const setSvgDimensions = () => {
 }
 
 export const showAssetIn = (element, asset, scaling) => {
-    element.innerHTML = createAssetHtml(asset, scaling)
+    // element.innerHTML = createAssetHtml(asset, scaling)
+    ReactDOM.render(<Asset asset={asset} scale={scaling} />,
+        element)
     setSvgDimensions()
 }
 
