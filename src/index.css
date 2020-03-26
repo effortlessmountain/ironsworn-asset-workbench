@@ -188,7 +188,7 @@ button.selected {
 }
 
 .ability-name::after {
-    content: ":"
+    content: ": "
 }
 
 .dot {

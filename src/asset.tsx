@@ -18,18 +18,21 @@ interface Ability {
     filled: boolean,
     text: string
 }
-const Ability = (props: { ability: Ability, key: number }) => {
+const Ability = (props: { ability: Ability, index: number }) => {
     const createAbilityName = (name) => {
         if (name) {
             return <span className="ability-name">{name}</span>
+        } else {
+            return ""
         }
     }
+    //TODO: either sanitize first and only allow `b`, `em`, and `li` or parse markdown or custom markup
     return (
-        <div className="ability" key={props.key}>
+        <div className="ability" key={props.index}>
             <i className={props.ability.filled ? "dot filled" : "dot unfilled"}></i>
             <div className="ability-description">
                 {createAbilityName(props.ability.name)}
-                {props.ability.text}
+                <span dangerouslySetInnerHTML={{__html: props.ability.text}}></span>
             </div>
         </div>)
 }
@@ -108,26 +111,28 @@ const defaultFontConfig = {
 }
 
 const makeMergedConfig = (config) => {
+    //TODO: merge in a way that doesn't have the pitfall of overriding with invalid values
+    // if an object with defined properties but values of "" or null or undefined gets passed in.
     return Object.assign({}, defaultFontConfig, config)
 }
 
 interface FontConfig {
+    assetTypeFontSize: string,
     assetTypeFont: string,
+    assetNameFontSize: string,
     assetNameFont: string,
+    detailsFontSize: string,
     detailsFont: string,
+    trackFontSize: string,
     trackFont: string,
 }
 
-const AssetStyles = (props: { fonts: FontConfig }) => {
+const AssetStyles = (props: { fonts: object }) => {
     //TODO: put styles onto corresponding elements directly instead of living 'dangerously'.
-    let fonts = props.fonts || {
-        assetTypeFont: "",
-        assetNameFont: "",
-        detailsFont: "",
-        trackFont: ""
-    }
-    let fontConfig = makeMergedConfig(fonts)
-    let googleFonts = createGoogleFontString(fonts.assetTypeFont, fonts.assetNameFont, fonts.detailsFont, fonts.trackFont)
+    let fonts = props.fonts || {}
+    let fontConfig: FontConfig = makeMergedConfig(fonts)
+    console.log('fonts', fontConfig)
+    let googleFonts = createGoogleFontString(fontConfig.assetTypeFont, fontConfig.assetNameFont, fontConfig.detailsFont, fontConfig.trackFont)
 
     //TODO: type these properties. (curious it's not a compile-time error. Maybe with strict: true in tsconfig?).
     return (<>
@@ -188,7 +193,7 @@ const Asset = (props: AssetProps) => {
                 <WriteIn writeIn={asset.writeIn}></WriteIn>
                 <Description description={asset.description} />
                 <div className="abilities">
-                    {asset.abilities.map((ability, index) => <Ability ability={ability} key={index}></Ability>)}
+                    {asset.abilities.map((ability, index) => <Ability ability={ability} index={index}></Ability>)}
                 </div>
             </div>
         </div>
