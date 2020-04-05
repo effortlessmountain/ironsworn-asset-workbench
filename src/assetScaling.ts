@@ -1,8 +1,16 @@
+//TODO: rethink this enum
 enum Scales {
     Full = "full",
     TwoThirds = "two-thirds",
     OneHalf = "one-half",
     OneThird = "one-third",
+}
+
+export let scaleRatio = {
+    "full": 1,
+    "two-thirds": 2/3,
+    "one-half": 0.5,
+    "one-third": 1/3,
 }
 
 const calculateScale = () => {

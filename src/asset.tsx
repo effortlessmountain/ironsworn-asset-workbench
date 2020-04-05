@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { scaleRatio } from './assetScaling'
+
 
 const WriteIn = (props: { writeIn?: string }) => {
     return props.writeIn ?
@@ -18,7 +20,7 @@ interface Ability {
     filled: boolean,
     text: string
 }
-const Ability = (props: { ability: Ability, index: number }) => {
+const Ability = (props: { ability: Ability }) => {
     const createAbilityName = (name) => {
         if (name) {
             return <span className="ability-name">{name}</span>
@@ -28,28 +30,28 @@ const Ability = (props: { ability: Ability, index: number }) => {
     }
     //TODO: either sanitize first and only allow `b`, `em`, and `li` or parse markdown or custom markup
     return (
-        <div className="ability" key={props.index}>
+        <div className="ability">
             <i className={props.ability.filled ? "dot filled" : "dot unfilled"}></i>
             <div className="ability-description">
                 {createAbilityName(props.ability.name)}
-                <span dangerouslySetInnerHTML={{__html: props.ability.text}}></span>
+                <span dangerouslySetInnerHTML={{ __html: props.ability.text }}></span>
             </div>
         </div>)
 }
 
-const TrackValue = (props: {track: number, value: number}) => {
+const TrackValue = (props: { track: number, value: number }) => {
     if (props.value > props.track) {
         return <div className="value empty">
-                    <svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'>
-                        <line x1='0' y1='100' x2='100' y2='0' stroke='rgb(65,64,66)' style={{strokeWidth: 3.5}} />
-                    </svg>
-                </div>
+            <svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'>
+                <line x1='0' y1='100' x2='100' y2='0' stroke='rgb(65,64,66)' style={{ strokeWidth: 3.5 }} />
+            </svg>
+        </div>
     } else {
         return <div className="value number">+{props.value}</div>
     }
 }
 
-const Track = (props: {track: string[] | number}) => {
+const Track = (props: { track: string[] | number }) => {
     if (!props.track) {
         return null
     } else if (Array.isArray(props.track)) {
@@ -57,8 +59,8 @@ const Track = (props: {track: string[] | number}) => {
             return <div className="value text" key={index}>{entry}</div>
         })
         return <div className="track">
-                    {innerEntries}
-                </div>
+            {innerEntries}
+        </div>
     } else {
         let trackLength = props.track > 5 ? props.track : 5
         let innerEntries = []
@@ -67,28 +69,33 @@ const Track = (props: {track: string[] | number}) => {
             innerEntries.push(<TrackValue track={props.track} value={i} key={i}></TrackValue>)
         }
         return <div className="track">
-                    <div className="value">0</div>
-                    {innerEntries}
-                </div>
+            <div className="value">0</div>
+            {innerEntries}
+        </div>
     }
 }
 
-const Icon = (props: { icon: string | { svg: string } }) => {
-    let icon = props.icon
-    if (typeof icon === "string") {
-        return <i className="header-icon">{icon}</i>
-    } else if (typeof icon === "object") {
-        //TODO: sanitize, or expand out and fish out the relevant data (probably with a schema update)
-        return (<span dangerouslySetInnerHTML={{ __html: icon.svg }}>
-
-        </span>)
+const Icon = (props: { icon: string | { svg: { d: string, fill: string, fillOpacity: number } }, scale: string }) => {
+    if (typeof props.icon === "string") {
+        return (
+            <div className="header-circle">
+                <i className="header-icon">{props.icon}</i>
+            </div>)
+    } else if (typeof props.icon === "object") {
+        return (
+            <div className="header-circle">
+                <svg
+                    height={154 * scaleRatio[props.scale]}
+                    width={154 * scaleRatio[props.scale]}
+                    viewBox="0 0 512 512">
+                    <g>
+                        <path d={props.icon.svg.d} fill={props.icon.svg.fill} fillOpacity={props.icon.svg.fillOpacity}></path>
+                    </g>
+                </svg>
+            </div>)
     } else {
-        return <></>
+        return null
     }
-}
-
-const populateIfExists = (text, value) => {
-    return value ? text.replace("REPLACE", value) : ""
 }
 
 const createGoogleFontString = (...fonts) => {
@@ -164,7 +171,7 @@ const AssetStyles = (props: { fonts: object }) => {
 interface Asset {
     fonts: FontConfig,
     type: string,
-    icon: string | { svg: string },
+    icon: string | { svg: { d: string, fill: string, fillOpacity: number } },
     name: string,
     writeIn: string,
     description: string,
@@ -184,16 +191,14 @@ const Asset = (props: AssetProps) => {
         <div className="main-matter">
             <div className="top">
                 <div className="type">{asset.type}</div>
-                <div className="header-circle">
-                    <Icon icon={asset.icon} />
-                </div>
+                <Icon icon={asset.icon} scale={props.scale} />
                 <div className="asset-name">{asset.name}</div>
             </div>
             <div className="details">
                 <WriteIn writeIn={asset.writeIn}></WriteIn>
                 <Description description={asset.description} />
                 <div className="abilities">
-                    {asset.abilities.map((ability, index) => <Ability ability={ability} index={index}></Ability>)}
+                    {asset.abilities.map((ability, index) => <Ability ability={ability} key={index}></Ability>)}
                 </div>
             </div>
         </div>
@@ -214,7 +219,7 @@ export const showAssetIn = (element, asset, scaling) => {
     // element.innerHTML = createAssetHtml(asset, scaling)
     ReactDOM.render(<Asset asset={asset} scale={scaling} />,
         element)
-    setSvgDimensions()
+    // setSvgDimensions()
 }
 
 const assetContainer = document.querySelector(".assets")
