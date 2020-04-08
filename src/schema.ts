@@ -46,7 +46,7 @@ export type AssetDocumentV2 = {
         type: "svg",
         author: string,
         name: string,
-        svg: { d: string, fill: string, fillOpacity: number }
+        svg: { d: string, fill: string, fillOpacity: string }
     }
 }
 
@@ -74,19 +74,31 @@ function transformToV2(v1: AssetDocumentV1): AssetDocumentV2 {
             trackFont: v1.fonts.trackFont,
         }
     }
-    if(typeof v1.icon === "string") {
+    if (typeof v1.icon === "string") {
         v2.icon = v1.icon
     } else if (typeof v1.icon === "object") {
+        const d = v1.icon.svg.match(/d=\"(.*?)\"/)[1]
+        v2.icon = {
+            type: "svg",
+            author: "",
+            name: "",
+            svg: {
+                d: d,
+                fill: "",
+                fillOpacity: "",
+                // viewBox: "",
+            }
+        }
 
     }
     return v2
 }
 
-export function transformToLatest(schema: AssetDocument) {
-    if(!schema.documentFormatVersion) {
+export function transformToLatest(schema: AssetDocument): AssetDocumentV2 {
+    if (!schema.documentFormatVersion) {
         return transformToV2(schema as AssetDocumentV1)
     }
     else if (schema.documentFormatVersion === 2) {
-        return schema
+        return schema as AssetDocumentV2
     }
 }

@@ -2,7 +2,7 @@ import { transformToLatest, AssetDocumentV1, AssetDocumentV2 } from './schema'
 
 
 const createV1Asset: () => AssetDocumentV1 = () => {
-    return { 
+    return {
         fonts: {
             assetTypeFontSize: "1.03em",
             assetTypeFont: "Noto Sans JP",
@@ -85,7 +85,7 @@ const v2Asset: AssetDocumentV2 = {
         "svg": {
             d: "M110.056 64.815c-4.234.027-8.355.587-12.337 85.242-102.867-5.621-6.799-11.396-13.455-17.4-19.909z",
             fill: "#fff",
-            fillOpacity: 1
+            fillOpacity: "1"
 
         }
     }
@@ -99,7 +99,7 @@ describe("transforming from schema v1 to v2", () => {
     test("documentFormatVersion is set to 2", () => {
         const result = transformToLatest(createV1Asset())
 
-        expect (result.documentFormatVersion).toBe(2)
+        expect(result.documentFormatVersion).toBe(2)
     })
     test("straightforward, unchanged properties are mapped", () => {
         const result = transformToLatest(createV1Asset())
@@ -145,13 +145,29 @@ describe("transforming from schema v1 to v2", () => {
             asset.icon = undefined
 
             const result = transformToLatest(asset)
-            
+
             expect(result.icon).toBeUndefined
         })
         describe("mapping SVGs", () => {
-            test("maps the d property", () => {})
-            test("maps the fill", () => {})
-            test("maps the opacity", () => {})
+            const v2Svg = {
+                d: "M110.056 64.815c-4.234.027-8.355.587-12.337 85.242-102.867-5.621-6.799-11.396-13.455-17.4-19.909z",
+                fill: "#fff",
+                fillOpacity: "1",
+                viewbox: "0 0 512 512"
+            }
+            test("maps the d property", () => {
+                const result: AssetDocumentV2 = transformToLatest(createV1Asset())
+
+                if (typeof result.icon === 'string') {
+                    fail("expected svg to be an object")
+                } else {
+                    expect(result.icon.svg.d).toBe(v2Svg.d)
+                }
+            })
+            test("maps the fill", () => { })
+            test("maps the opacity", () => { })
+            test("maps the viewbox", () => { })
+            test("maps these when single quotes are used instead of escaped double quotes in v1.icon.svg", () => { })
         })
     })
 })
