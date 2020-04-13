@@ -1,4 +1,4 @@
-import { transformToLatest, AssetDocumentV1, AssetDocumentV2 } from './schema'
+import { transformToLatest, AssetDocumentV1, AssetDocumentV2, SvgIcon, SvgIconV1 } from './schema'
 
 
 const createV1Asset: () => AssetDocumentV1 = () => {
@@ -85,8 +85,8 @@ const v2Asset: AssetDocumentV2 = {
         "svg": {
             d: "M110.056 64.815c-4.234.027-8.355.587-12.337 85.242-102.867-5.621-6.799-11.396-13.455-17.4-19.909z",
             fill: "#fff",
-            fillOpacity: "1"
-
+            fillOpacity: "1",
+            viewBox: "0 0 512 512"
         }
     }
 }
@@ -148,26 +148,33 @@ describe("transforming from schema v1 to v2", () => {
 
             expect(result.icon).toBeUndefined
         })
+
         describe("mapping SVGs", () => {
             const v2Svg = {
                 d: "M110.056 64.815c-4.234.027-8.355.587-12.337 85.242-102.867-5.621-6.799-11.396-13.455-17.4-19.909z",
                 fill: "#fff",
                 fillOpacity: "1",
-                viewbox: "0 0 512 512"
+                viewBox: "0 0 512 512"
             }
-            test("maps the d property", () => {
-                const result: AssetDocumentV2 = transformToLatest(createV1Asset())
 
-                if (typeof result.icon === 'string') {
-                    fail("expected svg to be an object")
-                } else {
-                    expect(result.icon.svg.d).toBe(v2Svg.d)
-                }
+            const svgProperties = ["d", "fill", "fillOpacity", "viewBox"]
+
+            svgProperties.forEach((prop) => {
+                test(`maps the ${prop} property`, () => {
+                    const result = transformToLatest(createV1Asset())
+
+                    expect((result.icon as SvgIcon).svg[prop]).toBe(v2Svg[prop])
+                })
             })
-            test("maps the fill", () => { })
-            test("maps the opacity", () => { })
-            test("maps the viewbox", () => { })
-            test("maps these when single quotes are used instead of escaped double quotes in v1.icon.svg", () => { })
+            svgProperties.forEach(prop => {
+                test(`maps ${prop} when single quotes are used instead of escaped double quotes in v1.icon.svg`, () => {
+                    const asset = createV1Asset();
+                    (asset.icon as SvgIconV1).svg = (asset.icon as SvgIconV1).svg.replace(/\"/g, "'")
+                    const result = transformToLatest(asset)
+
+                    expect((result.icon as SvgIcon).svg[prop]).toBe(v2Svg[prop])
+                })
+            })
         })
     })
 })

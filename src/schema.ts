@@ -1,3 +1,10 @@
+export type SvgIconV1 = {
+    type: "svg",
+    author: string,
+    name: string,
+    svg: string
+}
+
 export type AssetDocumentV1 = {
     documentFormatVersion?: number,
     fonts?: {
@@ -16,11 +23,18 @@ export type AssetDocumentV1 = {
     track?: number | string[],
     description: string,
     abilities: Array<{ filled: boolean, name?: string, text: string }>,
-    icon?: string | {
-        type: "svg",
-        author: string,
-        name: string,
-        svg: string
+    icon?: string | SvgIconV1
+}
+
+export type SvgIcon = {
+    type: "svg",
+    author: string,
+    name: string,
+    svg: {
+        d: string,
+        fill: string,
+        fillOpacity: string,
+        viewBox: string
     }
 }
 
@@ -42,12 +56,7 @@ export type AssetDocumentV2 = {
     track?: number | string[],
     description: string,
     abilities: Array<{ filled: boolean, name?: string, text: string }>,
-    icon?: string | {
-        type: "svg",
-        author: string,
-        name: string,
-        svg: { d: string, fill: string, fillOpacity: string }
-    }
+    icon?: string | SvgIcon
 }
 
 type AssetDocument = AssetDocumentV1 | AssetDocumentV2
@@ -77,16 +86,20 @@ function transformToV2(v1: AssetDocumentV1): AssetDocumentV2 {
     if (typeof v1.icon === "string") {
         v2.icon = v1.icon
     } else if (typeof v1.icon === "object") {
-        const d = v1.icon.svg.match(/d=\"(.*?)\"/)[1]
+        const extractPropertyValue = (key) => {
+            const regexp = new RegExp(`${key}=(?:"|')(.*?)(?:"|')`)
+            return ((v1.icon as SvgIconV1).svg.match(regexp) || [])[1]
+            //TODO: intelligent error here?
+        }
         v2.icon = {
             type: "svg",
             author: "",
             name: "",
             svg: {
-                d: d,
-                fill: "",
-                fillOpacity: "",
-                // viewBox: "",
+                d: extractPropertyValue("d"),
+                fill: extractPropertyValue("fill"),
+                fillOpacity: extractPropertyValue("opacity"),
+                viewBox: extractPropertyValue("viewBox")
             }
         }
 
