@@ -1,11 +1,12 @@
 import { showAsset } from './asset'
 import { ironclad, lightbearer, caveLion, berserker } from './exampleAssets'
 import { assetScale } from './assetScaling'
-import { updateEditorWithAsset } from './editor'
+import { updateEditorWithAsset, currentAsset } from './editor'
 
 const showSingleAssetExample = (asset) => {
     updateEditorWithAsset(asset)
-    showAsset(asset, assetScale)
+    // use currentAsset because it's been transformed to the latest document version
+    showAsset(currentAsset, assetScale)
 }
 
 export const loadDefaultExampleAsset = () => showSingleAssetExample(caveLion)
