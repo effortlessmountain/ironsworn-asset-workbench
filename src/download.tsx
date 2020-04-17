@@ -20,7 +20,7 @@ const downloadContainer = document.querySelector(".image-container")
 const screenshot = (asset) => {
     const render = document.querySelector('.render')
     showScreen('render')
-    showAssetIn(render, asset, assetScale)
+    showAssetIn(render, asset)
     window.scrollTo(0, 0)
     //TODO: fix probably hacky casting
     html2canvas(render.firstChild as HTMLElement,

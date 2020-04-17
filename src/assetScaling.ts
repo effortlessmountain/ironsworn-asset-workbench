@@ -1,3 +1,6 @@
+import { showAsset } from "./asset"
+import { currentAsset } from "./editor"
+
 //TODO: rethink this enum
 enum Scales {
     Full = "full",
@@ -8,9 +11,9 @@ enum Scales {
 
 export let scaleRatio = {
     "full": 1,
-    "two-thirds": 2/3,
+    "two-thirds": 2 / 3,
     "one-half": 0.5,
-    "one-third": 1/3,
+    "one-third": 1 / 3,
 }
 
 const calculateScale = () => {
@@ -23,21 +26,18 @@ const calculateScale = () => {
     }
 }
 
-export let assetScale = calculateScale()
+export let assetScale = { value: calculateScale() }
 
 
 const scaleSelect: HTMLInputElement = document.querySelector("#scale-select")
 
 const changeSize = (size) => {
-    const asset = document.querySelector(".asset")
-    for (let scale in Scales) {
-        asset.classList.toggle(Scales[scale], Scales[scale] === size)
-    }
-    assetScale = size
+    assetScale.value = size
+    showAsset(currentAsset)
 }
 
 scaleSelect.addEventListener('change', (event) => {
     changeSize((event.currentTarget as HTMLInputElement).value)
 })
 
-scaleSelect.value = assetScale
+scaleSelect.value = assetScale.value

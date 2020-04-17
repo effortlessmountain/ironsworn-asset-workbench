@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { scaleRatio } from './assetScaling'
+import { scaleRatio, assetScale } from './assetScaling'
 
 
 const WriteIn = (props: { writeIn?: string }) => {
@@ -138,7 +138,6 @@ const AssetStyles = (props: { fonts: object }) => {
     //TODO: put styles onto corresponding elements directly instead of living 'dangerously'.
     let fonts = props.fonts || {}
     let fontConfig: FontConfig = makeMergedConfig(fonts)
-    console.log('fonts', fontConfig)
     let googleFonts = createGoogleFontString(fontConfig.assetTypeFont, fontConfig.assetNameFont, fontConfig.detailsFont, fontConfig.trackFont)
 
     //TODO: type these properties. (curious it's not a compile-time error. Maybe with strict: true in tsconfig?).
@@ -181,17 +180,17 @@ interface Asset {
 
 interface AssetProps {
     asset: Asset,
-    scale: string
+    scale: { value: string }
 }
 
-const Asset = (props: AssetProps) => {
+export const Asset = (props: AssetProps) => {
     let asset = props.asset
-    return (<div className="asset {props.scale}">
+    return (<div className={`asset ${props.scale.value}`}>
         <AssetStyles fonts={asset.fonts}></AssetStyles>
         <div className="main-matter">
             <div className="top">
                 <div className="type">{asset.type}</div>
-                <Icon icon={asset.icon} scale={props.scale} />
+                <Icon icon={asset.icon} scale={props.scale.value} />
                 <div className="asset-name">{asset.name}</div>
             </div>
             <div className="details">
@@ -203,7 +202,7 @@ const Asset = (props: AssetProps) => {
             </div>
         </div>
         <Track track={asset.track} />
-    </div>)
+    </div >)
 }
 
 const setSvgDimensions = () => {
@@ -215,15 +214,15 @@ const setSvgDimensions = () => {
     })
 }
 
-export const showAssetIn = (element, asset, scaling) => {
-    // element.innerHTML = createAssetHtml(asset, scaling)
-    ReactDOM.render(<Asset asset={asset} scale={scaling} />,
+export const showAssetIn = (element, asset) => {
+    // TODO: watch for state changes inside of a react component instead of re-rendering everything    
+    ReactDOM.render(<Asset asset={asset} scale={assetScale} />,
         element)
-    // setSvgDimensions()
+    setSvgDimensions()
 }
 
 const assetContainer = document.querySelector(".assets")
 
-export const showAsset = (asset, scaling) => {
-    showAssetIn(assetContainer, asset, scaling)
+export const showAsset = (asset) => {
+    showAssetIn(assetContainer, asset)
 }

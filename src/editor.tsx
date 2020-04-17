@@ -21,5 +21,5 @@ const updateButton: HTMLButtonElement = document.querySelector(".update")
 updateButton.onclick = () => {
     updateCurrentAssetFromEditor()
     updateEditorWithAsset(currentAsset) //TODO: make better
-    showAsset(currentAsset, assetScale)
+    showAsset(currentAsset)
 }
