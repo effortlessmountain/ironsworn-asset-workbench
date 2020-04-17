@@ -26,16 +26,18 @@ export type AssetDocumentV1 = {
     icon?: string | SvgIconV1
 }
 
+export type SvgProperties = {
+    d: string,
+    fill: string,
+    fillOpacity: string,
+    viewBox: string
+}
+
 export type SvgIcon = {
     type: "svg",
     author: string,
     name: string,
-    svg: {
-        d: string,
-        fill: string,
-        fillOpacity: string,
-        viewBox: string
-    }
+    svg: SvgProperties
 }
 
 export type AssetDocumentV2 = {
@@ -60,6 +62,21 @@ export type AssetDocumentV2 = {
 }
 
 type AssetDocument = AssetDocumentV1 | AssetDocumentV2
+
+const extractPropertyValue = (key, svgString) => {
+    const regexp = new RegExp(`${key}=(?:"|')(.*?)(?:"|')`)
+    return (svgString.match(regexp) || [])[1]
+    //TODO: intelligent error here?
+}
+
+export function transformSvgString(svgString: string): SvgProperties {
+    return {
+        d: extractPropertyValue("d", svgString),
+        fill: extractPropertyValue("fill", svgString),
+        fillOpacity: extractPropertyValue("opacity", svgString),
+        viewBox: extractPropertyValue("viewBox", svgString)
+    }
+}
 
 function transformToV2(v1: AssetDocumentV1): AssetDocumentV2 {
     const v2: AssetDocumentV2 = {
@@ -86,21 +103,11 @@ function transformToV2(v1: AssetDocumentV1): AssetDocumentV2 {
     if (typeof v1.icon === "string") {
         v2.icon = v1.icon
     } else if (typeof v1.icon === "object") {
-        const extractPropertyValue = (key) => {
-            const regexp = new RegExp(`${key}=(?:"|')(.*?)(?:"|')`)
-            return ((v1.icon as SvgIconV1).svg.match(regexp) || [])[1]
-            //TODO: intelligent error here?
-        }
         v2.icon = {
             type: "svg",
             author: "",
             name: "",
-            svg: {
-                d: extractPropertyValue("d"),
-                fill: extractPropertyValue("fill"),
-                fillOpacity: extractPropertyValue("opacity"),
-                viewBox: extractPropertyValue("viewBox")
-            }
+            svg: transformSvgString(v1.icon.svg)
         }
 
     }

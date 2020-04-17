@@ -17,7 +17,8 @@
     <div class="help">
         <h1>Help</h1>
         <h3>What fonts can I use?</h3>
-        <p>The fonts from <a href="https://fonts.google.com/">Google Fonts</a> are supported. Put in the name of the font into the corresponding property and you're all set!</p>
+        <p>The fonts from <a href="https://fonts.google.com/">Google Fonts</a> are supported. Put in the name of the
+            font into the corresponding property and you're all set!</p>
         <h3>How do I add an icon to my asset?</h3>
         <p>If you want a unicode character, just set the value of the 'icon' attribute to that character in quotes:</p>
         <pre>"icon": "▿"</pre>
@@ -73,8 +74,12 @@
             <div class="editor">
                 <textarea class="interface-input" spellcheck="false"></textarea>
                 <button class="update">update</button>
+                <div>
+                    <label for="upload-icon" class="upload">Import SVG Icon: </label>
+                    <input type="file" id="upload-icon" />
+                </div>
             </div>
-            <div class="export">
+            <div class=" export">
                 <button id="download">download</button>
             </div>
             <p class="credits">
