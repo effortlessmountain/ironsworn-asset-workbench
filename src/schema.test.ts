@@ -157,6 +157,18 @@ describe("transforming from schema v1 to v2", () => {
                 viewBox: "0 0 512 512"
             }
 
+            test("name gets copied over", () => {
+                const result = transformToLatest(createV1Asset())
+
+                expect((result.icon as SvgIcon).name).toBe((v2Asset.icon as SvgIcon).name)
+            })
+
+            test("author gets copied over", () => {
+                const result = transformToLatest(createV1Asset())
+
+                expect((result.icon as SvgIcon).author).toBe((v2Asset.icon as SvgIcon).author)
+            })
+
             const svgProperties = ["d", "fill", "fillOpacity", "viewBox"]
 
             svgProperties.forEach((prop) => {

@@ -105,8 +105,8 @@ function transformToV2(v1: AssetDocumentV1): AssetDocumentV2 {
     } else if (typeof v1.icon === "object") {
         v2.icon = {
             type: "svg",
-            author: "",
-            name: "",
+            author: v1.icon.author,
+            name: v1.icon.name,
             svg: transformSvgString(v1.icon.svg)
         }
 
