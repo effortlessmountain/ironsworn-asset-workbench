@@ -39,10 +39,15 @@ const Ability = (props: { ability: Ability }) => {
         </div>)
 }
 
-const TrackValue = (props: { track: number, value: number }) => {
+const TrackValue = (props: { track: number, value: number, scale: string }) => {
     if (props.value > props.track) {
         return <div className="value empty">
-            <svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'>
+            <svg xmlns='http://www.w3.org/2000/svg'
+                version='1.1'
+                preserveAspectRatio='none'
+                viewBox='0 0 100 100'
+                height={95 * scaleRatio[props.scale]}
+                width={113 * scaleRatio[props.scale]}>
                 <line x1='0' y1='100' x2='100' y2='0' stroke='rgb(65,64,66)' style={{ strokeWidth: 3.5 }} />
             </svg>
         </div>
@@ -51,7 +56,7 @@ const TrackValue = (props: { track: number, value: number }) => {
     }
 }
 
-const Track = (props: { track: string[] | number }) => {
+const Track = (props: { track: string[] | number, scale: string }) => {
     if (!props.track) {
         return null
     } else if (Array.isArray(props.track)) {
@@ -66,7 +71,7 @@ const Track = (props: { track: string[] | number }) => {
         let innerEntries = []
 
         for (let i = 1; i <= trackLength; i++) {
-            innerEntries.push(<TrackValue track={props.track} value={i} key={i}></TrackValue>)
+            innerEntries.push(<TrackValue track={props.track} value={i} scale={props.scale} key={i}></TrackValue>)
         }
         return <div className="track">
             <div className="value">0</div>
@@ -201,7 +206,7 @@ export const Asset = (props: AssetProps) => {
                 </div>
             </div>
         </div>
-        <Track track={asset.track} />
+        <Track track={asset.track} scale={props.scale.value} />
     </div >)
 }
 
@@ -218,7 +223,7 @@ export const showAssetIn = (element, asset) => {
     // TODO: watch for state changes inside of a react component instead of re-rendering everything    
     ReactDOM.render(<Asset asset={asset} scale={assetScale} />,
         element)
-    setSvgDimensions()
+    //setSvgDimensions()
 }
 
 const assetContainer = document.querySelector(".assets")

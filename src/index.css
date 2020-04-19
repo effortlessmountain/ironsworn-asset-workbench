@@ -87,6 +87,11 @@ button.selected {
   padding: 5px;
 }
 
+.help {
+    display: flex;
+    justify-content: center;
+}
+
 .top-row-controls {
     /* border      : 3px solid var(--gray); */
     width          : 100%;
