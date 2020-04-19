@@ -1,0 +1,90 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Ironsworn Asset Workbench</title>
+</head>
+
+<body class="main-screen">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="render"></div>
+    <div class="download">
+        <p>Right click and 'Save image as...' to download. If the image is truncated,
+            try making your browser window bigger before pressing 'download'</p>
+        <button id="done-downloading">close</button>
+        <div class="image-container"></div>
+    </div>
+    <div class="help">
+        <div class="help-content">
+            <h1>Help</h1>
+            <h3>What fonts can I use?</h3>
+            <p>The fonts from <a href="https://fonts.google.com/">Google Fonts</a> are supported. Put in the name of the
+                font into the corresponding property and you're all set!</p>
+            <h3>How do I add an icon to my asset?</h3>
+            <p>If you want a unicode character, just set the value of the 'icon' attribute to that character in quotes:
+            </p>
+            <pre>"icon": "▿"</pre>
+            <p>If you want a fancier icon, the Asset Workbench supports importing SVG icons with no background.</p>
+            <ol>
+                <li>Head over to <a href="https://game-icons.net/">GameIcons.net</a>, a wonderful resource of Creative
+                    Commons-licensed icons</li>
+                <li>On the left hand side, with "Studio" set to background, set "Type" to "none" (for a transparent
+                    background)</li>
+                <li>Download the icon.</li>
+                <li>Click "browse..." next to "Icon to import:" in the Asset Workbench and select the icon you just
+                    downloaded.
+                <li>Fill in the artist's name and click "IMPORT".</li>
+            </ol>
+            <button id="close-help">Close</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="assets"></div>
+        <div class="interface">
+            <h2>Ironsworn Asset Workbench v0.6.0</h2>
+            <div class="top-row-controls">
+                <div>
+                    <label>Scale (also affects Download size)</label>
+                    <select id="scale-select">
+                        <option value="one-third">250px by 350px</option>
+                        <option value="one-half">375px by 525px</option>
+                        <option value="two-thirds">500px by 700px</option>
+                        <option value="full">750px by 1050px</option>
+                    </select>
+                </div>
+                <div>
+                    <button id="show-help">How do I...?</button>
+                </div>
+            </div>
+            <div class="example-controls">
+                <label>Load Example Asset:</label>
+                <button class="show-example" id="lightbearer-example">Lightbearer</button>
+                <button class="show-example" id="ironclad-example">Ironclad</button>
+                <button class="show-example" id="cave-lion-example">Cave Lion</button>
+            </div>
+
+            <div class="editor">
+                <textarea class="interface-input" spellcheck="false"></textarea>
+                <button class="update">update</button>
+                <div class="icon-import">
+                    <label for="icon-fileselect">Icon to import: </label>
+                    <input type="file" id="icon-fileselect" />
+                    <label for="icon-author">Icon Author: </label>
+                    <input type="text" id="icon-author" />
+                    <button id="icon-import-button">Import</button>
+                </div>
+                <div class=" export">
+                    <button id="download">download</button>
+                </div>
+            </div>
+            <div>
+                <p class="credits">
+                    Ironsworn and the official Ironsworn assets Copyright ©2019 Shawn Tomkin and used under
+                    the Creative Commons Attribution-NonCommercial-
+                    ShareAlike 4.0 International license.
+                </p>
+            </div>
+        </div>
+</body>
+
+</html>

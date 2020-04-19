@@ -1,0 +1,3 @@
+This project is licensed under the MIT license.
+
+Ironsworn and the official Ironsworn assets Copyright ©2019 Shawn Tomkin and used under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license.
