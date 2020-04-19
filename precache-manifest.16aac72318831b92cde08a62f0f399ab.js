@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1b007560cdeb03102414d84782885cf9",
+    "revision": "cf3477affef57e698eac74131350fb62",
     "url": "/ironsworn-asset-workbench/index.html"
   },
   {
