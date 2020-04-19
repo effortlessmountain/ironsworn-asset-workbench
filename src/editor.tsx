@@ -23,8 +23,12 @@ updateButton.onclick = () => {
     showAsset(currentAsset)
 }
 
+const iconFileInput = document.querySelector("#icon-fileselect") as HTMLInputElement
+const iconAuthorInput = document.querySelector("#icon-author") as HTMLInputElement
+
+
 function handleFile() {
-    const file = this.files[0];
+    const file = iconFileInput.files[0];
     if (file) {
         var fileReader = new FileReader()
         fileReader.onload = (e) => {
@@ -32,7 +36,7 @@ function handleFile() {
             currentAsset.icon = {
                 type: "svg",
                 name: file.name.split('.').slice(0, -1).join('.'),
-                author: window.prompt("author of the svg?"),
+                author: iconAuthorInput.value,
                 svg: transformSvgString(svg)
             }
             updateEditorWithAsset(currentAsset)
@@ -43,5 +47,9 @@ function handleFile() {
         alert("missing file")
     }
 }
-const iconFileElement = (document.querySelector("#upload-icon") as HTMLInputElement)
-iconFileElement.addEventListener("change", handleFile, false)
+//iconFileElement.addEventListener("change", handleFile, false)
+
+const iconImportButton: HTMLButtonElement = document.querySelector("#icon-import-button")
+iconImportButton.onclick = () => {
+    handleFile()
+}

@@ -74,21 +74,25 @@
             <div class="editor">
                 <textarea class="interface-input" spellcheck="false"></textarea>
                 <button class="update">update</button>
-                <div>
-                    <label for="upload-icon" class="upload">Import SVG Icon: </label>
-                    <input type="file" id="upload-icon" />
+                <div class="icon-import">
+                    <label for="icon-fileselect">Icon to import: </label>
+                    <input type="file" id="icon-fileselect" />
+                    <label for="icon-author">Icon Author: </label>
+                    <input type="text" id="icon-author" />
+                    <button id="icon-import-button">Import</button>
+                </div>
+                <div class=" export">
+                    <button id="download">download</button>
                 </div>
             </div>
-            <div class=" export">
-                <button id="download">download</button>
+            <div>
+                <p class="credits">
+                    Ironsworn and the official Ironsworn assets Copyright ©2019 Shawn Tomkin and used under
+                    the Creative Commons Attribution-NonCommercial-
+                    ShareAlike 4.0 International license.
+                </p>
             </div>
-            <p class="credits">
-                Ironsworn and the official Ironsworn assets Copyright ©2019 Shawn Tomkin and used under
-                the Creative Commons Attribution-NonCommercial-
-                ShareAlike 4.0 International license.
-            </p>
         </div>
-    </div>
 </body>
 
 </html>
