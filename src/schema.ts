@@ -5,6 +5,20 @@ export type SvgIconV1 = {
     svg: string
 }
 
+export type SvgProperties = {
+    d: string,
+    fill: string,
+    fillOpacity: string,
+    viewBox: string
+}
+
+export type SvgIcon = {
+    type: "svg",
+    author: string,
+    name: string,
+    svg: SvgProperties
+}
+
 export type AssetDocumentV1 = {
     documentFormatVersion?: number,
     fonts?: {
@@ -26,21 +40,8 @@ export type AssetDocumentV1 = {
     icon?: string | SvgIconV1
 }
 
-export type SvgProperties = {
-    d: string,
-    fill: string,
-    fillOpacity: string,
-    viewBox: string
-}
 
-export type SvgIcon = {
-    type: "svg",
-    author: string,
-    name: string,
-    svg: SvgProperties
-}
-
-export type AssetDocumentV2 = {
+export type AssetDocument = {
     documentFormatVersion: number,
     fonts?: {
         assetTypeFontSize?: string,
@@ -61,7 +62,7 @@ export type AssetDocumentV2 = {
     icon?: string | SvgIcon
 }
 
-type AssetDocument = AssetDocumentV1 | AssetDocumentV2
+type UnspecifiedAssetDocument = AssetDocumentV1 | AssetDocument
 
 const extractPropertyValue = (key, svgString) => {
     const regexp = new RegExp(`${key}=(?:"|')(.*?)(?:"|')`)
@@ -78,8 +79,8 @@ export function transformSvgString(svgString: string): SvgProperties {
     }
 }
 
-function transformToV2(v1: AssetDocumentV1): AssetDocumentV2 {
-    const v2: AssetDocumentV2 = {
+function transformToV2(v1: AssetDocumentV1): AssetDocument {
+    const v2: AssetDocument = {
         documentFormatVersion: 2,
         type: v1.type,
         name: v1.name,
@@ -114,11 +115,11 @@ function transformToV2(v1: AssetDocumentV1): AssetDocumentV2 {
     return v2
 }
 
-export function transformToLatest(schema: AssetDocument): AssetDocumentV2 {
+export function transformToLatest(schema: UnspecifiedAssetDocument): AssetDocument {
     if (!schema.documentFormatVersion) {
         return transformToV2(schema as AssetDocumentV1)
     }
     else if (schema.documentFormatVersion === 2) {
-        return schema as AssetDocumentV2
+        return schema as AssetDocument
     }
 }

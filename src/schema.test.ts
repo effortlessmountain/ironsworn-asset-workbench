@@ -1,4 +1,4 @@
-import { transformToLatest, AssetDocumentV1, AssetDocumentV2, SvgIcon, SvgIconV1 } from './schema'
+import { transformToLatest, AssetDocumentV1, AssetDocument, SvgIcon, SvgIconV1 } from './schema'
 
 
 const createV1Asset: () => AssetDocumentV1 = () => {
@@ -44,7 +44,7 @@ const createV1Asset: () => AssetDocumentV1 = () => {
     }
 }
 
-const v2Asset: AssetDocumentV2 = {
+const v2Asset: AssetDocument = {
     fonts: {
         assetTypeFontSize: "1.03em",
         assetTypeFont: "Noto Sans JP",

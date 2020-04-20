@@ -1,7 +1,7 @@
 import { showAsset } from './asset'
-import { transformToLatest, transformSvgString, AssetDocumentV2 } from './schema'
+import { transformToLatest, transformSvgString, AssetDocument } from './schema'
 
-export let currentAsset: AssetDocumentV2
+export let currentAsset: AssetDocument
 
 const assetInput: HTMLInputElement = document.querySelector('.interface-input')
 
