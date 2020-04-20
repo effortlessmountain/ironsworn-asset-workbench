@@ -1,5 +1,5 @@
 import { showAsset } from './asset'
-import { transformToLatest, transformSvgString, AssetDocument } from './schema'
+import { transformToLatest, transformSvgString, AssetDocument } from './models'
 
 export let currentAsset: AssetDocument
 
