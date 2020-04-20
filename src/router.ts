@@ -1,6 +1,6 @@
 export const showScreen = (screen) => {
-    if (screen === "download") {
-        document.body.className = "download-screen"
+    if (screen === "preview-download") {
+        document.body.className = "preview-download-screen"
     } else if (screen === "main") {
         document.body.className = "main-screen"
     } else if (screen === "render") {
