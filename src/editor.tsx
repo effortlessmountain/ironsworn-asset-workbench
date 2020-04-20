@@ -14,7 +14,12 @@ export const setCurrentAsset = (asset) => {
 const updateButton: HTMLButtonElement = document.querySelector(".update")
 
 updateButton.onclick = () => {
-    setCurrentAsset(JSON.parse(assetInput.value)) //TODO: fail gracefully on invalid JSON
+    try {
+        setCurrentAsset(JSON.parse(assetInput.value))
+    }
+    catch (error) {
+        window.alert(error)
+    }
 }
 
 const iconFileInput = document.querySelector("#icon-fileselect") as HTMLInputElement
