@@ -1,14 +1,6 @@
 import { showAsset } from "./asset"
 import { currentAsset } from "./editor"
 
-//TODO: rethink this enum
-enum Scales {
-    Full = "full",
-    TwoThirds = "two-thirds",
-    OneHalf = "one-half",
-    OneThird = "one-third",
-}
-
 export let scaleRatio = {
     "full": 1,
     "two-thirds": 2 / 3,
@@ -18,11 +10,11 @@ export let scaleRatio = {
 
 const calculateScale = () => {
     if (window.innerHeight > 1070) {
-        return Scales.Full
+        return "full"
     } else if (window.innerHeight > 750) {
-        return Scales.TwoThirds
+        return "two-thirds"
     } else {
-        return Scales.OneHalf
+        return "one-half"
     }
 }
 

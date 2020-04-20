@@ -1,11 +1,8 @@
-import { showAsset } from './asset'
 import { ironclad, lightbearer, caveLion, berserker } from './exampleAssets'
-import { updateEditorWithAsset, currentAsset } from './editor'
+import { setCurrentAsset } from './editor'
 
 const showSingleAssetExample = (asset) => {
-    updateEditorWithAsset(asset)
-    // use currentAsset because it's been transformed to the latest document version
-    showAsset(currentAsset)
+    setCurrentAsset(asset)
 }
 
 export const loadDefaultExampleAsset = () => showSingleAssetExample(caveLion)

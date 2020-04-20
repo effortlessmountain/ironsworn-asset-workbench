@@ -5,22 +5,16 @@ export let currentAsset: AssetDocument
 
 const assetInput: HTMLInputElement = document.querySelector('.interface-input')
 
-export const updateCurrentAssetFromEditor = () => {
-    //TODO: fail gracefully on invalid JSON
-    currentAsset = transformToLatest(JSON.parse(assetInput.value))
-}
-
-export const updateEditorWithAsset = (asset) => {
+export const setCurrentAsset = (asset) => {
     currentAsset = transformToLatest(asset)
     assetInput.value = JSON.stringify(currentAsset, null, 2)
+    showAsset(currentAsset)
 }
 
 const updateButton: HTMLButtonElement = document.querySelector(".update")
 
 updateButton.onclick = () => {
-    updateCurrentAssetFromEditor()
-    updateEditorWithAsset(currentAsset) //TODO: make better
-    showAsset(currentAsset)
+    setCurrentAsset(JSON.parse(assetInput.value)) //TODO: fail gracefully on invalid JSON
 }
 
 const iconFileInput = document.querySelector("#icon-fileselect") as HTMLInputElement
@@ -39,15 +33,13 @@ function handleFile() {
                 author: iconAuthorInput.value,
                 svg: transformSvgString(svg)
             }
-            updateEditorWithAsset(currentAsset)
-            showAsset(currentAsset)
+            setCurrentAsset(currentAsset)
         }
         fileReader.readAsText(file)
     } else {
         alert("missing file")
     }
 }
-//iconFileElement.addEventListener("change", handleFile, false)
 
 const iconImportButton: HTMLButtonElement = document.querySelector("#icon-import-button")
 iconImportButton.onclick = () => {
