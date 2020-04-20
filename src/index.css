@@ -12,19 +12,29 @@ body {
     font-family: 'PT Serif';
 }
 
-.render .download,
+.render .preview-download,
 .render .container,
 .render .help,
-.main-screen .download,
+.main-screen .preview-download,
 .main-screen .help,
 .main-screen .render,
-.download-screen .container,
-.download-screen .help,
-.download-screen .render,
-.help-screen .download,
+.preview-download-screen .container,
+.preview-download-screen .help,
+.preview-download-screen .render,
+.help-screen .preview-download,
 .help-screen .container,
 .help-screen .render {
     display: none;
+}
+
+.preview-download {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.preview-download-help {
+    width: 30%;
 }
 
 .container {

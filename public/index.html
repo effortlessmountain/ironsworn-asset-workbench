@@ -8,11 +8,13 @@
 <body class="main-screen">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class="render"></div>
-    <div class="download">
-        <p>Right click and 'Save image as...' to download. If the image is truncated,
-            try making your browser window bigger before pressing 'download'</p>
-        <button id="done-downloading">close</button>
+    <div class="preview-download">
         <div class="image-container"></div>
+        <div class="preview-download-help">
+            <p>Right click and 'Save image as...' to save. If the image is truncated,
+                try making your browser window bigger before pressing 'preview' or 'download as image'.</p>
+            <button id="done-downloading">close</button>
+        </div>
     </div>
     <div class="help">
         <div class="help-content">
@@ -74,7 +76,8 @@
                     <button id="icon-import-button">Import</button>
                 </div>
                 <div class=" export">
-                    <button id="download">download</button>
+                    <button id="preview-download">preview</button>
+                    <button id="download">download as image</button>
                 </div>
             </div>
             <div>
