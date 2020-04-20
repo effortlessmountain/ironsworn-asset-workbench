@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { scaleRatio, assetScale } from './assetScaling'
+import { FontConfig, makeMergedConfig, createGoogleFontString } from './models/assetStyles'
 
 
 const WriteIn = (props: { writeIn?: string }) => {
@@ -103,42 +104,6 @@ const Icon = (props: { icon: string | { svg: { d: string, fill: string, fillOpac
     }
 }
 
-const createGoogleFontString = (...fonts) => {
-    let urlifiedFonts = Array.from(new Set(fonts))
-        .filter(font => font)
-        .map(font => font.replace(/ /g, "+"))
-        .join("|")
-    return urlifiedFonts ? `https://fonts.googleapis.com/css?family=${urlifiedFonts}&display=swap` : ""
-}
-
-const defaultFontConfig = {
-    assetTypeFontSize: "1.03em",
-    assetTypeFont: "Simonetta",
-    assetNameFontSize: "1.26em",
-    assetNameFont: "Simonetta",
-    detailsFontSize: "0.97em",
-    detailsFont: "PT Serif",
-    trackFontSize: "1.42em",
-    trackFont: "Simonetta"
-}
-
-const makeMergedConfig = (config) => {
-    //TODO: merge in a way that doesn't have the pitfall of overriding with invalid values
-    // if an object with defined properties but values of "" or null or undefined gets passed in.
-    return Object.assign({}, defaultFontConfig, config)
-}
-
-interface FontConfig {
-    assetTypeFontSize: string,
-    assetTypeFont: string,
-    assetNameFontSize: string,
-    assetNameFont: string,
-    detailsFontSize: string,
-    detailsFont: string,
-    trackFontSize: string,
-    trackFont: string,
-}
-
 const AssetStyles = (props: { fonts: object }) => {
     //TODO: put styles onto corresponding elements directly instead of living 'dangerously'.
     let fonts = props.fonts || {}
@@ -210,20 +175,10 @@ export const Asset = (props: AssetProps) => {
     </div >)
 }
 
-const setSvgDimensions = () => {
-    const svgs = document.querySelectorAll('svg')
-    svgs.forEach(svg => {
-        //TODO: less typecasting madness
-        svg.setAttribute('height', (svg.parentNode as HTMLElement).offsetHeight.toString())
-        svg.setAttribute('width', (svg.parentNode as HTMLElement).offsetWidth.toString())
-    })
-}
-
 export const showAssetIn = (element, asset) => {
     // TODO: watch for state changes inside of a react component instead of re-rendering everything    
     ReactDOM.render(<Asset asset={asset} scale={assetScale} />,
         element)
-    //setSvgDimensions()
 }
 
 const assetContainer = document.querySelector(".assets")
