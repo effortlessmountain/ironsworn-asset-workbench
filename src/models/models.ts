@@ -41,7 +41,7 @@ export type AssetDocumentV1 = {
 }
 
 
-export type AssetDocument = {
+export interface AssetDocument {
     documentFormatVersion: number,
     fonts?: {
         assetTypeFontSize?: string,

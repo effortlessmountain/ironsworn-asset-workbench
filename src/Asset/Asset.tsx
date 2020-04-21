@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { scaleRatio, assetScale } from './assetScaling'
-import { FontConfig, makeMergedConfig, createGoogleFontString } from './models/assetStyles'
+import { scaleRatio } from '../assetScaling'
+import { FontConfig, makeMergedConfig, createGoogleFontString } from '../models/assetStyles'
 
 
 const WriteIn = (props: { writeIn?: string }) => {
@@ -150,17 +150,18 @@ interface Asset {
 
 interface AssetProps {
     asset: Asset,
-    scale: { value: string }
+    scale: string
 }
 
 export const Asset = (props: AssetProps) => {
     let asset = props.asset
-    return (<div className={`asset ${props.scale.value}`}>
+    console.log("mah props scale is", props.scale)
+    return (<div className={`asset ${props.scale}`}>
         <AssetStyles fonts={asset.fonts}></AssetStyles>
         <div className="main-matter">
             <div className="top">
                 <div className="type">{asset.type}</div>
-                <Icon icon={asset.icon} scale={props.scale.value} />
+                <Icon icon={asset.icon} scale={props.scale} />
                 <div className="asset-name">{asset.name}</div>
             </div>
             <div className="details">
@@ -171,18 +172,19 @@ export const Asset = (props: AssetProps) => {
                 </div>
             </div>
         </div>
-        <Track track={asset.track} scale={props.scale.value} />
+        <Track track={asset.track} scale={props.scale} />
     </div >)
 }
 
-export const showAssetIn = (element, asset) => {
+export const showAssetIn = (element, asset, scale, callback?: () => void) => {
+    console.log("Showing asset with scale", scale, "in", element)
     // TODO: watch for state changes inside of a react component instead of re-rendering everything    
-    ReactDOM.render(<Asset asset={asset} scale={assetScale} />,
-        element)
+    ReactDOM.render(<Asset asset={asset} scale={scale} />,
+        element, callback)
 }
 
 const assetContainer = document.querySelector(".assets")
 
-export const showAsset = (asset) => {
-    showAssetIn(assetContainer, asset)
+export const showAsset = (asset, scale) => {
+    showAssetIn(assetContainer, asset, scale)
 }

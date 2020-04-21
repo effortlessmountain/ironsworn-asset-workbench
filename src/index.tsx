@@ -1,11 +1,18 @@
 import './index.css'
-import { loadDefaultExampleAsset } from './exampleAssetLoader'
+import { Editor } from './Editor/Editor'
 import { showScreen } from './router'
+import { closeDownload, renderOnCanvas } from './download'
 import './download'
+import ReactDOM from 'react-dom'
+import React from 'react'
 
-const showHelpButton: HTMLButtonElement = document.querySelector('#show-help')
-showHelpButton.onclick = () => showScreen("help")
+
+ReactDOM.render(<Editor
+    closeDownload={closeDownload}
+    renderOnCanvas={renderOnCanvas}></Editor>, document.querySelector('.editor-container'))
+
 const closeHelpbutton: HTMLButtonElement = document.querySelector("#close-help")
 closeHelpbutton.onclick = () => showScreen("main")
 
-loadDefaultExampleAsset()
+const closeDownloadbutton: HTMLButtonElement = document.querySelector("#done-downloading")
+closeDownloadbutton.onclick = closeDownload
