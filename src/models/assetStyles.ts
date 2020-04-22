@@ -26,12 +26,12 @@ export const makeMergedConfig = (config): FontConfig => {
 };
 
 export interface FontConfig {
-    assetTypeFontSize: string;
-    assetTypeFont: string;
-    assetNameFontSize: string;
-    assetNameFont: string;
-    detailsFontSize: string;
-    detailsFont: string;
-    trackFontSize: string;
-    trackFont: string;
+    assetTypeFontSize?: string;
+    assetTypeFont?: string;
+    assetNameFontSize?: string;
+    assetNameFont?: string;
+    detailsFontSize?: string;
+    detailsFont?: string;
+    trackFontSize?: string;
+    trackFont?: string;
 }

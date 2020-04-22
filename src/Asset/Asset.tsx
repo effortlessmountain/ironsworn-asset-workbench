@@ -17,7 +17,7 @@ const Description = (props: { description: string }) => {
 }
 
 interface Ability {
-    name: string,
+    name?: string,
     filled: boolean,
     text: string
 }
@@ -81,7 +81,7 @@ const Track = (props: { track: string[] | number, scale: string }) => {
     }
 }
 
-const Icon = (props: { icon: string | { svg: { d: string, fill: string, fillOpacity: number } }, scale: string }) => {
+const Icon = (props: { icon: string | { svg: { d: string, fill: string, fillOpacity: string } }, scale: string }) => {
     if (typeof props.icon === "string") {
         return (
             <div className="header-circle">
@@ -138,14 +138,14 @@ const AssetStyles = (props: { fonts: object }) => {
 }
 
 interface Asset {
-    fonts: FontConfig,
+    fonts?: FontConfig,
     type: string,
-    icon: string | { svg: { d: string, fill: string, fillOpacity: number } },
+    icon?: string | { svg: { d: string, fill: string, fillOpacity: string } },
     name: string,
-    writeIn: string,
+    writeIn?: string,
     description: string,
     abilities: Ability[],
-    track: string[]
+    track?: number | string[]
 }
 
 interface AssetProps {
@@ -181,10 +181,4 @@ export const showAssetIn = (element, asset, scale, callback?: () => void) => {
     // TODO: watch for state changes inside of a react component instead of re-rendering everything    
     ReactDOM.render(<Asset asset={asset} scale={scale} />,
         element, callback)
-}
-
-const assetContainer = document.querySelector(".assets")
-
-export const showAsset = (asset, scale) => {
-    showAssetIn(assetContainer, asset, scale)
 }

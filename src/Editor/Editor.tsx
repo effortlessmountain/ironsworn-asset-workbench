@@ -1,23 +1,21 @@
-import { showAsset } from '../Asset/Asset'
 import { transformToLatest, transformSvgString, AssetDocument } from '../models/models'
-import { calculateScale } from '../assetScaling'
 import React from 'react'
 import { ironclad, lightbearer, caveLion } from '../exampleAssets'
 import { showScreen } from '../router'
-
-export let currentAsset: AssetDocument
 
 function asJSON(val) {
     return JSON.stringify(val, null, 2)
 }
 
 type EditorState = {
-    currentAsset: AssetDocument,
     editorJSON: string,
-    assetScale: string
 }
 
 type EditorProps = {
+    currentAsset: AssetDocument,
+    setCurrentAsset: (asset: AssetDocument) => void
+    assetScale: string,
+    handleAssetScaleChange: (newScale: string) => void
     closeDownload(): void,
     renderOnCanvas(
         asset: AssetDocument,
@@ -28,34 +26,19 @@ type EditorProps = {
 export class Editor extends React.Component<EditorProps, EditorState> {
     constructor(props) {
         super(props)
-        let startingAsset = transformToLatest(caveLion as AssetDocument) //This is where I learn the tragic extent of the failings of TypeScript's type inference.
-        let startingScale = calculateScale()
         this.state = {
-            currentAsset: startingAsset,
-            editorJSON: asJSON(startingAsset),
-            assetScale: startingScale
+            editorJSON: asJSON(this.props.currentAsset),
         }
-        currentAsset = transformToLatest(caveLion as AssetDocument)
-        showAsset(currentAsset, startingScale)
     }
 
     setCurrentAsset(asset) {
         this.setState((state, props) => {
             const latest = transformToLatest(asset)
-            currentAsset = latest
-            showAsset(latest, state.assetScale)
+            this.props.setCurrentAsset(latest)
             return {
                 currentAsset: latest,
                 editorJSON: asJSON(asset)
             }
-        })
-    }
-
-    handleScaleChange(event) {
-        const newScale = event.target.value
-        this.setState((state) => {
-            showAsset(state.currentAsset, newScale)
-            return { assetScale: newScale }
         })
     }
 
@@ -65,14 +48,14 @@ export class Editor extends React.Component<EditorProps, EditorState> {
 
     updateOnClick() {
         try {
-            this.setCurrentAsset(JSON.parse(this.state.editorJSON))
+            this.props.setCurrentAsset(JSON.parse(this.state.editorJSON))
         }
         catch (error) {
             window.alert(error)
         }
     }
 
-    downloadButtonOnclick(scale) {
+    downloadButtonOnclick() {
         function saveImage(uri, filename) {
             const link = document.createElement('a')
             link.href = uri
@@ -82,17 +65,17 @@ export class Editor extends React.Component<EditorProps, EditorState> {
             document.body.removeChild(link)
         }
 
-        this.props.renderOnCanvas(currentAsset,
-            scale,
+        this.props.renderOnCanvas(this.props.currentAsset,
+            this.props.assetScale,
             canvas => {
-                saveImage(canvas.toDataURL(), currentAsset.name + ".png")
+                saveImage(canvas.toDataURL(), this.props.currentAsset.name + ".png")
 
                 this.props.closeDownload()
             })
     }
 
-    previewDownloadButtonOnclick(scale) {
-        this.props.renderOnCanvas(currentAsset, scale, () => showScreen('preview-download'))
+    previewDownloadButtonOnclick() {
+        this.props.renderOnCanvas(this.props.currentAsset, this.props.assetScale, () => showScreen('preview-download'))
     }
 
 
@@ -106,13 +89,13 @@ export class Editor extends React.Component<EditorProps, EditorState> {
             var fileReader = new FileReader()
             fileReader.onload = (e) => {
                 var svg = e.target.result as string
-                currentAsset.icon = {
+                this.props.currentAsset.icon = {
                     type: "svg",
                     name: file.name.split('.').slice(0, -1).join('.'),
                     author: iconAuthorInput.value,
                     svg: transformSvgString(svg)
                 }
-                this.setCurrentAsset(currentAsset)
+                this.props.setCurrentAsset(this.props.currentAsset)
             }
             fileReader.readAsText(file)
         } else {
@@ -128,8 +111,8 @@ export class Editor extends React.Component<EditorProps, EditorState> {
                     <label>Scale (also affects Download size)</label>
                     <select
                         id="scale-select"
-                        onChange={(event) => this.handleScaleChange(event)}
-                        value={this.state.assetScale}
+                        onChange={(e) => this.props.handleAssetScaleChange(e.target.value)}
+                        value={this.props.assetScale}
                     >
                         <option value="one-third">250px by 350px</option>
                         <option value="one-half">375px by 525px</option>
@@ -195,13 +178,13 @@ export class Editor extends React.Component<EditorProps, EditorState> {
                 <div className=" export">
                     <button
                         id="preview-download"
-                        onClick={() => this.previewDownloadButtonOnclick(this.state.assetScale)}
+                        onClick={() => this.previewDownloadButtonOnclick()}
                     >
                         preview
                     </button>
                     <button
                         id="download"
-                        onClick={() => this.downloadButtonOnclick(this.state.assetScale)}
+                        onClick={() => this.downloadButtonOnclick()}
                     >
                         download as image
                     </button>
