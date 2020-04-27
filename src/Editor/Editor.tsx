@@ -6,8 +6,52 @@ function asJSON(val) {
     return JSON.stringify(val, null, 2)
 }
 
+function Examples(props: { setCurrentAsset: (asset) => void }) {
+    return (
+        <div className="example-controls">
+            <label>Load Example Asset:</label>
+            <button className="show-example" onClick={() => props.setCurrentAsset(lightbearer)}>
+                Lightbearer
+            </button>
+            <button className="show-example" onClick={() => props.setCurrentAsset(ironclad)}>
+                Ironclad
+            </button>
+            <button className="show-example" onClick={() => props.setCurrentAsset(caveLion)}>
+                Cave Lion
+            </button>
+        </div>
+    )
+}
+
+type EditorView = "JSON" | "misc" | "abilities" | "track" | "fonts" | "import/export"
+
+
+function ViewSwitchButton(props: {
+    view: EditorView,
+    activeView: EditorView,
+    children: string,
+    handleClick: (view: EditorView) => void
+}) {
+    const classes = props.view === props.activeView ? "change-view selected" : "change-view"
+    return (<button className={classes} onClick={() => props.handleClick(props.view)}>{props.children}</button>)
+}
+
+function ViewSwitcher(props: {
+    activeView: EditorView,
+    switchView: (view: EditorView) => void
+}) {
+    return (
+        <div className="view-switcher">
+            <ViewSwitchButton view="JSON" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>JSON</ViewSwitchButton>
+            <ViewSwitchButton view="misc" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>MISC</ViewSwitchButton>
+        </div>
+    )
+}
+
+
 type EditorState = {
     editorJSON: string,
+    activeView: EditorView
 }
 
 type EditorProps = {
@@ -25,6 +69,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
         super(props)
         this.state = {
             editorJSON: asJSON(this.props.currentAsset),
+            activeView: "JSON"
         }
     }
 
@@ -33,13 +78,18 @@ export class Editor extends React.Component<EditorProps, EditorState> {
             const latest = transformToLatest(asset)
             this.props.setCurrentAsset(latest)
             return {
-                currentAsset: latest,
                 editorJSON: asJSON(asset)
             }
         })
     }
 
-    handleTextAreaChange(event) {
+    switchView(view: EditorView) {
+        this.setState({
+            activeView: view
+        })
+    }
+
+    handleJSONChange(event) {
         this.setState({ editorJSON: event.target.value })
     }
 
@@ -97,68 +147,65 @@ export class Editor extends React.Component<EditorProps, EditorState> {
                     <button id="show-help" onClick={() => this.props.showScreen('help')}>How do I...?</button>
                 </div>
             </div>
-            <div className="example-controls">
-                <label>Load Example Asset:</label>
-                <button
-                    className="show-example"
-                    id="lightbearer-example"
-                    onClick={() => this.setCurrentAsset(lightbearer)}
-                >
-                    Lightbearer
-                </button>
-                <button
-                    className="show-example"
-                    id="ironclad-example"
-                    onClick={() => this.setCurrentAsset(ironclad)}
-                >
-                    Ironclad
-                </button>
-                <button
-                    className="show-example"
-                    id="cave-lion-example"
-                    onClick={() => this.setCurrentAsset(caveLion)}
-                >
-                    Cave Lion
-                </button>
-            </div>
+
+            <Examples setCurrentAsset={(asset) => this.setCurrentAsset(asset)}></Examples>
 
             <div className="editor">
-                <textarea
-                    className="interface-input"
-                    spellCheck="false"
-                    value={this.state.editorJSON}
-                    onChange={(event) => this.handleTextAreaChange(event)}
-                >
-                </textarea>
-                <button
-                    className="update"
-                    onClick={() => this.updateOnClick()}
-                >
-                    update
-                    </button>
-                <div className="icon-import">
-                    <label htmlFor="icon-fileselect">Icon to import: </label>
-                    <input type="file" id="icon-fileselect" />
-                    <label htmlFor="icon-author">Icon Author: </label>
-                    <input type="text" id="icon-author" />
-                    <button
-                        id="icon-import-button"
-                        onClick={() => this.handleIconImport()}
-                    >
-                        Import
-                    </button>
-                </div>
+                <ViewSwitcher activeView={this.state.activeView} switchView={(view) => this.switchView(view)}></ViewSwitcher>
+                {this.state.activeView === "JSON" &&
+                    <div className="editor-view">
+                        <textarea
+                            className="interface-input box-border"
+                            spellCheck="false"
+                            value={this.state.editorJSON}
+                            onChange={(event) => this.handleJSONChange(event)}
+                        >
+                        </textarea>
+                        <button
+                            className="update"
+                            onClick={() => this.updateOnClick()}
+                        >
+                            update
+                        </button>
+                        <div className="icon-import box-border">
+                            <div>
+                                <label htmlFor="icon-fileselect">Icon to import: </label>
+                                <input type="file" id="icon-fileselect" />
+                                <label htmlFor="icon-author">Icon Author: </label>
+                                <input type="text" id="icon-author" />
+                                <button id="icon-import-button" onClick={() => this.handleIconImport()} > Import </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                {this.state.activeView === "misc" &&
+                    <div className="editor-view misc-editor-view">
+                        <div className="box-border vertical">
+                            <label>Asset Name:</label>
+                            <input type="text" value={this.props.currentAsset.name} onChange={(e) => { this.props.currentAsset.name = e.currentTarget.value; this.setCurrentAsset(this.props.currentAsset) }}></input>
+                            <label>Type:</label>
+                            <input type="text" value={this.props.currentAsset.type} onChange={(e) => { this.props.currentAsset.type = e.currentTarget.value; this.setCurrentAsset(this.props.currentAsset) }}></input>
+                            <label>Write-in:</label>
+                            <input type="text" value={this.props.currentAsset.writeIn} onChange={(e) => { this.props.currentAsset.writeIn = e.currentTarget.value; this.setCurrentAsset(this.props.currentAsset) }}></input>
+                            <label>Description:</label>
+                            <input type="text" value={this.props.currentAsset.description} onChange={(e) => { this.props.currentAsset.description = e.currentTarget.value; this.setCurrentAsset(this.props.currentAsset) }}></input>
+                        </div>
+                        <div className="icon-import box-border">
+                            <div>
+                                <label htmlFor="icon-fileselect">Icon to import: </label>
+                                <input type="file" id="icon-fileselect" />
+                            </div>
+                            <label htmlFor="icon-author">Icon Author: </label>
+                            <input type="text" id="icon-author" />
+                            <button id="icon-import-button" onClick={() => this.handleIconImport()} > Import </button>
+                        </div>
+                    </div>
+                }
                 <div className=" export">
-                    <button
-                        id="preview-download"
-                        onClick={() => this.props.previewAssetImage()}
-                    >
-                        preview
+                    <button id="preview-download" onClick={() => this.props.previewAssetImage()}>
+                        preview as image
                     </button>
-                    <button
-                        id="download"
-                        onClick={() => this.props.downloadAssetImage()}
-                    >
+                    <button id="download" onClick={() => this.props.downloadAssetImage()}>
                         download as image
                     </button>
                 </div>

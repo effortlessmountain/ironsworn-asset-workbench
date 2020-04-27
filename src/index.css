@@ -75,11 +75,26 @@ button.selected {
     width         : 100%;
 }
 
+.editor-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.box-border {
+    border: 2px solid var(--gray);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.vertical {
+    display: flex;
+    flex-direction: column;
+}
+
 .icon-import {
-  border: 2px solid var(--gray);
-  border-radius: 5px;
-  margin: 5px;
-  padding: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 .help {
