@@ -12,21 +12,6 @@ body {
     font-family: 'PT Serif';
 }
 
-.render .preview-download,
-.render .container,
-.render .help,
-.main-screen .preview-download,
-.main-screen .help,
-.main-screen .render,
-.preview-download-screen .container,
-.preview-download-screen .help,
-.preview-download-screen .render,
-.help-screen .preview-download,
-.help-screen .container,
-.help-screen .render {
-    display: none;
-}
-
 .preview-download {
     display: flex;
     justify-content: space-around;

@@ -1,7 +1,6 @@
 import { transformToLatest, transformSvgString, AssetDocument } from '../models/models'
 import React from 'react'
 import { ironclad, lightbearer, caveLion } from '../exampleAssets'
-import { showScreen } from '../router'
 
 function asJSON(val) {
     return JSON.stringify(val, null, 2)
@@ -16,11 +15,9 @@ type EditorProps = {
     setCurrentAsset: (asset: AssetDocument) => void
     assetScale: string,
     handleAssetScaleChange: (newScale: string) => void
-    closeDownload(): void,
-    renderOnCanvas(
-        asset: AssetDocument,
-        scale: string,
-        callback: (canvas) => void): void
+    showScreen: (screen) => void,
+    previewAssetImage: () => void,
+    downloadAssetImage: () => void
 }
 
 export class Editor extends React.Component<EditorProps, EditorState> {
@@ -54,30 +51,6 @@ export class Editor extends React.Component<EditorProps, EditorState> {
             window.alert(error)
         }
     }
-
-    downloadButtonOnclick() {
-        function saveImage(uri, filename) {
-            const link = document.createElement('a')
-            link.href = uri
-            link.download = filename
-            document.body.appendChild(link)
-            link.click()
-            document.body.removeChild(link)
-        }
-
-        this.props.renderOnCanvas(this.props.currentAsset,
-            this.props.assetScale,
-            canvas => {
-                saveImage(canvas.toDataURL(), this.props.currentAsset.name + ".png")
-
-                this.props.closeDownload()
-            })
-    }
-
-    previewDownloadButtonOnclick() {
-        this.props.renderOnCanvas(this.props.currentAsset, this.props.assetScale, () => showScreen('preview-download'))
-    }
-
 
     handleIconImport() {
         //todo: move away from queryselecting and use React
@@ -121,7 +94,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
                     </select>
                 </div>
                 <div>
-                    <button id="show-help" onClick={() => showScreen('help')}>How do I...?</button>
+                    <button id="show-help" onClick={() => this.props.showScreen('help')}>How do I...?</button>
                 </div>
             </div>
             <div className="example-controls">
@@ -173,18 +146,18 @@ export class Editor extends React.Component<EditorProps, EditorState> {
                         onClick={() => this.handleIconImport()}
                     >
                         Import
-                        </button>
+                    </button>
                 </div>
                 <div className=" export">
                     <button
                         id="preview-download"
-                        onClick={() => this.previewDownloadButtonOnclick()}
+                        onClick={() => this.props.previewAssetImage()}
                     >
                         preview
                     </button>
                     <button
                         id="download"
-                        onClick={() => this.downloadButtonOnclick()}
+                        onClick={() => this.props.downloadAssetImage()}
                     >
                         download as image
                     </button>

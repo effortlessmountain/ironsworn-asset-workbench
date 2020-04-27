@@ -155,7 +155,6 @@ interface AssetProps {
 
 export const Asset = (props: AssetProps) => {
     let asset = props.asset
-    console.log("mah props scale is", props.scale)
     return (<div className={`asset ${props.scale}`}>
         <AssetStyles fonts={asset.fonts}></AssetStyles>
         <div className="main-matter">
