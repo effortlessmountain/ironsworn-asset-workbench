@@ -165,6 +165,10 @@ input, textarea {
   margin-top: 20px;
 }
 
+.icon-import-helptext {
+    margin-left: 5px;
+}
+
 .icon-import-author,
 .icon-import-fileselect {
     display: flex;

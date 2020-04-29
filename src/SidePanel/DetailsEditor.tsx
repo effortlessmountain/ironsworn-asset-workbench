@@ -30,14 +30,14 @@ class TopView extends React.Component<TopViewProps> {
                             this.props.setCurrentAsset(this.props.currentAsset)
                         }}></LabeledTextInput>
                     <LabeledTextInput
-                        label="Write-in"
+                        label="Write-in (optional)"
                         value={this.props.currentAsset.writeIn}
                         handleChange={(e) => {
                             this.props.currentAsset.writeIn = e.currentTarget.value
                             this.props.setCurrentAsset(this.props.currentAsset)
                         }}></LabeledTextInput>
                     <LabeledTextAreaInput
-                        label="Description"
+                        label="Description (optional)"
                         value={this.props.currentAsset.description}
                         handleChange={(e) => {
                             this.props.currentAsset.description = e.currentTarget.value
@@ -46,12 +46,13 @@ class TopView extends React.Component<TopViewProps> {
                 </div>
                 <div className="icon-import">
                     <div>
+                        <p className="icon-import-helptext">Import an icon in SVG format here with a transparent background. Click the "How do I...?" button for instructions on getting an icon from Game-Icons.net.</p>
                         <div className="icon-import-fileselect">
                             <label htmlFor="icon-fileselect">Icon to import</label>
                             <input type="file" id="icon-fileselect" />
                         </div>
                         <div className="icon-import-author">
-                            <label htmlFor="icon-author">Icon Author</label>
+                            <label htmlFor="icon-author">Icon Artist</label>
                             <input type="text" id="icon-author" />
                         </div>
                         <button id="icon-import-button" onClick={() => this.props.handleIconImport()} > Import </button>
@@ -80,7 +81,7 @@ function AbilityInput(props: {
                     props.updateAbility(props.ability)
                 }}></LabeledCheckBox>
             </div>
-            <LabeledTextAreaInput label="Text" value={props.ability.text || ""} handleChange={(e) => {
+            <LabeledTextAreaInput label="Ability Text" value={props.ability.text || ""} handleChange={(e) => {
                 props.ability.text = e.currentTarget.value
                 props.updateAbility(props.ability)
             }}></LabeledTextAreaInput>
