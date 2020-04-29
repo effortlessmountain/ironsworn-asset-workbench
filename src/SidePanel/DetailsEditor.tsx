@@ -44,12 +44,14 @@ class TopView extends React.Component<TopViewProps> {
                             this.props.setCurrentAsset(this.props.currentAsset)
                         }}></LabeledTextAreaInput>
                 </div>
-                <div className="icon-import thin-box-border">
+                <div className="icon-import">
                     <div>
-                        <label htmlFor="icon-fileselect">Icon to import: </label>
-                        <input type="file" id="icon-fileselect" />
-                        <div>
-                            <label htmlFor="icon-author">Icon Author: </label>
+                        <div className="icon-import-fileselect">
+                            <label htmlFor="icon-fileselect">Icon to import</label>
+                            <input type="file" id="icon-fileselect" />
+                        </div>
+                        <div className="icon-import-author">
+                            <label htmlFor="icon-author">Icon Author</label>
                             <input type="text" id="icon-author" />
                         </div>
                         <button id="icon-import-button" onClick={() => this.props.handleIconImport()} > Import </button>
@@ -67,7 +69,7 @@ function AbilityInput(props: {
     updateAbility(value): void
 }) {
     return (
-        <div className="ability-input thin-box-border">
+        <div className="ability-input">
             <div className="ability-input-top-fields">
                 <LabeledTextInput label="Name (optional)" value={props.ability.name || ""} handleChange={(e) => {
                     props.ability.name = e.currentTarget.value

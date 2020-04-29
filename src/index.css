@@ -142,8 +142,15 @@ input, textarea {
     flex-direction: column;
 }
 
+.change-view {
+    width: 100px;
+}
+
 .ability-input {
-    margin-bottom: 20px;
+    margin: 10px 10px 20px 10px;
+    padding: 5px;
+    border-left: 4px solid var(--gray);
+    border-radius: 4px;
 }
 
 .ability-input-top-fields,
@@ -155,6 +162,23 @@ input, textarea {
 .icon-import {
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
+}
+
+.icon-import-author,
+.icon-import-fileselect {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.icon-import-author input {
+    width: 200px;
+}
+
+.icon-import-author input,
+.icon-import-fileselect input {
+    margin-left: 5px;
 }
 
 .help {
