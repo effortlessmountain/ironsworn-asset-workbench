@@ -1,140 +1,7 @@
 import React from 'react'
-import { LabeledTextInput, LabeledTextAreaInput, LabeledCheckBox } from './LabeledTextInput'
-import { AssetDocument, transformSvgString, Ability } from '../models/models'
-
-
-type TopViewProps = {
-    currentAsset: AssetDocument,
-    setCurrentAsset(asset): void,
-    handleIconImport(): void //todo: move fully inte here
-}
-
-class TopView extends React.Component<TopViewProps> {
-
-    render() {
-        return (
-            <div className="editor-view misc-editor-view">
-                <div className="vertical">
-                    <LabeledTextInput
-                        label="Asset Name"
-                        value={this.props.currentAsset.name}
-                        handleChange={(e) => {
-                            this.props.currentAsset.name = e.currentTarget.value
-                            this.props.setCurrentAsset(this.props.currentAsset)
-                        }}></LabeledTextInput>
-                    <LabeledTextInput
-                        label="Type"
-                        value={this.props.currentAsset.type}
-                        handleChange={(e) => {
-                            this.props.currentAsset.type = e.currentTarget.value
-                            this.props.setCurrentAsset(this.props.currentAsset)
-                        }}></LabeledTextInput>
-                    <LabeledTextInput
-                        label="Write-in (optional)"
-                        value={this.props.currentAsset.writeIn || ""}
-                        handleChange={(e) => {
-                            this.props.currentAsset.writeIn = e.currentTarget.value
-                            this.props.setCurrentAsset(this.props.currentAsset)
-                        }}></LabeledTextInput>
-                    <LabeledTextAreaInput
-                        label="Description (optional)"
-                        value={this.props.currentAsset.description}
-                        handleChange={(e) => {
-                            this.props.currentAsset.description = e.currentTarget.value
-                            this.props.setCurrentAsset(this.props.currentAsset)
-                        }}></LabeledTextAreaInput>
-                </div>
-                <div className="icon-import">
-                    <div>
-                        <p className="icon-import-helptext">Import an icon in SVG format here with a transparent background. Click the "How do I...?" button for instructions on getting an icon from Game-Icons.net.</p>
-                        <div className="icon-import-fileselect">
-                            <label htmlFor="icon-fileselect">Icon to import</label>
-                            <input type="file" id="icon-fileselect" />
-                        </div>
-                        <div className="icon-import-author">
-                            <label htmlFor="icon-author">Icon Artist</label>
-                            <input type="text" id="icon-author" />
-                        </div>
-                        <button id="icon-import-button" onClick={() => this.props.handleIconImport()} > Import </button>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-}
-
-
-
-function AbilityInput(props: {
-    ability: Ability,
-    updateAbility(value): void,
-    removeAbility(ability): void
-}) {
-    return (
-        <div className="ability-input">
-            <div className="ability-input-top">
-                <div className="ability-input-top-fields">
-                    <LabeledTextInput label="Name (optional)" value={props.ability.name || ""} handleChange={(e) => {
-                        props.ability.name = e.currentTarget.value
-                        props.updateAbility(props.ability)
-                    }}></LabeledTextInput>
-                    <LabeledCheckBox label="Filled" value={props.ability.filled || false} handleChange={(e) => {
-                        props.ability.filled = !props.ability.filled
-                        props.updateAbility(props.ability)
-                    }}></LabeledCheckBox>
-                </div>
-                <button className="ability-button" onClick={() => props.removeAbility(props.ability)}>remove</button>
-            </div>
-            <LabeledTextAreaInput label="Ability Text" value={props.ability.text || ""} handleChange={(e) => {
-                props.ability.text = e.currentTarget.value
-                props.updateAbility(props.ability)
-            }}></LabeledTextAreaInput>
-        </div>
-    )
-}
-
-type AbilitiesViewProps = {
-    currentAsset: AssetDocument,
-    setCurrentAsset(asset): void
-}
-
-class AbilitiesView extends React.Component<AbilitiesViewProps> {
-    updateAbility(ability, index) {
-        this.props.currentAsset.abilities[index] = ability
-        this.props.setCurrentAsset(this.props.currentAsset)
-    }
-
-    removeAbility(index) {
-        this.props.currentAsset.abilities.splice(index, 1)
-        this.props.setCurrentAsset(this.props.currentAsset)
-    }
-
-    addAbility() {
-        this.props.currentAsset.abilities.push({
-            filled: false,
-            name: "",
-            text: ""
-        })
-        this.props.setCurrentAsset(this.props.currentAsset)
-    }
-
-    render() {
-        return (
-            <div className="editor-view">
-                <div className="vertical">
-                    {this.props.currentAsset.abilities.map((ability, index) => {
-                        return <AbilityInput
-                            key={index}
-                            ability={ability}
-                            updateAbility={(changed) => this.updateAbility(changed, index)}
-                            removeAbility={() => this.removeAbility(index)}></AbilityInput>
-                    })}
-                    <button className="ability-button" onClick={() => this.addAbility()}>Add</button>
-                </div>
-            </div>
-        )
-    }
-}
+import { AssetDocument, transformSvgString } from '../models/models'
+import { AbilitiesView } from './AbilitiesView'
+import { TopView } from './TopViewProps'
 
 type EditorView = "JSON" | "top" | "abilities" | "track" | "fonts" | "export"
 
@@ -154,9 +21,11 @@ function ViewSwitcher(props: {
 }) {
     return (
         <div className="view-switcher">
-            <ViewSwitchButton view="JSON" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>JSON</ViewSwitchButton>
             <ViewSwitchButton view="top" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>TOP</ViewSwitchButton>
             <ViewSwitchButton view="abilities" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>Abilities</ViewSwitchButton>
+            <ViewSwitchButton view="track" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>Track</ViewSwitchButton>
+            <ViewSwitchButton view="fonts" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>Fonts</ViewSwitchButton>
+            <ViewSwitchButton view="JSON" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>JSON</ViewSwitchButton>
             <ViewSwitchButton view="export" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>export</ViewSwitchButton>
         </div>
     )
@@ -246,6 +115,26 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
         return (
             <div className="editor">
                 <ViewSwitcher activeView={this.state.activeView} switchView={(view) => this.switchView(view)}></ViewSwitcher>
+                {this.state.activeView === "top" &&
+                    <TopView
+                        currentAsset={this.props.currentAsset}
+                        setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}
+                        handleIconImport={() => this.handleIconImport()}></TopView>
+                }
+                {
+                    this.state.activeView === "abilities" &&
+                    <AbilitiesView
+                        currentAsset={this.props.currentAsset}
+                        setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}></AbilitiesView>
+                }
+                {
+                    this.state.activeView === "track" &&
+                    <div>track</div>
+                }
+                {
+                    this.state.activeView === "fonts" &&
+                    <div>fonts</div>
+                }
                 {this.state.activeView === "JSON" &&
                     <div className="editor-view">
                         <div>
@@ -266,18 +155,6 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                             }
                         </div>
                     </div>
-                }
-                {this.state.activeView === "top" &&
-                    <TopView
-                        currentAsset={this.props.currentAsset}
-                        setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}
-                        handleIconImport={() => this.handleIconImport()}></TopView>
-                }
-                {
-                    this.state.activeView === "abilities" &&
-                    <AbilitiesView
-                        currentAsset={this.props.currentAsset}
-                        setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}></AbilitiesView>
                 }
                 {this.state.activeView === "export" &&
                     <div className=" export vertical">

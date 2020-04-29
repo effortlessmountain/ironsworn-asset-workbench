@@ -139,6 +139,11 @@ input, textarea {
     flex-direction: column;
 }
 
+.view-switcher {
+    display: flex;
+    justify-content: space-between;
+}
+
 .change-view {
     width: 100px;
 }
