@@ -1,4 +1,4 @@
-import React, { Ref } from 'react'
+import React from 'react'
 import { LabeledTextInput, LabeledTextAreaInput } from './LabeledTextInput'
 import { AssetDocument, transformSvgString } from '../models/models'
 
@@ -14,7 +14,7 @@ class TopView extends React.Component<TopViewProps> {
     render() {
         return (
             <div className="editor-view misc-editor-view">
-                <div className="box-border vertical">
+                <div className="vertical">
                     <LabeledTextInput
                         label="Asset Name"
                         value={this.props.currentAsset.name}
@@ -44,7 +44,7 @@ class TopView extends React.Component<TopViewProps> {
                             this.props.setCurrentAsset(this.props.currentAsset)
                         }}></LabeledTextAreaInput>
                 </div>
-                <div className="icon-import box-border">
+                <div className="icon-import thin-box-border">
                     <div>
                         <label htmlFor="icon-fileselect">Icon to import: </label>
                         <input type="file" id="icon-fileselect" />
@@ -171,9 +171,9 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                 <ViewSwitcher activeView={this.state.activeView} switchView={(view) => this.switchView(view)}></ViewSwitcher>
                 {this.state.activeView === "JSON" &&
                     <div className="editor-view">
-                        <div className="box-border">
+                        <div>
                             <textarea
-                                className="interface-input box-border"
+                                className="interface-input thin-box-border"
                                 spellCheck="false"
                                 value={this.state.editorJSON || asJSON(this.props.currentAsset)}
                                 onChange={(e) => this.handleJSONChange(e.currentTarget.value)}

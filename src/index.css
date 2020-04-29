@@ -6,10 +6,11 @@
     --asset-width    : 750px;
     --asset-height   : 1050px;
     --asset-font-size: 2.2em;
+    --font           : 'PT Serif';
 }
 
 body {
-    font-family: 'PT Serif';
+    font-family: var(--font);
 }
 
 .preview-download {
@@ -111,19 +112,22 @@ button.selected {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* align-items: center; */
+    margin-bottom: 10px;
 }
 
+
+input, textarea {
+    font-family: var(--font);
+    font-size: 16px;
+}
+
+.text-input input,
+.text-input textarea {
+    margin-left: 5px;
+}
 
 .text-input input {
     width: 200px;
-}
-
-.box-border {
-    border: 2px solid var(--gray);
-    border-radius: 5px;
-    margin: 5px;
-    padding: 5px;
 }
 
 .thin-box-border {

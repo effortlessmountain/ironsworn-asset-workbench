@@ -8,7 +8,7 @@ export function LabeledTextInput(props: {
     return (
         <div className="text-input">
             <label>{props.label}</label>
-            <input type="text" value={props.value} onChange={props.handleChange} className="thin-box-border"></input>
+            <input type="text" value={props.value} onChange={props.handleChange}></input>
         </div>
     );
 }
@@ -21,7 +21,7 @@ export function LabeledTextAreaInput(props: {
     return (
         <div className="text-input">
             <label>{props.label}</label>
-            <textarea value={props.value} onChange={props.handleChange} className="thin-box-border"></textarea>
+            <textarea value={props.value} onChange={props.handleChange}></textarea>
         </div>
     );
 }
