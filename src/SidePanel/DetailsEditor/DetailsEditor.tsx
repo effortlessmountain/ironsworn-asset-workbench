@@ -1,7 +1,8 @@
 import React from 'react'
-import { AssetDocument, transformSvgString } from '../models/models'
-import { AbilitiesView } from './AbilitiesView'
-import { TopView } from './TopViewProps'
+import { AssetDocument, transformSvgString } from '../../models/models'
+import { AbilitiesView } from './views/AbilitiesView'
+import { TopView } from './views/TopView'
+import TrackView from './views/TrackView'
 
 type EditorView = "JSON" | "top" | "abilities" | "track" | "fonts" | "export"
 
@@ -129,7 +130,9 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                 }
                 {
                     this.state.activeView === "track" &&
-                    <div>track</div>
+                    <TrackView
+                        currentAsset={this.props.currentAsset}
+                        setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}></TrackView>
                 }
                 {
                     this.state.activeView === "fonts" &&

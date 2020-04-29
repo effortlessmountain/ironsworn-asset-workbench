@@ -1,7 +1,7 @@
 import { AssetDocument } from '../models/models'
 import React from 'react'
 import { ironclad, lightbearer, caveLion } from '../exampleAssets'
-import DetailsEditor from './DetailsEditor'
+import DetailsEditor from './DetailsEditor/DetailsEditor'
 
 function Examples(props: { setCurrentAsset: (asset) => void }) {
     return (
