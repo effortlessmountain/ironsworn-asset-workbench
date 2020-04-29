@@ -33,9 +33,10 @@ body {
     color             : var(--darkest);
     /* height         : 80vh; */
     display           : flex;
-    align-items       : center;
+    /* align-items       : center; */
     flex-direction    : column;
     justify-content   : space-around;
+    width: 720px;
 }
 
 button,
@@ -53,10 +54,20 @@ select {
     text-transform: uppercase;
 }
 
+label {
+    margin-left: 5px;
+}
+
 button:hover,
 button.selected {
     color           : white;
     background-color: var(--gray);
+}
+
+.example-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .interface-input {
@@ -66,6 +77,21 @@ button.selected {
     min-width : 400px;
 }
 
+.json-error-container {
+    height: 100px;
+}
+
+.json-error {
+    height: 100%;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.json-error button {
+    width: 400px;
+}
+
 .editor {
     display       : flex;
     flex-direction: column;
@@ -73,6 +99,7 @@ button.selected {
     box-sizing    : border-box;
     padding       : 20px;
     width         : 100%;
+    min-height: 300px;
 }
 
 .editor-view {
@@ -80,8 +107,27 @@ button.selected {
     flex-direction: column;
 }
 
+.text-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+
+.text-input input {
+    width: 200px;
+}
+
 .box-border {
     border: 2px solid var(--gray);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.thin-box-border {
+    border: 1px solid var(--gray);
     border-radius: 5px;
     margin: 5px;
     padding: 5px;
@@ -108,6 +154,12 @@ button.selected {
     display        : flex;
     align-items    : center;
     justify-content: space-between;
+}
+
+.export {
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .scale-buttons {

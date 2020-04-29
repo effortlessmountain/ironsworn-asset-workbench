@@ -1,10 +1,10 @@
 import React from "react";
-import { Editor } from "./Editor/Editor";
+import { SidePanel } from "./SidePanel/SidePanel";
 import { AssetDocument, transformToLatest } from "./models/models";
 import { caveLion } from "./exampleAssets";
 import { calculateScale } from "./assetScaling";
 import { Asset } from "./Asset/Asset";
-import Download from "./Editor/Download"
+import Download from "./SidePanel/Download"
 
 
 type Screen = "main" | "help" | "preview-download"
@@ -93,7 +93,7 @@ export default class App extends React.Component<{}, AppState> {
                                 scale={this.state.assetScale}
                             ></Asset>
                         </div>
-                        <Editor
+                        <SidePanel
                             currentAsset={this.state.currentAsset}
                             setCurrentAsset={(asset) => this.setCurrentAsset(asset)}
                             assetScale={this.state.assetScale}
@@ -101,7 +101,7 @@ export default class App extends React.Component<{}, AppState> {
                             showScreen={(screen) => this.showScreen(screen)}
                             previewAssetImage={() => this.previewAssetImage()}
                             downloadAssetImage={() => this.downloadAssetImage()}
-                        ></Editor>
+                        ></SidePanel>
                     </div>}
             </div>)
     }
