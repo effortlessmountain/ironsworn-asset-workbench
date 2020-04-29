@@ -48,7 +48,6 @@ select {
     border        : 0;
     padding       : 5px;
     margin        : 5px;
-    border-radius : 5px;
     background    : white;
     border        : 2px solid var(--gray);
     font-weight   : bold;
@@ -101,6 +100,8 @@ button.selected {
     padding       : 20px;
     width         : 100%;
     min-height: 300px;
+    background-color: #f9f9f9
+
 }
 
 .editor-view {
@@ -132,7 +133,6 @@ input, textarea {
 
 .thin-box-border {
     border: 1px solid var(--gray);
-    border-radius: 5px;
     margin: 5px;
     padding: 5px;
 }
@@ -140,6 +140,16 @@ input, textarea {
 .vertical {
     display: flex;
     flex-direction: column;
+}
+
+.ability-input {
+    margin-bottom: 20px;
+}
+
+.ability-input-top-fields,
+.ability-input-top-fields .text-input{
+    display: flex;
+    flex-direction: row;
 }
 
 .icon-import {

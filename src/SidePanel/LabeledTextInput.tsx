@@ -25,3 +25,16 @@ export function LabeledTextAreaInput(props: {
         </div>
     );
 }
+
+export function LabeledCheckBox(props: {
+    label: string,
+    value: boolean,
+    handleChange(e): void
+}) {
+    return (
+        <div className="checkbox-input">
+            <label>{props.label}</label>
+            <input type="checkbox" checked={props.value} onChange={props.handleChange}></input>
+        </div>
+    )
+}

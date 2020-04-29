@@ -1,6 +1,6 @@
 import React from 'react'
-import { LabeledTextInput, LabeledTextAreaInput } from './LabeledTextInput'
-import { AssetDocument, transformSvgString } from '../models/models'
+import { LabeledTextInput, LabeledTextAreaInput, LabeledCheckBox } from './LabeledTextInput'
+import { AssetDocument, transformSvgString, Ability } from '../models/models'
 
 
 type TopViewProps = {
@@ -50,10 +50,58 @@ class TopView extends React.Component<TopViewProps> {
                         <input type="file" id="icon-fileselect" />
                         <div>
                             <label htmlFor="icon-author">Icon Author: </label>
-                            <input type="text" id="icon-author" className="thin-box-border" />
+                            <input type="text" id="icon-author" />
                         </div>
                         <button id="icon-import-button" onClick={() => this.props.handleIconImport()} > Import </button>
                     </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+
+
+function AbilityInput(props: {
+    ability: Ability
+    updateAbility(value): void
+}) {
+    return (
+        <div className="ability-input thin-box-border">
+            <div className="ability-input-top-fields">
+                <LabeledTextInput label="Name (optional)" value={props.ability.name || ""} handleChange={(e) => {
+                    props.ability.name = e.currentTarget.value
+                    props.updateAbility(props.ability)
+                }}></LabeledTextInput>
+                <LabeledCheckBox label="Filled" value={props.ability.filled || false} handleChange={(e) => {
+                    props.ability.filled = !props.ability.filled
+                    props.updateAbility(props.ability)
+                }}></LabeledCheckBox>
+            </div>
+            <LabeledTextAreaInput label="Text" value={props.ability.text || ""} handleChange={(e) => {
+                props.ability.text = e.currentTarget.value
+                props.updateAbility(props.ability)
+            }}></LabeledTextAreaInput>
+        </div>
+    )
+}
+
+type AbilitiesViewProps = {
+    currentAsset: AssetDocument,
+    setCurrentAsset(asset): void
+}
+
+class AbilitiesView extends React.Component<AbilitiesViewProps> {
+    render() {
+        return (
+            <div className="editor-view">
+                <div className="vertical">
+                    {this.props.currentAsset.abilities.map((ability, index) => {
+                        return <AbilityInput key={index} ability={ability} updateAbility={(changed) => {
+                            this.props.currentAsset.abilities[index] = changed
+                            this.props.setCurrentAsset(this.props.currentAsset)
+                        }}></AbilityInput>
+                    })}
                 </div>
             </div>
         )
@@ -80,6 +128,7 @@ function ViewSwitcher(props: {
         <div className="view-switcher">
             <ViewSwitchButton view="JSON" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>JSON</ViewSwitchButton>
             <ViewSwitchButton view="top" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>TOP</ViewSwitchButton>
+            <ViewSwitchButton view="abilities" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>Abilities</ViewSwitchButton>
             <ViewSwitchButton view="export" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>export</ViewSwitchButton>
         </div>
     )
@@ -195,6 +244,12 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                         currentAsset={this.props.currentAsset}
                         setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}
                         handleIconImport={() => this.handleIconImport()}></TopView>
+                }
+                {
+                    this.state.activeView === "abilities" &&
+                    <AbilitiesView
+                        currentAsset={this.props.currentAsset}
+                        setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}></AbilitiesView>
                 }
                 {this.state.activeView === "export" &&
                     <div className=" export vertical">

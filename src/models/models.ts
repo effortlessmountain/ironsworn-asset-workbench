@@ -19,6 +19,12 @@ export type SvgIcon = {
     svg: SvgProperties
 }
 
+export type Ability = {
+    filled: boolean,
+    name?: string,
+    text: string
+}
+
 export type AssetDocumentV1 = {
     documentFormatVersion?: number,
     fonts?: {
@@ -58,7 +64,7 @@ export interface AssetDocument {
     writeIn?: string,
     track?: number | string[],
     description: string,
-    abilities: Array<{ filled: boolean, name?: string, text: string }>,
+    abilities: Array<Ability>,
     icon?: string | SvgIcon
 }
 
