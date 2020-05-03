@@ -1,6 +1,6 @@
 import React from 'react';
 import { LabeledTextInput, LabeledTextAreaInput } from '../../LabeledTextInput';
-import { AssetDocument } from '../../../models/models';
+import { AssetDocument, SvgIcon } from '../../../models/models';
 
 type TopViewProps = {
     currentAsset: AssetDocument;
@@ -30,15 +30,27 @@ export class TopView extends React.Component<TopViewProps> {
                 }}></LabeledTextAreaInput>
             </div>
             <div className="icon-import">
-                <div>
-                    <p className="icon-import-helptext">Import an icon in SVG format here with a transparent background. Click the "How do I...?" button for instructions on getting an icon from Game-Icons.net.</p>
+                <div className="icon-import-helptext">
+                    <p>SVG icons are supported. Use a transparent background for best results.</p>
+                    <ol>
+                        <li>Head over to <a href="https://game-icons.net/">GameIcons.net</a>, a wonderful resource of Creative Commons-licensed icons.</li>
+                        <li>On the left hand side, with "Studio" set to background, set "Type" to "none" (for a transparent
+                background).</li>
+                        <li>Download the icon.</li>
+                        <li>Click "browse..." under "Icon to import" below here and select the just-downloaded icon.</li>
+                        <li>Fill in the artist's name and click "IMPORT".</li>
+                    </ol>
+                </div>
+
+                <div className="icon-import-controls">
                     <div className="icon-import-fileselect">
                         <label htmlFor="icon-fileselect">Icon to import</label>
                         <input type="file" id="icon-fileselect" />
                     </div>
                     <div className="icon-import-author">
                         <label htmlFor="icon-author">Icon Artist</label>
-                        <input type="text" id="icon-author" />
+                        <input type="text" id="icon-author" defaultValue={(this.props.currentAsset.icon || {})['author'] || ""} />
+                        {/* todo: standardize icon schema across types */}
                     </div>
                     <button id="icon-import-button" onClick={() => this.props.handleIconImport()}> Import </button>
                 </div>

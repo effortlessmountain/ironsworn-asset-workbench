@@ -7,7 +7,7 @@ import { Asset } from "./Asset/Asset";
 import Download from "./SidePanel/Download"
 
 
-type Screen = "main" | "help" | "preview-download"
+type Screen = "main" | "preview-download"
 
 type AppState = {
     currentAsset: AssetDocument,
@@ -61,29 +61,6 @@ export default class App extends React.Component<{}, AppState> {
                         goBackToMain={() => this.showScreen("main")}
                         preview={this.state.previewDownload}></Download>
                 }
-
-                {this.state.currentScreen === "help" &&
-                    <div className="help">
-                        <div className="help-content">
-                            <h1>Help</h1>
-                            <h3>What fonts can I use?</h3>
-                            <p>The fonts from <a href="https://fonts.google.com/">Google Fonts</a> are supported. Put in the name of the font into the corresponding property and you're all set!</p>
-                            <h3>How do I add an icon to my asset?</h3>
-                            <p>If you want a unicode character, just set the value of the 'icon' attribute to that character in quotes:</p>
-                            <pre>"icon": "▿"</pre>
-                            <p>If you want a fancier icon, the Asset Workbench supports importing SVG icons with no background.</p>
-                            <ol>
-                                <li>Head over to <a href="https://game-icons.net/">GameIcons.net</a>, a wonderful resource of Creative Commons-licensed icons</li>
-                                <li>On the left hand side, with "Studio" set to background, set "Type" to "none" (for a transparent
-                        background)</li>
-                                <li>Download the icon.</li>
-                                <li>Click "browse..." next to "Icon to import:" in the Asset Workbench and select the icon you just
-                            downloaded.</li>
-                                <li>Fill in the artist's name and click "IMPORT".</li>
-                            </ol>
-                            <button id="close-help" onClick={() => this.showScreen("main")}>Close</button>
-                        </div>
-                    </div>}
 
                 {this.state.currentScreen === "main" &&
                     <div className="container">

@@ -42,9 +42,6 @@ export class SidePanel extends React.Component<SidePanelProps> {
                         <option value="full">750px by 1050px</option>
                     </select>
                 </div>
-                <div>
-                    <button id="show-help" onClick={() => this.props.showScreen('help')}>How do I...?</button>
-                </div>
             </div>
 
             <Examples setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}></Examples>

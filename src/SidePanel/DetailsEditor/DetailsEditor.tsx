@@ -54,7 +54,7 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
         super(props)
         this.state = {
             editorJSON: "",
-            activeView: "JSON",
+            activeView: "top",
             errorText: ""
         }
     }
@@ -122,22 +122,26 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                         setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}
                         handleIconImport={() => this.handleIconImport()}></TopView>
                 }
-                {
-                    this.state.activeView === "abilities" &&
+
+                {this.state.activeView === "abilities" &&
                     <AbilitiesView
                         currentAsset={this.props.currentAsset}
                         setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}></AbilitiesView>
                 }
-                {
-                    this.state.activeView === "track" &&
+
+                {this.state.activeView === "track" &&
                     <TrackView
                         currentAsset={this.props.currentAsset}
                         setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}></TrackView>
                 }
-                {
-                    this.state.activeView === "fonts" &&
-                    <div>fonts</div>
+
+                {this.state.activeView === "fonts" &&
+                    <div className="editor-view">
+                        <h3>What fonts can I use?</h3>
+                        <p>The fonts from <a href="https://fonts.google.com/">Google Fonts</a> are supported. Put in the name of the font into the corresponding box here and you're all set!</p>
+                    </div>
                 }
+
                 {this.state.activeView === "JSON" &&
                     <div className="editor-view">
                         <div>
@@ -159,6 +163,7 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                         </div>
                     </div>
                 }
+
                 {this.state.activeView === "export" &&
                     <div className=" export vertical">
                         <p>Use the buttons below to get your asset in PNG format. Preview will show you the generated image in the browser, while Download will bring up your browser's save dialog.</p>
@@ -166,7 +171,6 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                         <button id="download" onClick={() => this.props.downloadAssetImage()}> download as image </button>
                     </div>
                 }
-
             </div>
         )
     }
