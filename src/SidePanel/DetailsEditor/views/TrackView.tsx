@@ -10,7 +10,7 @@ type TrackViewProps = {
 export default class TrackView extends React.Component<TrackViewProps> {
     handleTrackTypeChange(e) {
         if (e.currentTarget.value === "none") {
-            this.props.currentAsset.track = 0
+            this.props.currentAsset.track = null
             this.props.setCurrentAsset(this.props.currentAsset)
         } else if (e.currentTarget.value === "numerical") {
             this.props.currentAsset.track = 5
@@ -33,7 +33,7 @@ export default class TrackView extends React.Component<TrackViewProps> {
             <div>
                 <input type="radio"
                     value="none"
-                    checked={this.props.currentAsset.track === 0}
+                    checked={this.props.currentAsset.track == null}
                     onChange={(e) => this.handleTrackTypeChange(e)} />
                 <label>No track</label>
             </div>
@@ -41,7 +41,7 @@ export default class TrackView extends React.Component<TrackViewProps> {
                 <input
                     type="radio"
                     value="numerical"
-                    checked={(typeof (this.props.currentAsset.track) === "number") && this.props.currentAsset.track > 0}
+                    checked={(typeof (this.props.currentAsset.track) === "number")}
                     onChange={(e) => this.handleTrackTypeChange(e)} />
                 <label>Numerical</label>
             </div>
@@ -54,7 +54,7 @@ export default class TrackView extends React.Component<TrackViewProps> {
                 <label>Text Values</label>
             </div>
 
-            {(typeof (this.props.currentAsset.track) === "number" && this.props.currentAsset.track > 0) &&
+            {(typeof (this.props.currentAsset.track) === "number") &&
                 <div>
                     <label>Number of Values</label>
                     <input type="number" value={this.props.currentAsset.track} onChange={(e) => this.handleNumericalTrackChange(e)} />
