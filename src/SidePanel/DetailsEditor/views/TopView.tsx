@@ -1,6 +1,6 @@
 import React from 'react';
 import { LabeledTextInput, LabeledTextAreaInput } from '../../LabeledTextInput';
-import { AssetDocument, SvgIcon } from '../../../models/models';
+import { AssetDocument } from '../../../models/models';
 
 type TopViewProps = {
     currentAsset: AssetDocument;
@@ -33,7 +33,7 @@ export class TopView extends React.Component<TopViewProps> {
                 <div className="icon-import-helptext">
                     <p>SVG icons are supported. Use a transparent background for best results.</p>
                     <ol>
-                        <li>Head over to <a href="https://game-icons.net/">GameIcons.net</a>, a wonderful resource of Creative Commons-licensed icons.</li>
+                        <li>Head over to <a href="https://game-icons.net/" target="_blank" rel="noreferrer">GameIcons.net</a>, a wonderful resource of Creative Commons-licensed icons.</li>
                         <li>On the left hand side, with "Studio" set to background, set "Type" to "none" (for a transparent
                 background).</li>
                         <li>Download the icon.</li>

@@ -6,7 +6,7 @@ export const createGoogleFontString = (...fonts) => {
     return urlifiedFonts ? `https://fonts.googleapis.com/css?family=${urlifiedFonts}&display=swap` : "";
 };
 
-const defaultFontConfig = {
+export const defaultFontConfig = {
     assetTypeFontSize: "1.03em",
     assetTypeFont: "Simonetta",
     assetNameFontSize: "1.26em",

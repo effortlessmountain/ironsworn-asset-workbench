@@ -3,6 +3,7 @@ import { AssetDocument, transformSvgString } from '../../models/models'
 import { AbilitiesView } from './views/AbilitiesView'
 import { TopView } from './views/TopView'
 import TrackView from './views/TrackView'
+import FontsView from './views/FontsView'
 
 type EditorView = "JSON" | "top" | "abilities" | "track" | "fonts" | "export"
 
@@ -136,10 +137,10 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                 }
 
                 {this.state.activeView === "fonts" &&
-                    <div className="editor-view">
-                        <h3>What fonts can I use?</h3>
-                        <p>The fonts from <a href="https://fonts.google.com/">Google Fonts</a> are supported. Put in the name of the font into the corresponding box here and you're all set!</p>
-                    </div>
+                    <FontsView
+                        currentAsset={this.props.currentAsset}
+                        setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}></FontsView>
+
                 }
 
                 {this.state.activeView === "JSON" &&

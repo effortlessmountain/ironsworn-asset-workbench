@@ -106,7 +106,7 @@ button.selected {
     flex-direction: column;
 }
 
-.text-input {
+.text-input, .number-input {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,12 +120,21 @@ input, textarea {
 }
 
 .text-input input,
+.number-input input,
 .text-input textarea {
     margin-left: 5px;
 }
 
 .text-input input {
     width: 200px;
+}
+
+.number-input input {
+    width: 100px;
+}
+
+.font-inputs {
+    display: flex;
 }
 
 .thin-box-border {

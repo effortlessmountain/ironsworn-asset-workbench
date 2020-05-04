@@ -39,8 +39,6 @@ export default class Download extends React.Component<DownloadProps, DownloadSta
                 {
                     allowTaint: true
                 }).then(canvas => {
-                    console.log("canvas, yo", canvas)
-
                     this.setState({ canvas: canvas })
                 })
         }

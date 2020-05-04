@@ -1,7 +1,7 @@
 import React from 'react'
 import { cloneDeep } from 'lodash'
 import { AssetDocument } from '../../../models/models'
-import { LabeledTextInput, LabeledTextAreaInput } from '../../LabeledTextInput'
+import { LabeledTextAreaInput } from '../../LabeledTextInput'
 
 type TrackViewProps = {
     currentAsset: AssetDocument, //todo: not require passing in the entire asset to every view
