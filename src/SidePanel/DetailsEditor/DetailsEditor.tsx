@@ -166,10 +166,12 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                 }
 
                 {this.state.activeView === "export" &&
-                    <div className=" export vertical">
-                        <p>Use the buttons below to get your asset in PNG format. Preview will show you the generated image in the browser, while Download will bring up your browser's save dialog.</p>
-                        <button id="preview-download" onClick={() => this.props.previewAssetImage()}> preview as image </button>
-                        <button id="download" onClick={() => this.props.downloadAssetImage()}> download as image </button>
+                    <div className="editor-view">
+                        <div className=" export vertical">
+                            <p>Use the buttons below to get your asset in PNG format. Preview will show you the generated image in the browser, while Download will bring up your browser's save dialog.</p>
+                            <button id="preview-download" onClick={() => this.props.previewAssetImage()}> preview as image </button>
+                            <button id="download" onClick={() => this.props.downloadAssetImage()}> download as image </button>
+                        </div>
                     </div>
                 }
             </div>
