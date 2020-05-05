@@ -1,17 +1,19 @@
 import React from "react";
 import { SidePanel } from "./SidePanel/SidePanel";
-import { AssetDocument, transformToLatest } from "./models/models";
+import { AssetDocument, transformToLatest, UnspecifiedAssetDocument } from "./models/models";
 import { caveLion } from "./exampleAssets";
-import { calculateScale } from "./assetScaling";
+import { calculateScale, AssetScale } from "./assetScaling";
 import { Asset } from "./Asset/Asset";
 import Download from "./SidePanel/Download"
+import AssetSelection from './AssetSelection'
 
 
-type Screen = "main" | "preview-download"
+
+type Screen = "choose" | "edit" | "preview-download"
 
 type AppState = {
     currentAsset: AssetDocument,
-    assetScale: string,
+    assetScale: AssetScale,
     currentScreen: Screen
     previewDownload: boolean
 }
@@ -19,13 +21,35 @@ type AppState = {
 export default class App extends React.Component<{}, AppState> {
     constructor(props) {
         super(props)
-        let startingAsset = transformToLatest(caveLion as AssetDocument) //This is where I learn the tragic extent of the failings of TypeScript's type inference.
+        let startingAsset = transformToLatest(caveLion as UnspecifiedAssetDocument) //This is where I learn the tragic extent of the failings of TypeScript's type inference.
         let startingScale = calculateScale()
         this.state = {
             currentAsset: startingAsset,
             assetScale: startingScale,
-            currentScreen: "main",
+            currentScreen: "choose",
             previewDownload: true
+        }
+    }
+
+    getLocalAsset(): UnspecifiedAssetDocument {
+        const maybeAsset = window.localStorage.getItem("currentAsset")
+        if (maybeAsset) {
+            try {
+                return JSON.parse(maybeAsset)
+            } catch (error) {
+                window.alert("Error parsing local asset: " + error.toString())
+            }
+        }
+        return {
+            documentFormatVersion: 2,
+            abilities: [],
+            description: "",
+            name: "Your Asset",
+            type: "",
+            fonts: {},
+            icon: "",
+            track: null,
+            writeIn: ""
         }
     }
 
@@ -36,6 +60,14 @@ export default class App extends React.Component<{}, AppState> {
     setCurrentAsset(asset) {
         this.setState({
             currentAsset: transformToLatest(asset)
+        })
+        window.localStorage.setItem("currentAsset", JSON.stringify(asset))
+    }
+
+    chooseAsset(asset) {
+        this.setState({
+            currentAsset: transformToLatest(asset),
+            currentScreen: "edit"
         })
     }
 
@@ -54,15 +86,24 @@ export default class App extends React.Component<{}, AppState> {
     render() {
         return (
             <div className="app">
+                <header className="app-header">
+                    <h2> Ironsworn Asset Workbench v0.8.0</h2>
+                </header>
                 {this.state.currentScreen === "preview-download" &&
                     <Download
                         asset={this.state.currentAsset}
                         scale={this.state.assetScale}
-                        goBackToMain={() => this.showScreen("main")}
+                        goBackToMain={() => this.showScreen("edit")}
                         preview={this.state.previewDownload}></Download>
                 }
 
-                {this.state.currentScreen === "main" &&
+                {this.state.currentScreen === "choose" &&
+                    <AssetSelection
+                        chooseAsset={(asset) => this.chooseAsset(asset)}
+                        localAsset={this.getLocalAsset()}></AssetSelection>
+                }
+
+                {this.state.currentScreen === "edit" &&
                     <div className="container">
                         <div className="assets">
                             <Asset

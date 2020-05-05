@@ -2,10 +2,11 @@ import React from 'react'
 import { AssetDocument } from '../models/models'
 import { Asset } from '../Asset/Asset'
 import html2canvas from 'html2canvas'
+import { AssetScale } from '../assetScaling'
 
 type DownloadProps = {
     asset: AssetDocument,
-    scale: string,
+    scale: AssetScale,
     goBackToMain: () => void,
     preview: boolean
 }

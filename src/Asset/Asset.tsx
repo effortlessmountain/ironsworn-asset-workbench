@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { scaleRatio } from '../assetScaling'
+import { scaleRatio, AssetScale } from '../assetScaling'
 import { FontConfig, makeMergedConfig, createGoogleFontString } from '../models/assetStyles'
 
 
@@ -150,7 +150,7 @@ interface Asset {
 
 interface AssetProps {
     asset: Asset,
-    scale: string
+    scale: AssetScale
 }
 
 export const Asset = (props: AssetProps) => {

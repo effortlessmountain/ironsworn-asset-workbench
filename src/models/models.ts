@@ -68,7 +68,7 @@ export interface AssetDocument {
     icon?: string | SvgIcon
 }
 
-type UnspecifiedAssetDocument = AssetDocumentV1 | AssetDocument
+export type UnspecifiedAssetDocument = AssetDocumentV1 | AssetDocument
 
 const extractPropertyValue = (key, svgString) => {
     const regexp = new RegExp(`${key}=(?:"|')(.*?)(?:"|')`)

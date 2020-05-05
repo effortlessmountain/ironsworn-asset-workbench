@@ -1,18 +1,7 @@
 import { AssetDocument } from '../models/models'
 import React from 'react'
-import { ironclad, lightbearer, caveLion } from '../exampleAssets'
 import DetailsEditor from './DetailsEditor/DetailsEditor'
 
-function Examples(props: { setCurrentAsset: (asset) => void }) {
-    return (
-        <div className="example-controls">
-            <label>Load Example: </label>
-            <button className="show-example" onClick={() => props.setCurrentAsset(lightbearer)}>Lightbearer</button>
-            <button className="show-example" onClick={() => props.setCurrentAsset(ironclad)}>Ironclad</button>
-            <button className="show-example" onClick={() => props.setCurrentAsset(caveLion)}>Cave Lion</button>
-        </div>
-    )
-}
 
 type SidePanelProps = {
     currentAsset: AssetDocument,
@@ -26,7 +15,6 @@ type SidePanelProps = {
 
 export function SidePanel(props: SidePanelProps) {
     return (<div className="interface">
-        <h2>Ironsworn Asset Workbench v0.8.0</h2>
         <div className="top-row-controls">
             <div>
                 <label>Scale (also affects Download size)</label>
@@ -41,9 +29,8 @@ export function SidePanel(props: SidePanelProps) {
                     <option value="full">750px by 1050px</option>
                 </select>
             </div>
+            <button onClick={() => props.showScreen("choose")}>Back</button>
         </div>
-
-        <Examples setCurrentAsset={props.setCurrentAsset}></Examples>
 
         <DetailsEditor
             currentAsset={props.currentAsset}

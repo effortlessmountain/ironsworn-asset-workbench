@@ -33,7 +33,7 @@ export class TopView extends React.Component<TopViewProps> {
                 <div className="icon-import-helptext">
                     <p>SVG icons are supported. Use a transparent background for best results.</p>
                     <ol>
-                        <li>Head over to <a href="https://game-icons.net/" target="_blank" rel="noreferrer">GameIcons.net</a>, a wonderful resource of Creative Commons-licensed icons.</li>
+                        <li>Head over to <a href="https://game-icons.net/" target="_blank" rel="noopener noreferrer">GameIcons.net</a>, a wonderful resource of Creative Commons-licensed icons.</li>
                         <li>On the left hand side, with "Studio" set to background, set "Type" to "none" (for a transparent
                 background).</li>
                         <li>Download the icon.</li>

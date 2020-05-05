@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { LabeledTextInput } from '../../LabeledTextInput'
 import { AssetDocument } from '../../../models/models'
 import { makeMergedConfig, defaultFontConfig } from '../../../models/assetStyles'
-
+import { assign } from 'lodash'
 
 function numberFromEm(em) {
     return +(em.replace("em", ""))
@@ -98,8 +98,8 @@ export default function FontsView(props: {
         }}>update fonts</button>
         <button onClick={() => {
             props.currentAsset.fonts = defaultFontConfig
+            assign(fonts, defaultFontConfig)
             props.setCurrentAsset(props.currentAsset)
         }}>Reset to Default</button>
     </div>)
-
 }

@@ -5,7 +5,9 @@ export let scaleRatio = {
     "one-third": 1 / 3,
 }
 
-export function calculateScale() {
+export type AssetScale = "one-third" | "one-half" | "two-thirds" | "full"
+
+export function calculateScale(): AssetScale {
     if (window.innerHeight > 1070) {
         return "full"
     } else if (window.innerHeight > 750) {

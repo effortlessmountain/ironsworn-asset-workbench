@@ -4,10 +4,16 @@
     --darkest        : #221a0f;
     --gray           : #414042;
     --font           : 'PT Serif';
+    --off-white      : #f9f9f9;
 }
 
 body {
     font-family: var(--font);
+}
+
+.app-header {
+    display: flex;
+    justify-content: center;
 }
 
 .preview-download {
@@ -22,7 +28,7 @@ body {
 
 .container {
     display        : flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items    : flex-start;
     flex-wrap      : wrap;
 }
@@ -35,6 +41,7 @@ body {
     flex-direction    : column;
     justify-content   : space-around;
     width: 720px;
+    margin-left: 50px;
 }
 
 button,
@@ -61,10 +68,28 @@ button.selected {
     background-color: var(--gray);
 }
 
+.asset-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .example-controls {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+}
+
+.asset-choice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 10px solid #fff;
+}
+
+.asset-choice:hover {
+    border: 10px solid var(--gray);
 }
 
 .interface-input {
@@ -94,16 +119,16 @@ button.selected {
     flex-direction: column;
     border        : 5px solid var(--gray);
     box-sizing    : border-box;
-    padding       : 20px;
     width         : 100%;
     min-height: 300px;
-    background-color: #f9f9f9
+    background-color: var(--off-white)
 
 }
 
 .editor-view {
     display: flex;
     flex-direction: column;
+    padding: 20px;
 }
 
 .text-input, .number-input {
@@ -154,7 +179,16 @@ input, textarea {
 }
 
 .change-view {
-    width: 100px;
+    width: 100%;
+    margin: 0;
+    border: none;
+    background-color: var(--gray);
+    color: var(--off-white);
+}
+
+.change-view.selected, .change-view:hover {
+    background-color: var(--off-white);
+    color: var(--gray);
 }
 
 .ability-input {
