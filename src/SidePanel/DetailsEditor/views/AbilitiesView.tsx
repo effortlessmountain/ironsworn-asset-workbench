@@ -16,7 +16,7 @@ function AbilityInput(props: {
         <div className="ability-input">
             <div className="ability-input-top">
                 <div className="ability-input-top-fields">
-                    <LabeledTextInput label="Name (optional)" value={props.ability.name || ""} handleChange={(e) => {
+                    <LabeledTextInput label="Name (optional)" className="ability-name-input" value={props.ability.name || ""} handleChange={(e) => {
                         props.ability.name = e.currentTarget.value
                         props.updateAbility(props.ability)
                     }}></LabeledTextInput>
@@ -27,7 +27,7 @@ function AbilityInput(props: {
                 </div>
                 <button className="ability-button" onClick={() => props.removeAbility(props.ability)}>remove</button>
             </div>
-            <LabeledTextAreaInput label="Ability Text" value={props.ability.text || ""} handleChange={(e) => {
+            <LabeledTextAreaInput label="Ability Text" className="ability-text-input" value={props.ability.text || ""} handleChange={(e) => {
                 props.ability.text = e.currentTarget.value
                 props.updateAbility(props.ability)
             }}></LabeledTextAreaInput>

@@ -32,6 +32,7 @@ function FontInputs(props: {
     return (<div className="font-inputs">
         <LabeledTextInput
             label={props.label}
+            className="font-input"
             value={props.font}
             handleChange={props.handleFontChange}></LabeledTextInput>
         <FontSizeInput size={numberFromEm(props.size)} handleChange={props.handleSizeChange}></FontSizeInput>

@@ -62,6 +62,7 @@ export default class TrackView extends React.Component<TrackViewProps> {
 
             {Array.isArray(this.props.currentAsset.track) &&
                 <LabeledTextAreaInput label="Options (comma-delimited)"
+                    className="track-options-input"
                     value={this.props.currentAsset.track.join(',')}
                     handleChange={(e) => {
                         let values = e.currentTarget.value.split(",")//.map(option => option.trim())

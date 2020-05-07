@@ -12,19 +12,19 @@ export class TopView extends React.Component<TopViewProps> {
     render() {
         return (<div className="editor-view misc-editor-view">
             <div className="vertical">
-                <LabeledTextInput label="Asset Name" value={this.props.currentAsset.name} handleChange={(e) => {
+                <LabeledTextInput label="Asset Name" className="asset-name-input" value={this.props.currentAsset.name} handleChange={(e) => {
                     this.props.currentAsset.name = e.currentTarget.value;
                     this.props.setCurrentAsset(this.props.currentAsset);
                 }}></LabeledTextInput>
-                <LabeledTextInput label="Type" value={this.props.currentAsset.type} handleChange={(e) => {
+                <LabeledTextInput label="Type" className="asset-type-input" value={this.props.currentAsset.type} handleChange={(e) => {
                     this.props.currentAsset.type = e.currentTarget.value;
                     this.props.setCurrentAsset(this.props.currentAsset);
                 }}></LabeledTextInput>
-                <LabeledTextInput label="Write-in (optional)" value={this.props.currentAsset.writeIn || ""} handleChange={(e) => {
+                <LabeledTextInput label="Write-in (optional)" className="asset-write-in-input" value={this.props.currentAsset.writeIn || ""} handleChange={(e) => {
                     this.props.currentAsset.writeIn = e.currentTarget.value;
                     this.props.setCurrentAsset(this.props.currentAsset);
                 }}></LabeledTextInput>
-                <LabeledTextAreaInput label="Description (optional)" value={this.props.currentAsset.description} handleChange={(e) => {
+                <LabeledTextAreaInput label="Description (optional)" className="asset-description-input" value={this.props.currentAsset.description} handleChange={(e) => {
                     this.props.currentAsset.description = e.currentTarget.value;
                     this.props.setCurrentAsset(this.props.currentAsset);
                 }}></LabeledTextAreaInput>
@@ -55,6 +55,6 @@ export class TopView extends React.Component<TopViewProps> {
                     <button id="icon-import-button" onClick={() => this.props.handleIconImport()}> Import </button>
                 </div>
             </div>
-        </div>);
+        </div >);
     }
 }

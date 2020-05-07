@@ -35,7 +35,7 @@ const Ability = (props: { ability: Ability }) => {
             <i className={props.ability.filled ? "dot filled" : "dot unfilled"}></i>
             <div className="ability-description">
                 {createAbilityName(props.ability.name)}
-                <span dangerouslySetInnerHTML={{ __html: props.ability.text }}></span>
+                <span className="ability-text" dangerouslySetInnerHTML={{ __html: props.ability.text }}></span>
             </div>
         </div>)
 }
