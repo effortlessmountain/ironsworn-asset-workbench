@@ -31,12 +31,13 @@ export function LabeledTextAreaInput(props: {
 export function LabeledCheckBox(props: {
     label: string,
     value: boolean,
+    className: string,
     handleChange(e): void
 }) {
     return (
         <div className="checkbox-input">
             <label>{props.label}</label>
-            <input type="checkbox" checked={props.value} onChange={props.handleChange}></input>
+            <input type="checkbox" className={props.className} checked={props.value} onChange={props.handleChange}></input>
         </div>
     )
 }

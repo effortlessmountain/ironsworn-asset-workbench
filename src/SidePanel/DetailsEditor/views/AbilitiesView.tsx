@@ -20,12 +20,12 @@ function AbilityInput(props: {
                         props.ability.name = e.currentTarget.value
                         props.updateAbility(props.ability)
                     }}></LabeledTextInput>
-                    <LabeledCheckBox label="Filled" value={props.ability.filled || false} handleChange={(e) => {
+                    <LabeledCheckBox label="Filled" className="ability-filled-input" value={props.ability.filled || false} handleChange={(e) => {
                         props.ability.filled = !props.ability.filled
                         props.updateAbility(props.ability)
                     }}></LabeledCheckBox>
                 </div>
-                <button className="ability-button" onClick={() => props.removeAbility(props.ability)}>remove</button>
+                <button className="ability-button remove-ability" onClick={() => props.removeAbility(props.ability)}>remove</button>
             </div>
             <LabeledTextAreaInput label="Ability Text" className="ability-text-input" value={props.ability.text || ""} handleChange={(e) => {
                 props.ability.text = e.currentTarget.value
