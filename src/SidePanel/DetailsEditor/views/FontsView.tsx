@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { LabeledTextInput } from '../../LabeledTextInput'
+import { LabeledTextInput, LabeledNumberInput } from '../../LabeledInputs'
 import { AssetDocument } from '../../../models/models'
 import { makeMergedConfig, defaultFontConfig } from '../../../models/assetStyles'
 import { assign } from 'lodash'
@@ -12,18 +12,9 @@ function emFromNumber(number) {
     return number + "em"
 }
 
-function FontSizeInput(props: {
-    size: number;
-    handleChange(e)
-}) {
-    return (<div className="number-input">
-        <label>Size</label>
-        <input type="number" value={props.size} step="0.01" onChange={props.handleChange}></input>
-    </div>)
-}
-
 function FontInputs(props: {
     label: string,
+    idPrefix: string,
     font: string,
     size: string,
     handleFontChange(e),
@@ -35,7 +26,7 @@ function FontInputs(props: {
             className="font-input"
             value={props.font}
             handleChange={props.handleFontChange}></LabeledTextInput>
-        <FontSizeInput size={numberFromEm(props.size)} handleChange={props.handleSizeChange}></FontSizeInput>
+        <LabeledNumberInput label={props.label} id={props.idPrefix + "-size-input"} value={numberFromEm(props.size)} step="0.01" handleChange={props.handleSizeChange}></LabeledNumberInput>
     </div>)
 }
 
@@ -55,9 +46,9 @@ export default function FontsView(props: {
     }
 
     function handleSizeChange(setSizeProperty) {
-        return (e) => {
+        return (value: number) => {
             const newFonts = { ...fonts }
-            setSizeProperty(newFonts, emFromNumber(e.currentTarget.value))
+            setSizeProperty(newFonts, emFromNumber(value))
             updateFonts(newFonts)
             props.currentAsset.fonts = fonts
             props.setCurrentAsset(props.currentAsset)
@@ -70,24 +61,28 @@ export default function FontsView(props: {
 
         <FontInputs
             label="Asset Type font"
+            idPrefix="asset-type"
             font={fonts.assetTypeFont}
             size={fonts.assetTypeFontSize}
             handleFontChange={handleFontChange((fonts, val) => fonts.assetTypeFont = val)}
             handleSizeChange={handleSizeChange((fonts, val) => fonts.assetTypeFontSize = val)}></FontInputs>
         <FontInputs
             label="Asset Name font"
+            idPrefix="asset-name"
             font={fonts.assetNameFont}
             size={fonts.assetNameFontSize}
             handleFontChange={handleFontChange((fonts, val) => fonts.assetNameFont = val)}
             handleSizeChange={handleSizeChange((fonts, val) => fonts.assetNameFontSize = val)}></FontInputs>
         <FontInputs
             label="Details font"
+            idPrefix="details"
             font={fonts.detailsFont}
             size={fonts.detailsFontSize}
             handleFontChange={handleFontChange((fonts, val) => fonts.detailsFont = val)}
             handleSizeChange={handleSizeChange((fonts, val) => fonts.detailsFontSize = val)}></FontInputs>
         <FontInputs
             label="Track font"
+            idPrefix="track"
             font={fonts.trackFont}
             size={fonts.trackFontSize}
             handleFontChange={handleFontChange((fonts, val) => fonts.trackFont = val)}

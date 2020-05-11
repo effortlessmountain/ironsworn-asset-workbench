@@ -1,6 +1,6 @@
 import React from 'react';
 import { AssetDocument, Ability } from '../../../models/models';
-import { LabeledTextInput, LabeledCheckBox, LabeledTextAreaInput } from '../../LabeledTextInput';
+import { LabeledTextInput, LabeledCheckBox, LabeledTextAreaInput } from '../../LabeledInputs';
 
 type AbilitiesViewProps = {
     currentAsset: AssetDocument;

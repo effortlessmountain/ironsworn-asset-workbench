@@ -1,12 +1,33 @@
 import React from 'react'
 import { cloneDeep } from 'lodash'
 import { AssetDocument } from '../../../models/models'
-import { LabeledTextAreaInput } from '../../LabeledTextInput'
+import { LabeledTextAreaInput, LabeledTextInput, LabeledNumberInput } from '../../LabeledInputs'
+
+type TrackType = "none" | "numerical" | "text"
+
+function LabeledRadioInput(props: {
+    label: string,
+    checked: boolean,
+    value: TrackType,
+    onChange(e)
+}) {
+    return (<div>
+        <input
+            type="radio"
+            id={`choose-track-${props.value}`}
+            value={props.value}
+            checked={props.checked}
+            onChange={props.onChange} />
+        <label>{props.label}</label>
+    </div>);
+}
+
 
 type TrackViewProps = {
     currentAsset: AssetDocument, //todo: not require passing in the entire asset to every view
     setCurrentAsset(asset): void
 }
+
 export default class TrackView extends React.Component<TrackViewProps> {
     handleTrackTypeChange(e) {
         if (e.currentTarget.value === "none") {
@@ -21,51 +42,42 @@ export default class TrackView extends React.Component<TrackViewProps> {
         }
     }
 
-    handleNumericalTrackChange(e) {
+    handleNumericalTrackChange(value: number) {
         let clone = cloneDeep(this.props.currentAsset)
-        clone.track = +e.currentTarget.value
+        clone.track = +value
         this.props.setCurrentAsset(clone)
     }
 
     render() {
         return (<div className="editor-view">
             <label>Type of Track</label>
-            <div>
-                <input type="radio"
-                    value="none"
-                    checked={this.props.currentAsset.track == null}
-                    onChange={(e) => this.handleTrackTypeChange(e)} />
-                <label>No track</label>
-            </div>
-            <div>
-                <input
-                    type="radio"
-                    value="numerical"
-                    checked={(typeof (this.props.currentAsset.track) === "number")}
-                    onChange={(e) => this.handleTrackTypeChange(e)} />
-                <label>Numerical</label>
-            </div>
-            <div>
-                <input
-                    type="radio"
-                    value="text"
-                    checked={Array.isArray(this.props.currentAsset.track)}
-                    onChange={(e) => this.handleTrackTypeChange(e)} />
-                <label>Text Values</label>
-            </div>
+            <LabeledRadioInput label="No track"
+                checked={this.props.currentAsset.track == null}
+                onChange={(e) => this.handleTrackTypeChange(e)}
+                value="none"></LabeledRadioInput>
+            <LabeledRadioInput label="Numerical"
+                checked={(typeof (this.props.currentAsset.track) === "number")}
+                onChange={(e) => this.handleTrackTypeChange(e)}
+                value="numerical"></LabeledRadioInput>
+            <LabeledRadioInput label="Text"
+                checked={Array.isArray(this.props.currentAsset.track)}
+                onChange={(e) => this.handleTrackTypeChange(e)}
+                value="text"></LabeledRadioInput>
 
             {(typeof (this.props.currentAsset.track) === "number") &&
-                <div>
-                    <label>Number of Values</label>
-                    <input type="number" value={this.props.currentAsset.track} onChange={(e) => this.handleNumericalTrackChange(e)} />
-                </div>}
+                <LabeledNumberInput
+                    label="Number of Values"
+                    value={this.props.currentAsset.track}
+                    step="1"
+                    id="track-number-input"
+                    handleChange={(e) => this.handleNumericalTrackChange(e)}></LabeledNumberInput>}
 
             {Array.isArray(this.props.currentAsset.track) &&
                 <LabeledTextAreaInput label="Options (comma-delimited)"
                     className="track-options-input"
-                    value={this.props.currentAsset.track.join(',')}
+                    value={this.props.currentAsset.track.join(', ')}
                     handleChange={(e) => {
-                        let values = e.currentTarget.value.split(",")//.map(option => option.trim())
+                        let values = e.currentTarget.value.split(",").map((val) => val.trim())
                         this.props.currentAsset.track = values //todo: not mutate at every turn
                         this.props.setCurrentAsset(this.props.currentAsset)
                     }}></LabeledTextAreaInput>}

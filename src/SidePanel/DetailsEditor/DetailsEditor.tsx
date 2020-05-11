@@ -14,7 +14,7 @@ function ViewSwitchButton(props: {
     handleClick: (view: EditorView) => void
 }) {
     const classes = props.view === props.activeView ? "change-view selected" : "change-view"
-    return (<button className={classes} onClick={() => props.handleClick(props.view)}>{props.children}</button>)
+    return (<button id={"show-" + props.view + "-view"} className={classes} onClick={() => props.handleClick(props.view)}>{props.children}</button>)
 }
 
 function ViewSwitcher(props: {
@@ -23,7 +23,7 @@ function ViewSwitcher(props: {
 }) {
     return (
         <div className="view-switcher">
-            <ViewSwitchButton view="top" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>TOP</ViewSwitchButton>
+            <ViewSwitchButton view="top" activeView={props.activeView} handleClick={(view) => props.switchView(view)} >TOP</ViewSwitchButton>
             <ViewSwitchButton view="abilities" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>Abilities</ViewSwitchButton>
             <ViewSwitchButton view="track" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>Track</ViewSwitchButton>
             <ViewSwitchButton view="fonts" activeView={props.activeView} handleClick={(view) => props.switchView(view)}>Fonts</ViewSwitchButton>

@@ -4,10 +4,9 @@ describe("abilities", () => {
     it("can name an ability", () => {
         cy.visit("http://localhost:3000")
         cy.contains('your asset', { matchCase: false }).click()
-        cy.contains('abilities', { matchCase: false }).click()
+        cy.get('#show-abilities-view').click()
         cy.contains('Add').click()
         cy.get(".ability-name-input").type("Strong")
-
         cy.get(".ability-name").should('have.text', "Strong")
     })
     it("can put in ability text", () => {

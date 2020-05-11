@@ -41,3 +41,39 @@ export function LabeledCheckBox(props: {
         </div>
     )
 }
+
+export function LabeledNumberInput(props: {
+    label: string,
+    value: number,
+    step: string,
+    id: string,
+    handleChange(value: number)
+}) {
+
+    const MAX = 100;
+
+    //number inputs have lots of quirks. Definitely incentive to use a component library.
+    const makeHandleChange = (handleChange: (value: number) => void) => {
+        return (e) => {
+            let value = +e.currentTarget.value
+            if (value > MAX) {
+                value = MAX
+            }
+            handleChange(value)
+        }
+    }
+
+    console.log("value is ", props.value)
+
+    return (<div className="number-input">
+        <label>{props.label}</label>
+        <input type="number"
+            id={props.id}
+            // displaying a non-deletable zero that pads the left is wonky, so '' is preferable here
+            value={+props.value || ''}
+            step={props.step}
+            min="0"
+            max={MAX}
+            onChange={makeHandleChange(props.handleChange)}></input>
+    </div>);
+}
