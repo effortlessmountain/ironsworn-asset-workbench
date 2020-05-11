@@ -1,9 +1,12 @@
 /// <reference types="Cypress" />
 
 describe("the 'Top' editor screen", () => {
-    it("can set the asset name", () => {
+    it("can get to the Top editor screen", () => {
         cy.visit("http://localhost:3000")
         cy.contains('your asset', { matchCase: false }).click()
+    })
+
+    it("can set the asset name", () => {
         cy.get('.asset-name-input').clear().type('Super Strength')
         cy.get('.asset-name').should('have.text', 'Super Strength')
     })

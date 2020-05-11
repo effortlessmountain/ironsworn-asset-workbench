@@ -1,10 +1,12 @@
 /// <reference types="Cypress" />
 
 describe("the Track editor screen", () => {
-    it("can select a numerical track", () => {
+    it("can get to the Track edit screen", () => {
         cy.visit("http://localhost:3000")
         cy.contains('your asset', { matchCase: false }).click()
         cy.get('#show-track-view').click()
+    })
+    it("can select a numerical track", () => {
         cy.get('.asset').children().should('not.have.class', 'track')
         cy.get('#choose-track-numerical').click()
         cy.get('.asset').children().should('have.class', 'track')
