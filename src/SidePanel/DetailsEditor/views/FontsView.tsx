@@ -50,7 +50,7 @@ export default function FontsView(props: {
             const newFonts = { ...fonts }
             setSizeProperty(newFonts, emFromNumber(value))
             updateFonts(newFonts)
-            props.currentAsset.fonts = fonts
+            props.currentAsset.fonts = newFonts
             props.setCurrentAsset(props.currentAsset)
         }
     }
