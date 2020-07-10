@@ -23,10 +23,10 @@ function FontInputs(props: {
     return (<div className="font-inputs">
         <LabeledTextInput
             label={props.label}
-            className="font-input"
+            id={`${props.idPrefix}-font-input`}
             value={props.font}
             handleChange={props.handleFontChange}></LabeledTextInput>
-        <LabeledNumberInput label={props.label} id={props.idPrefix + "-size-input"} value={numberFromEm(props.size)} step="0.01" handleChange={props.handleSizeChange}></LabeledNumberInput>
+        <LabeledNumberInput label={props.label} id={`${props.idPrefix}-size-input`} value={numberFromEm(props.size)} step="0.01" handleChange={props.handleSizeChange}></LabeledNumberInput>
     </div>)
 }
 
@@ -88,10 +88,11 @@ export default function FontsView(props: {
             handleFontChange={handleFontChange((fonts, val) => fonts.trackFont = val)}
             handleSizeChange={handleSizeChange((fonts, val) => fonts.trackFontSize = val)}></FontInputs>
 
-        <button onClick={(e) => {
-            props.currentAsset.fonts = fonts
-            props.setCurrentAsset(props.currentAsset)
-        }}>update fonts</button>
+        <button id="fonts-update-button"
+            onClick={(e) => {
+                props.currentAsset.fonts = fonts
+                props.setCurrentAsset(props.currentAsset)
+            }}>update fonts</button>
         <button onClick={() => {
             props.currentAsset.fonts = defaultFontConfig
             assign(fonts, defaultFontConfig)

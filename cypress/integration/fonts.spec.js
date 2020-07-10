@@ -34,4 +34,21 @@ describe("the Font editing screen", () => {
             })
         })
     })
+
+    describe("updating font families", () => {
+        const fonts = [
+            ["#asset-type-font-input", ".type", "Source Sans Pro", '"Source Sans Pro"'],
+            ["#asset-name-font-input", ".asset-name", "Rubik", "Rubik"],
+            ["#details-font-input", ".details", "Indie Flower", '"Indie Flower"'],
+            ["#track-font-input", ".value", "Kanit", "Kanit"]
+        ]
+
+        fonts.forEach(([input, target, inputtedFont, expectedFontFamily]) => {
+            it(`can update the font of ${target} to ${inputtedFont}`, () => {
+                cy.get(input).clear().type(inputtedFont)
+                cy.get("#fonts-update-button").click()
+                cy.get(target).should('have.css', 'font-family', expectedFontFamily)
+            })
+        })
+    })
 })

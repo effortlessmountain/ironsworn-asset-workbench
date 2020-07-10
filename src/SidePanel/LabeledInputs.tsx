@@ -3,13 +3,13 @@ import React from 'react';
 export function LabeledTextInput(props: {
     label: string,
     value: string,
-    className: string,
+    id: string,
     handleChange(e): void
 }) {
     return (
         <div className="text-input">
             <label>{props.label}</label>
-            <input type="text" className={props.className} value={props.value} onChange={props.handleChange}></input>
+            <input type="text" id={props.id} value={props.value} onChange={props.handleChange}></input>
         </div>
     );
 }

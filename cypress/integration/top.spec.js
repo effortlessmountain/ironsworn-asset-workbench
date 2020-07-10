@@ -7,22 +7,22 @@ describe("the 'Top' editor screen", () => {
     })
 
     it("can set the asset name", () => {
-        cy.get('.asset-name-input').clear().type('Super Strength')
+        cy.get('#asset-name-input').clear().type('Super Strength')
         cy.get('.asset-name').should('have.text', 'Super Strength')
     })
 
     it("can set the asset type", () => {
-        cy.get('.asset-type-input').type('path')
+        cy.get('#asset-type-input').type('path')
         cy.get('.type').should('have.text', 'path')
     })
 
     it("can set a write-in", () => {
-        cy.get('.asset-write-in-input').type('Name')
+        cy.get('#asset-write-in-input').type('Name')
         cy.get('.write-in').should('have.text', 'Name')
     })
 
     it("can totally remove a write-in", () => {
-        cy.get('.asset-write-in-input').clear()
+        cy.get('#asset-write-in-input').clear()
         cy.get('.details').children().should('not.have.class', 'write-in')
     })
 

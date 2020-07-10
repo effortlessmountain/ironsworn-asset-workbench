@@ -9,7 +9,7 @@ describe("abilities", () => {
 
     it("can name an ability", () => {
         cy.contains('Add').click()
-        cy.get(".ability-name-input").type("Strong")
+        cy.get("#ability-name-input").type("Strong")
         cy.get(".ability-name").should('have.text', "Strong")
     })
 
