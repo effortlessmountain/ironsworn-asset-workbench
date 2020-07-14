@@ -2,7 +2,7 @@ import { AssetDocumentV1, AssetDocument, SvgIcon, SvgIconV1 } from './assetModel
 import { transformToLatest } from "./assetTransformation"
 
 
-const createV1Asset: () => AssetDocumentV1 = () => {
+export const createV1Asset: () => AssetDocumentV1 = () => {
     return {
         fonts: {
             assetTypeFontSize: "1.03em",
@@ -147,7 +147,7 @@ describe("transforming from schema v1 to v2", () => {
 
             const result = transformToLatest(asset)
 
-            expect(result.icon).toBeUndefined
+            expect(result.icon).toBeUndefined()
         })
 
         describe("mapping SVGs", () => {
