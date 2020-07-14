@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { LabeledTextInput, LabeledNumberInput } from '../../LabeledInputs'
 import { AssetDocument } from '../../../models/assetModels'
-import { makeMergedConfig, defaultFontConfig } from '../../../models/assetStyles'
+import { makeMergedConfig, defaultFontConfig } from '../../../models/assetStyleModels'
 import { assign } from 'lodash'
 
 function numberFromEm(em) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { scaleRatio, AssetScale } from '../assetScaling'
-import { FontConfig, makeMergedConfig, createGoogleFontString } from '../models/assetStyles'
+import { FontConfig, makeMergedConfig, createGoogleFontString } from '../models/assetStyleModels'
 
 
 const WriteIn = (props: { writeIn?: string }) => {
