@@ -92,6 +92,19 @@ button.selected {
     border: 10px solid var(--gray);
 }
 
+.add-new-asset.asset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-new-asset-text {
+    font-size: 3em;
+    width: 75%;
+    text-align: center;
+    line-height: normal;
+}
+
 .interface-input {
     height    : 90%;
     width     : 100%;

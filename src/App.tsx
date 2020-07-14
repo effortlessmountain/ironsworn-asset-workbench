@@ -1,6 +1,6 @@
 import React from "react";
 import { SidePanel } from "./SidePanel/SidePanel";
-import { AssetDocument, UnspecifiedAssetDocument } from "./models/assetModels";
+import { AssetDocument, UnspecifiedAssetDocument, createBlankAsset } from "./models/assetModels";
 import { transformToLatest } from "./models/assetTransformation";
 import { caveLion } from "./exampleAssets";
 import { calculateScale, AssetScale } from "./assetScaling";
@@ -41,17 +41,7 @@ export default class App extends React.Component<{}, AppState> {
                 window.alert("Error parsing local asset: " + error.toString())
             }
         }
-        return {
-            documentFormatVersion: 2,
-            abilities: [],
-            description: "",
-            name: "Your Asset",
-            type: "",
-            fonts: {},
-            icon: "",
-            track: null,
-            writeIn: ""
-        }
+        return createBlankAsset()
     }
 
     handleAssetScaleChange(newScale) {

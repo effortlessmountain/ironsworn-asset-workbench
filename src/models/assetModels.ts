@@ -1,3 +1,5 @@
+import { merge } from "lodash"
+
 export type SvgIconV1 = {
     type: "svg",
     author: string,
@@ -69,6 +71,20 @@ export interface AssetDocument {
 }
 
 export type UnspecifiedAssetDocument = AssetDocumentV1 | AssetDocument
+
+export function createBlankAsset(properties = {}): AssetDocument {
+    return {
+        documentFormatVersion: 2,
+        abilities: [],
+        description: "",
+        name: "Your Asset",
+        type: "",
+        fonts: {},
+        icon: "",
+        track: null,
+        writeIn: ""
+    }
+}
 
 const extractPropertyValue = (key, svgString) => {
     const regexp = new RegExp(`${key}=(?:"|')(.*?)(?:"|')`)
