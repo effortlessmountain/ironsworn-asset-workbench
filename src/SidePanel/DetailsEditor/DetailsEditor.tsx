@@ -1,5 +1,5 @@
 import React from 'react'
-import { AssetDocument, transformSvgString } from '../../models/models'
+import { AssetDocument, transformSvgString } from '../../models/assetModels'
 import { AbilitiesView } from './views/AbilitiesView'
 import { TopView } from './views/TopView'
 import TrackView from './views/TrackView'

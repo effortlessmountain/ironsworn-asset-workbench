@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { LabeledTextInput, LabeledNumberInput } from '../../LabeledInputs'
-import { AssetDocument } from '../../../models/models'
+import { AssetDocument } from '../../../models/assetModels'
 import { makeMergedConfig, defaultFontConfig } from '../../../models/assetStyles'
 import { assign } from 'lodash'
 

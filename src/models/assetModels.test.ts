@@ -1,4 +1,4 @@
-import { transformToLatest, AssetDocumentV1, AssetDocument, SvgIcon, SvgIconV1 } from './models'
+import { transformToLatest, AssetDocumentV1, AssetDocument, SvgIcon, SvgIconV1 } from './assetModels'
 
 
 const createV1Asset: () => AssetDocumentV1 = () => {

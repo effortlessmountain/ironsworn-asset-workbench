@@ -1,6 +1,6 @@
 import React from 'react'
 import { cloneDeep } from 'lodash'
-import { AssetDocument } from '../../../models/models'
+import { AssetDocument } from '../../../models/assetModels'
 import { LabeledTextAreaInput, LabeledTextInput, LabeledNumberInput } from '../../LabeledInputs'
 
 type TrackType = "none" | "numerical" | "text"

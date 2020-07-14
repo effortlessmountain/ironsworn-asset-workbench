@@ -1,5 +1,5 @@
 import React from 'react';
-import { AssetDocument, Ability } from '../../../models/models';
+import { AssetDocument, Ability } from '../../../models/assetModels';
 import { LabeledTextInput, LabeledCheckBox, LabeledTextAreaInput } from '../../LabeledInputs';
 
 type AbilitiesViewProps = {

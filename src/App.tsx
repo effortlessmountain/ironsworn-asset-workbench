@@ -1,6 +1,6 @@
 import React from "react";
 import { SidePanel } from "./SidePanel/SidePanel";
-import { AssetDocument, transformToLatest, UnspecifiedAssetDocument } from "./models/models";
+import { AssetDocument, transformToLatest, UnspecifiedAssetDocument } from "./models/assetModels";
 import { caveLion } from "./exampleAssets";
 import { calculateScale, AssetScale } from "./assetScaling";
 import { Asset } from "./Asset/Asset";

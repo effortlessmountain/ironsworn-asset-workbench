@@ -1,5 +1,5 @@
 import React from 'react'
-import { AssetDocument } from '../models/models'
+import { AssetDocument } from '../models/assetModels'
 import { Asset } from '../Asset/Asset'
 import html2canvas from 'html2canvas'
 import { AssetScale } from '../assetScaling'

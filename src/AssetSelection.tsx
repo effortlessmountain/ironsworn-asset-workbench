@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ironclad, lightbearer, caveLion } from './exampleAssets'
 import { Asset } from './Asset/Asset'
-import { transformToLatest, UnspecifiedAssetDocument } from './models/models'
+import { transformToLatest, UnspecifiedAssetDocument } from './models/assetModels'
 
 function AssetChoice(props: {
     handleClick(),
