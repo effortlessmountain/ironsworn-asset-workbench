@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=PT+Serif|Simonetta:900i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
 :root {
     --darkest        : #221a0f;
     --gray           : #414042;
-    --font           : 'PT Serif';
+    --font           : 'Lato';
     --off-white      : #f9f9f9;
 }
 
