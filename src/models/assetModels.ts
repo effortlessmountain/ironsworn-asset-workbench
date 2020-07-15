@@ -1,5 +1,3 @@
-import { merge } from "lodash"
-
 export type SvgIconV1 = {
     type: "svg",
     author: string,

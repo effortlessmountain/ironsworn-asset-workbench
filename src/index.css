@@ -75,7 +75,7 @@ button.selected {
     justify-content: center;
 }
 
-.example-controls {
+.asset-selection-controls {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,6 +96,7 @@ button.selected {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: var(--font);
 }
 
 .add-new-asset-text {

@@ -7,10 +7,11 @@ import { calculateScale, AssetScale } from "./assetScaling";
 import { Asset } from "./Asset/Asset";
 import Download from "./SidePanel/Download"
 import AssetSelection from './AssetSelection'
+import AssetCreation from "./AssetCreation";
 
 
 
-type Screen = "choose" | "edit" | "preview-download"
+type Screen = "choose" | "new" | "edit" | "preview-download"
 
 type AppState = {
     currentAsset: AssetDocument,
@@ -33,6 +34,8 @@ export default class App extends React.Component<{}, AppState> {
     }
 
     getLocalAsset(): UnspecifiedAssetDocument {
+        // if collection, use that.
+        // if no collection, get asset and transform into collection
         const maybeAsset = window.localStorage.getItem("currentAsset")
         if (maybeAsset) {
             try {
@@ -91,7 +94,14 @@ export default class App extends React.Component<{}, AppState> {
                 {this.state.currentScreen === "choose" &&
                     <AssetSelection
                         chooseAsset={(asset) => this.chooseAsset(asset)}
+                        showNewScreen={() => this.showScreen("new")}
                         localAsset={this.getLocalAsset()}></AssetSelection>
+                }
+
+                {this.state.currentScreen === "new" &&
+                    <AssetCreation
+                        chooseAsset={(asset) => this.chooseAsset(asset)}
+                        showChooseScreen={() => this.showScreen("choose")}></AssetCreation>
                 }
 
                 {this.state.currentScreen === "edit" &&
