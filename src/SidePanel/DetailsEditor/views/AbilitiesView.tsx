@@ -4,7 +4,7 @@ import { LabeledTextInput, LabeledCheckBox, LabeledTextAreaInput } from '../../L
 
 type AbilitiesViewProps = {
     currentAsset: AssetDocument;
-    setCurrentAsset(asset): void;
+    updateAsset(asset): void;
 };
 
 function AbilityInput(props: {
@@ -37,11 +37,11 @@ function AbilityInput(props: {
 export class AbilitiesView extends React.Component<AbilitiesViewProps> {
     updateAbility(ability, index) {
         this.props.currentAsset.abilities[index] = ability;
-        this.props.setCurrentAsset(this.props.currentAsset);
+        this.props.updateAsset(this.props.currentAsset);
     }
     removeAbility(index) {
         this.props.currentAsset.abilities.splice(index, 1);
-        this.props.setCurrentAsset(this.props.currentAsset);
+        this.props.updateAsset(this.props.currentAsset);
     }
     addAbility() {
         this.props.currentAsset.abilities.push({
@@ -49,7 +49,7 @@ export class AbilitiesView extends React.Component<AbilitiesViewProps> {
             name: "",
             text: ""
         });
-        this.props.setCurrentAsset(this.props.currentAsset);
+        this.props.updateAsset(this.props.currentAsset);
     }
     render() {
         return (<div className="editor-view">

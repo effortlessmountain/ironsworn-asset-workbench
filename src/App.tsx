@@ -85,7 +85,7 @@ export default class App extends React.Component<{}, AppState> {
         this.setState({ assetScale: newScale })
     }
 
-    setCurrentAsset(asset) {
+    updateAsset(asset) {
         this.setState((state) => {
             state.currentCollection.assets[state.currentAssetIndex] = asset
             window.localStorage.setItem("collections", JSON.stringify([state.currentCollection]))
@@ -165,7 +165,7 @@ export default class App extends React.Component<{}, AppState> {
                         </div>
                         <SidePanel
                             currentAsset={this.state.currentAsset}
-                            setCurrentAsset={(asset) => this.setCurrentAsset(asset)}
+                            updateAsset={(asset) => this.updateAsset(asset)}
                             assetScale={this.state.assetScale}
                             handleAssetScaleChange={(e) => this.handleAssetScaleChange(e)}
                             showScreen={(screen) => this.showScreen(screen)}

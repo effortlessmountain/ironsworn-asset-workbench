@@ -4,7 +4,7 @@ import { AssetDocument } from '../../../models/assetModels';
 
 type TopViewProps = {
     currentAsset: AssetDocument;
-    setCurrentAsset(asset): void;
+    updateAsset(asset): void;
     handleIconImport(): void; //todo: move fully inte here
 };
 
@@ -14,19 +14,19 @@ export class TopView extends React.Component<TopViewProps> {
             <div className="vertical">
                 <LabeledTextInput label="Asset Name" id="asset-name-input" value={this.props.currentAsset.name} handleChange={(e) => {
                     this.props.currentAsset.name = e.currentTarget.value;
-                    this.props.setCurrentAsset(this.props.currentAsset);
+                    this.props.updateAsset(this.props.currentAsset);
                 }}></LabeledTextInput>
                 <LabeledTextInput label="Type" id="asset-type-input" value={this.props.currentAsset.type} handleChange={(e) => {
                     this.props.currentAsset.type = e.currentTarget.value;
-                    this.props.setCurrentAsset(this.props.currentAsset);
+                    this.props.updateAsset(this.props.currentAsset);
                 }}></LabeledTextInput>
                 <LabeledTextInput label="Write-in (optional)" id="asset-write-in-input" value={this.props.currentAsset.writeIn || ""} handleChange={(e) => {
                     this.props.currentAsset.writeIn = e.currentTarget.value;
-                    this.props.setCurrentAsset(this.props.currentAsset);
+                    this.props.updateAsset(this.props.currentAsset);
                 }}></LabeledTextInput>
                 <LabeledTextAreaInput label="Description (optional)" className="asset-description-input" value={this.props.currentAsset.description} handleChange={(e) => {
                     this.props.currentAsset.description = e.currentTarget.value;
-                    this.props.setCurrentAsset(this.props.currentAsset);
+                    this.props.updateAsset(this.props.currentAsset);
                 }}></LabeledTextAreaInput>
             </div>
             <div className="icon-import">

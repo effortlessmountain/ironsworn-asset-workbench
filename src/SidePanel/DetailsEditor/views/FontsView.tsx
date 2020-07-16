@@ -32,7 +32,7 @@ function FontInputs(props: {
 
 export default function FontsView(props: {
     currentAsset: AssetDocument,
-    setCurrentAsset(AssetDocument): void;
+    updateAsset(AssetDocument): void;
 }) {
     const configuredFonts = makeMergedConfig(props.currentAsset.fonts || {})
     const [fonts, updateFonts] = useState(configuredFonts)
@@ -51,7 +51,7 @@ export default function FontsView(props: {
             setSizeProperty(newFonts, emFromNumber(value))
             updateFonts(newFonts)
             props.currentAsset.fonts = newFonts
-            props.setCurrentAsset(props.currentAsset)
+            props.updateAsset(props.currentAsset)
         }
     }
 
@@ -91,12 +91,12 @@ export default function FontsView(props: {
         <button id="fonts-update-button"
             onClick={(e) => {
                 props.currentAsset.fonts = fonts
-                props.setCurrentAsset(props.currentAsset)
+                props.updateAsset(props.currentAsset)
             }}>update fonts</button>
         <button onClick={() => {
             props.currentAsset.fonts = defaultFontConfig
             assign(fonts, defaultFontConfig)
-            props.setCurrentAsset(props.currentAsset)
+            props.updateAsset(props.currentAsset)
         }}>Reset to Default</button>
     </div>)
 }

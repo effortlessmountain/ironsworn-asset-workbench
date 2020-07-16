@@ -25,27 +25,27 @@ function LabeledRadioInput(props: {
 
 type TrackViewProps = {
     currentAsset: AssetDocument, //todo: not require passing in the entire asset to every view
-    setCurrentAsset(asset): void
+    updateAsset(asset): void
 }
 
 export default class TrackView extends React.Component<TrackViewProps> {
     handleTrackTypeChange(e) {
         if (e.currentTarget.value === "none") {
             this.props.currentAsset.track = null
-            this.props.setCurrentAsset(this.props.currentAsset)
+            this.props.updateAsset(this.props.currentAsset)
         } else if (e.currentTarget.value === "numerical") {
             this.props.currentAsset.track = 5
-            this.props.setCurrentAsset(this.props.currentAsset)
+            this.props.updateAsset(this.props.currentAsset)
         } else if (e.currentTarget.value === "text") {
             this.props.currentAsset.track = ["Value 1", "Value 2"]
-            this.props.setCurrentAsset(this.props.currentAsset)
+            this.props.updateAsset(this.props.currentAsset)
         }
     }
 
     handleNumericalTrackChange(value: number) {
         let clone = cloneDeep(this.props.currentAsset)
         clone.track = +value
-        this.props.setCurrentAsset(clone)
+        this.props.updateAsset(clone)
     }
 
     render() {
@@ -79,7 +79,7 @@ export default class TrackView extends React.Component<TrackViewProps> {
                     handleChange={(e) => {
                         let values = e.currentTarget.value.split(",").map((val) => val.trim())
                         this.props.currentAsset.track = values //todo: not mutate at every turn
-                        this.props.setCurrentAsset(this.props.currentAsset)
+                        this.props.updateAsset(this.props.currentAsset)
                     }}></LabeledTextAreaInput>}
         </div>)
     }

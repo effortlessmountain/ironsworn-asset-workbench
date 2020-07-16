@@ -5,7 +5,7 @@ import DetailsEditor from './DetailsEditor/DetailsEditor'
 
 type SidePanelProps = {
     currentAsset: AssetDocument,
-    setCurrentAsset(asset: AssetDocument): void
+    updateAsset(asset: AssetDocument): void
     assetScale: string,
     handleAssetScaleChange(newScale: string): void
     showScreen(screen): void,
@@ -34,7 +34,7 @@ export function SidePanel(props: SidePanelProps) {
 
         <DetailsEditor
             currentAsset={props.currentAsset}
-            setCurrentAsset={props.setCurrentAsset}
+            updateAsset={props.updateAsset}
             previewAssetImage={props.previewAssetImage}
             downloadAssetImage={props.downloadAssetImage}></DetailsEditor>
         <div>
