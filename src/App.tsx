@@ -1,13 +1,14 @@
 import React from "react";
 import { SidePanel } from "./SidePanel/SidePanel";
-import { AssetDocument, UnspecifiedAssetDocument, createBlankAsset } from "./models/assetModels";
+import { AssetDocument, UnspecifiedAssetDocument } from "./models/assetModels";
 import { transformToLatest } from "./models/assetTransformation";
-import { caveLion } from "./exampleAssets";
 import { calculateScale, AssetScale } from "./assetScaling";
 import { Asset } from "./Asset/Asset";
 import Download from "./SidePanel/Download"
 import AssetSelection from './AssetSelection'
 import AssetCreation from "./AssetCreation";
+import { Collection, createCollection } from "./models/collection";
+import { putLoneAssetIntoCollection } from "./models/collectionTransformation";
 
 
 
@@ -15,27 +16,60 @@ type Screen = "choose" | "new" | "edit" | "preview-download"
 
 type AppState = {
     currentAsset: AssetDocument,
+    currentCollection: Collection,
+    currentAssetIndex: number,
     assetScale: AssetScale,
     currentScreen: Screen
     previewDownload: boolean
 }
 
+export function sussCurrentCollection(maybeCollections, maybeAsset) {
+    let startingCollection = null
+    if (maybeCollections && maybeCollections.length > 0) {
+        startingCollection = maybeCollections[0]
+    } else {
+        if (maybeAsset) {
+            startingCollection = putLoneAssetIntoCollection(maybeAsset)
+        } else {
+            startingCollection = createCollection()
+        }
+    }
+    return startingCollection
+}
+
 export default class App extends React.Component<{}, AppState> {
     constructor(props) {
         super(props)
-        let startingAsset = transformToLatest(caveLion as UnspecifiedAssetDocument) //This is where I learn the tragic extent of the failings of TypeScript's type inference.
+
+        let maybeCollections = this.maybeGetLocalCollections()
+        let maybeAsset = this.maybeGetLocalAsset()
+        let startingCollection = sussCurrentCollection(maybeCollections, maybeAsset)
+
         let startingScale = calculateScale()
+
         this.state = {
-            currentAsset: startingAsset,
+            currentAsset: null,
+            currentAssetIndex: null,
+            currentCollection: startingCollection,
             assetScale: startingScale,
             currentScreen: "choose",
             previewDownload: true
         }
     }
 
-    getLocalAsset(): UnspecifiedAssetDocument {
-        // if collection, use that.
-        // if no collection, get asset and transform into collection
+    maybeGetLocalCollections(): Collection[] {
+        const maybeCollections = window.localStorage.getItem("collections")
+        if (maybeCollections) {
+            try {
+                return JSON.parse(maybeCollections)
+            } catch (error) {
+                window.alert("Error parsing local collections: " + error.toString())
+            }
+        }
+        return null
+    }
+
+    maybeGetLocalAsset(): UnspecifiedAssetDocument {
         const maybeAsset = window.localStorage.getItem("currentAsset")
         if (maybeAsset) {
             try {
@@ -44,7 +78,7 @@ export default class App extends React.Component<{}, AppState> {
                 window.alert("Error parsing local asset: " + error.toString())
             }
         }
-        return createBlankAsset()
+        return null
     }
 
     handleAssetScaleChange(newScale) {
@@ -52,15 +86,32 @@ export default class App extends React.Component<{}, AppState> {
     }
 
     setCurrentAsset(asset) {
-        this.setState({
-            currentAsset: transformToLatest(asset)
+        this.setState((state) => {
+            state.currentCollection.assets[state.currentAssetIndex] = asset
+            window.localStorage.setItem("collections", JSON.stringify([state.currentCollection]))
+            return {
+                currentAsset: transformToLatest(asset)
+            }
         })
-        window.localStorage.setItem("currentAsset", JSON.stringify(asset))
     }
 
-    chooseAsset(asset) {
+    createAsset(asset) {
+        this.setState((state) => {
+            let index = (state.currentCollection.assets.push(asset)) - 1
+            window.localStorage.setItem("collections", JSON.stringify([state.currentCollection]))
+            return {
+                currentAsset: transformToLatest(asset),
+                currentAssetIndex: index,
+                currentCollection: state.currentCollection,
+                currentScreen: "edit"
+            }
+        })
+    }
+
+    chooseAsset(asset, index) {
         this.setState({
             currentAsset: transformToLatest(asset),
+            currentAssetIndex: index,
             currentScreen: "edit"
         })
     }
@@ -93,14 +144,14 @@ export default class App extends React.Component<{}, AppState> {
 
                 {this.state.currentScreen === "choose" &&
                     <AssetSelection
-                        chooseAsset={(asset) => this.chooseAsset(asset)}
+                        chooseAsset={(asset, index) => this.chooseAsset(asset, index)}
                         showNewScreen={() => this.showScreen("new")}
-                        localAsset={this.getLocalAsset()}></AssetSelection>
+                        assets={this.state.currentCollection.assets}></AssetSelection>
                 }
 
                 {this.state.currentScreen === "new" &&
                     <AssetCreation
-                        chooseAsset={(asset) => this.chooseAsset(asset)}
+                        createAsset={(asset) => this.createAsset(asset)}
                         showChooseScreen={() => this.showScreen("choose")}></AssetCreation>
                 }
 

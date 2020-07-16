@@ -6,7 +6,7 @@ import AssetCardButton from './AssetCardButton'
 import { cloneDeep } from 'lodash'
 
 export default function AssetCreation(props: {
-    chooseAsset(asset: UnspecifiedAssetDocument),
+    createAsset(asset: UnspecifiedAssetDocument),
     showChooseScreen()
 }) {
     return (
@@ -17,11 +17,11 @@ export default function AssetCreation(props: {
                     return (<AssetChoice
                         key={index}
                         asset={example as UnspecifiedAssetDocument}
-                        handleClick={() => props.chooseAsset(cloneDeep(example) as UnspecifiedAssetDocument)}></AssetChoice>)
+                        handleClick={() => props.createAsset(cloneDeep(example) as UnspecifiedAssetDocument)}></AssetChoice>)
                 })}
                 <AssetCardButton
                     text="Blank Asset"
-                    handleClick={() => props.chooseAsset(createBlankAsset() as UnspecifiedAssetDocument)}></AssetCardButton>
+                    handleClick={() => props.createAsset(createBlankAsset() as UnspecifiedAssetDocument)}></AssetCardButton>
             </div>
             <button onClick={props.showChooseScreen}>CANCEL</button>
         </div>
