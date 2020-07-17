@@ -36,6 +36,7 @@ function ViewSwitcher(props: {
 type DetailsEditorProps = {
     currentAsset: AssetDocument,
     updateAsset(asset): void,
+    askToDelete(): void,
     previewAssetImage(): void,
     downloadAssetImage(): void
 }
@@ -121,6 +122,7 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                     <TopView
                         currentAsset={this.props.currentAsset}
                         updateAsset={(asset) => this.props.updateAsset(asset)}
+                        askToDelete={() => this.props.askToDelete()}
                         handleIconImport={() => this.handleIconImport()}></TopView>
                 }
 

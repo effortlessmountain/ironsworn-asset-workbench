@@ -188,6 +188,11 @@ input, textarea {
     flex-direction: column;
 }
 
+.horizontal {
+    display: flex;
+    justify-content: space-between;
+}
+
 .view-switcher {
     display: flex;
     justify-content: space-between;

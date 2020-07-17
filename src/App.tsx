@@ -95,6 +95,18 @@ export default class App extends React.Component<{}, AppState> {
         })
     }
 
+    askToDelete() {
+        if (window.confirm("Delete this asset?")) {
+            this.setState((state) => {
+                state.currentCollection.assets.splice(state.currentAssetIndex, 1)
+                return {
+                    currentCollection: state.currentCollection,
+                    currentScreen: "choose"
+                }
+            })
+        }
+    }
+
     createAsset(asset) {
         this.setState((state) => {
             let index = (state.currentCollection.assets.push(asset)) - 1
@@ -166,6 +178,7 @@ export default class App extends React.Component<{}, AppState> {
                         <SidePanel
                             currentAsset={this.state.currentAsset}
                             updateAsset={(asset) => this.updateAsset(asset)}
+                            askToDelete={() => this.askToDelete()}
                             assetScale={this.state.assetScale}
                             handleAssetScaleChange={(e) => this.handleAssetScaleChange(e)}
                             showScreen={(screen) => this.showScreen(screen)}
