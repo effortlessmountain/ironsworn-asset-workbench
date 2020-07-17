@@ -85,10 +85,14 @@ export default class App extends React.Component<{}, AppState> {
         this.setState({ assetScale: newScale })
     }
 
+    persistCollection(collection) {
+        window.localStorage.setItem("collections", JSON.stringify([collection]))
+    }
+
     updateAsset(asset) {
         this.setState((state) => {
             state.currentCollection.assets[state.currentAssetIndex] = asset
-            window.localStorage.setItem("collections", JSON.stringify([state.currentCollection]))
+            this.persistCollection(state.currentCollection)
             return {
                 currentAsset: transformToLatest(asset)
             }
@@ -99,6 +103,7 @@ export default class App extends React.Component<{}, AppState> {
         if (window.confirm("Delete this asset?")) {
             this.setState((state) => {
                 state.currentCollection.assets.splice(state.currentAssetIndex, 1)
+                this.persistCollection(state.currentCollection)
                 return {
                     currentCollection: state.currentCollection,
                     currentScreen: "choose"
