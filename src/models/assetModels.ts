@@ -68,7 +68,11 @@ export interface AssetDocument {
     icon?: string | SvgIcon
 }
 
-export type UnspecifiedAssetDocument = AssetDocumentV1 | AssetDocument
+export interface UnspecifiedAssetDocument {
+    documentFormatVersion?: number,
+    type: string,
+    name: string
+}
 
 export function createBlankAsset(properties = {}): AssetDocument {
     return {

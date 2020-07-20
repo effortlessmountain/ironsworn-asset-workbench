@@ -15,12 +15,12 @@ export default function AssetCreation(props: {
             <div className="asset-selection-controls">
                 <AssetCardButton
                     text="Blank Asset"
-                    handleClick={() => props.createAsset(createBlankAsset() as UnspecifiedAssetDocument)}></AssetCardButton>
+                    handleClick={() => props.createAsset(createBlankAsset())}></AssetCardButton>
                 {[ironclad, lightbearer, caveLion].map((example, index) => {
                     return (<AssetChoice
                         key={index}
-                        asset={example as UnspecifiedAssetDocument}
-                        handleClick={() => props.createAsset(cloneDeep(example) as UnspecifiedAssetDocument)}></AssetChoice>)
+                        asset={example}
+                        handleClick={() => props.createAsset(cloneDeep(example))}></AssetChoice>)
                 })}
             </div>
             <button onClick={props.showChooseScreen}>CANCEL</button>
