@@ -9,13 +9,13 @@ describe("managing a collection", () => {
         it("can create a blank asset", () => {
             cy.contains('add new asset', { matchCase: false }).click()
             cy.get('.add-new-asset', { matchCase: false }).click()
-            cy.contains('back', { matchCase: false }).click()
+            cy.get('.asset-back-button').click()
             cy.get('.asset-selection-controls').children().eq(0).should('have.text', "Your Asset")
         })
         it("can create an asset from an example", () => {
             cy.contains('add new asset', { matchCase: false }).click()
             cy.contains('Ironclad').click()
-            cy.contains('Back').click()
+            cy.get('.asset-back-button').click()
             cy.get('.asset-selection-controls').children().eq(1).should('contain.text', 'Ironclad')
         })
         it("can delete assets", () => {

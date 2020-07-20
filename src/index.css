@@ -269,7 +269,7 @@ input, textarea {
     justify-content: center;
 }
 
-.top-row-controls {
+.bottom-controls {
     /* border      : 3px solid var(--gray); */
     width          : 100%;
     display        : flex;
