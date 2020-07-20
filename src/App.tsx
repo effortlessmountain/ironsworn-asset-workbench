@@ -149,7 +149,7 @@ export default class App extends React.Component<{}, AppState> {
         return (
             <div className="app">
                 <header className="app-header">
-                    <h2> Ironsworn Asset Workbench v0.8.2</h2>
+                    <h2> Ironsworn Asset Workbench v0.9.0</h2>
                 </header>
                 {this.state.currentScreen === "preview-download" &&
                     <Download
