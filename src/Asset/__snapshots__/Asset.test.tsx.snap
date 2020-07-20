@@ -8,29 +8,6 @@ exports[`renders the asset Cave Lion 1`] = `
     href="https://fonts.googleapis.com/css?family=Simonetta|PT+Serif&display=swap"
     rel="stylesheet"
   />
-  <style
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "
-                .type {
-                    font-size: 1.03em;
-                    font-family: \\"Simonetta\\";
-                }
-                .asset-name {
-                    font-size: 1.26em;
-                    font-family: \\"Simonetta\\";
-                }
-                .details {
-                    font-size: 0.97em;
-                    font-family: \\"PT Serif\\";
-                }
-                .value, .value.text, .value.number {
-                    font-size: 1.42em;
-                    font-family: \\"Simonetta\\";
-                }",
-      }
-    }
-  />
   <div
     className="main-matter"
   >
@@ -39,6 +16,12 @@ exports[`renders the asset Cave Lion 1`] = `
     >
       <div
         className="type"
+        style={
+          Object {
+            "fontFamily": "\\"Simonetta\\"",
+            "fontSize": "1.03em",
+          }
+        }
       >
         companion
       </div>
@@ -61,12 +44,24 @@ exports[`renders the asset Cave Lion 1`] = `
       </div>
       <div
         className="asset-name"
+        style={
+          Object {
+            "fontFamily": "\\"Simonetta\\"",
+            "fontSize": "1.26em",
+          }
+        }
       >
         Cave Lion
       </div>
     </div>
     <div
       className="details"
+      style={
+        Object {
+          "fontFamily": "\\"PT Serif\\"",
+          "fontSize": "0.97em",
+        }
+      }
     >
       <div
         className="write-in"
@@ -158,6 +153,12 @@ exports[`renders the asset Cave Lion 1`] = `
   </div>
   <div
     className="track"
+    style={
+      Object {
+        "fontFamily": "\\"Simonetta",
+        "fontSize": "1.42em",
+      }
+    }
   >
     <div
       className="value"
@@ -225,29 +226,6 @@ exports[`renders the asset Ironclad 1`] = `
     href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|Russo+One|Quicksand|Krona+One&display=swap"
     rel="stylesheet"
   />
-  <style
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "
-                .type {
-                    font-size: 1.03em;
-                    font-family: \\"Noto Sans JP\\";
-                }
-                .asset-name {
-                    font-size: 1.76em;
-                    font-family: \\"Russo One\\";
-                }
-                .details {
-                    font-size: 0.97em;
-                    font-family: \\"Quicksand\\";
-                }
-                .value, .value.text, .value.number {
-                    font-size: 1.12em;
-                    font-family: \\"Krona One\\";
-                }",
-      }
-    }
-  />
   <div
     className="main-matter"
   >
@@ -256,6 +234,12 @@ exports[`renders the asset Ironclad 1`] = `
     >
       <div
         className="type"
+        style={
+          Object {
+            "fontFamily": "\\"Noto Sans JP\\"",
+            "fontSize": "1.03em",
+          }
+        }
       >
         combat talent
       </div>
@@ -278,12 +262,24 @@ exports[`renders the asset Ironclad 1`] = `
       </div>
       <div
         className="asset-name"
+        style={
+          Object {
+            "fontFamily": "\\"Russo One\\"",
+            "fontSize": "1.76em",
+          }
+        }
       >
         Ironclad
       </div>
     </div>
     <div
       className="details"
+      style={
+        Object {
+          "fontFamily": "\\"Quicksand\\"",
+          "fontSize": "0.97em",
+        }
+      }
     >
       <div
         className="description"
@@ -358,6 +354,12 @@ exports[`renders the asset Ironclad 1`] = `
   </div>
   <div
     className="track"
+    style={
+      Object {
+        "fontFamily": "\\"Krona One",
+        "fontSize": "1.12em",
+      }
+    }
   >
     <div
       className="value text"
@@ -381,29 +383,6 @@ exports[`renders the asset Lightbearer 1`] = `
     href="https://fonts.googleapis.com/css?family=Simonetta|PT+Serif&display=swap"
     rel="stylesheet"
   />
-  <style
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "
-                .type {
-                    font-size: 1.03em;
-                    font-family: \\"Simonetta\\";
-                }
-                .asset-name {
-                    font-size: 1.26em;
-                    font-family: \\"Simonetta\\";
-                }
-                .details {
-                    font-size: 0.97em;
-                    font-family: \\"PT Serif\\";
-                }
-                .value, .value.text, .value.number {
-                    font-size: 1.42em;
-                    font-family: \\"Simonetta\\";
-                }",
-      }
-    }
-  />
   <div
     className="main-matter"
   >
@@ -412,6 +391,12 @@ exports[`renders the asset Lightbearer 1`] = `
     >
       <div
         className="type"
+        style={
+          Object {
+            "fontFamily": "\\"Simonetta\\"",
+            "fontSize": "1.03em",
+          }
+        }
       >
         ritual
       </div>
@@ -434,12 +419,24 @@ exports[`renders the asset Lightbearer 1`] = `
       </div>
       <div
         className="asset-name"
+        style={
+          Object {
+            "fontFamily": "\\"Simonetta\\"",
+            "fontSize": "1.26em",
+          }
+        }
       >
         Lightbearer
       </div>
     </div>
     <div
       className="details"
+      style={
+        Object {
+          "fontFamily": "\\"PT Serif\\"",
+          "fontSize": "0.97em",
+        }
+      }
     >
       <div
         className="abilities"
@@ -509,6 +506,12 @@ exports[`renders the asset Lightbearer 1`] = `
   </div>
   <div
     className="track"
+    style={
+      Object {
+        "fontFamily": "\\"Simonetta",
+        "fontSize": "1.42em",
+      }
+    }
   >
     <div
       className="value"

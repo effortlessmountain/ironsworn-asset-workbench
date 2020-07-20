@@ -40,7 +40,11 @@ const Ability = (props: { ability: Ability }) => {
         </div>)
 }
 
-const TrackValue = (props: { track: number, value: number, scale: string }) => {
+const TrackValue = (props: {
+    track: number,
+    value: number,
+    scale: string
+}) => {
     if (props.value > props.track) {
         return <div className="value empty">
             <svg xmlns='http://www.w3.org/2000/svg'
@@ -57,14 +61,18 @@ const TrackValue = (props: { track: number, value: number, scale: string }) => {
     }
 }
 
-const Track = (props: { track: string[] | number, scale: string }) => {
+const Track = (props: {
+    track: string[] | number,
+    scale: string,
+    style
+}) => {
     if (!props.track) {
         return null
     } else if (Array.isArray(props.track)) {
         const innerEntries = props.track.map((entry, index) => {
             return <div className="value text" key={index}>{entry}</div>
         })
-        return <div className="track">
+        return <div className="track" style={props.style}>
             {innerEntries}
         </div>
     } else {
@@ -74,7 +82,7 @@ const Track = (props: { track: string[] | number, scale: string }) => {
         for (let i = 1; i <= trackLength; i++) {
             innerEntries.push(<TrackValue track={props.track} value={i} scale={props.scale} key={i}></TrackValue>)
         }
-        return <div className="track">
+        return <div className="track" style={props.style}>
             <div className="value">0</div>
             {innerEntries}
         </div>
@@ -104,37 +112,29 @@ const Icon = (props: { icon: string | { svg: { d: string, fill: string, fillOpac
     }
 }
 
-const AssetStyles = (props: { fonts: object }) => {
-    //TODO: put styles onto corresponding elements directly instead of living 'dangerously'.
-    let fonts = props.fonts || {}
-    let fontConfig: FontConfig = makeMergedConfig(fonts)
-    let googleFonts = createGoogleFontString(fontConfig.assetTypeFont, fontConfig.assetNameFont, fontConfig.detailsFont, fontConfig.trackFont)
+const makeFontStyles = (unmergedFonts: FontConfig) => {
+    let fonts: FontConfig = makeMergedConfig(unmergedFonts)
+    let googleFontUrl = createGoogleFontString(fonts.assetTypeFont, fonts.assetNameFont, fonts.detailsFont, fonts.trackFont)
 
-    //TODO: type these properties. (curious it's not a compile-time error. Maybe with strict: true in tsconfig?).
-    return (<>
-        <link rel="stylesheet" href={googleFonts} />
-        <style dangerouslySetInnerHTML={{
-            __html: `
-                .type {
-                    font-size: ${fontConfig.assetTypeFontSize};
-                    font-family: "${fontConfig.assetTypeFont}";
-                }
-                .asset-name {
-                    font-size: ${fontConfig.assetNameFontSize};
-                    font-family: "${fontConfig.assetNameFont}";
-                }
-                .details {
-                    font-size: ${fontConfig.detailsFontSize};
-                    font-family: "${fontConfig.detailsFont}";
-                }
-                .value, .value.text, .value.number {
-                    font-size: ${fontConfig.trackFontSize};
-                    font-family: "${fontConfig.trackFont}";
-                }`
-        }}>
-
-        </style>
-    </>)
+    return {
+        googleFontUrl,
+        type: {
+            fontFamily: `"${fonts.assetTypeFont}"`,
+            fontSize: fonts.assetTypeFontSize
+        },
+        assetName: {
+            fontFamily: `"${fonts.assetNameFont}"`,
+            fontSize: fonts.assetNameFontSize
+        },
+        details: {
+            fontFamily: `"${fonts.detailsFont}"`,
+            fontSize: fonts.detailsFontSize
+        },
+        track: {
+            fontFamily: `"${fonts.trackFont}`,
+            fontSize: fonts.trackFontSize
+        }
+    }
 }
 
 interface Asset {
@@ -155,15 +155,18 @@ interface AssetProps {
 
 export const Asset = (props: AssetProps) => {
     let asset = props.asset
+    let fonts = makeFontStyles(asset.fonts)
+
+    //TODO: consolidate fonts into one global link. Less calls and may fix the race condition with preview/Download and fonts. 
     return (<div className={`asset ${props.scale}`}>
-        <AssetStyles fonts={asset.fonts}></AssetStyles>
+        <link rel="stylesheet" href={fonts.googleFontUrl} />
         <div className="main-matter">
             <div className="top">
-                <div className="type">{asset.type}</div>
+                <div className="type" style={fonts.type}>{asset.type}</div>
                 <Icon icon={asset.icon} scale={props.scale} />
-                <div className="asset-name">{asset.name}</div>
+                <div className="asset-name" style={fonts.assetName}>{asset.name}</div>
             </div>
-            <div className="details">
+            <div className="details" style={fonts.details}>
                 <WriteIn writeIn={asset.writeIn}></WriteIn>
                 <Description description={asset.description} />
                 <div className="abilities">
@@ -171,7 +174,7 @@ export const Asset = (props: AssetProps) => {
                 </div>
             </div>
         </div>
-        <Track track={asset.track} scale={props.scale} />
+        <Track track={asset.track} scale={props.scale} style={fonts.track} />
     </div >)
 }
 
