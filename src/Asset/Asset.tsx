@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import sanitize from './sanitize'
+
 import { scaleRatio, AssetScale } from '../assetScaling'
 import { FontConfig, makeMergedConfig, createGoogleFontString } from '../models/assetStyleModels'
 
@@ -21,7 +23,7 @@ interface Ability {
     filled: boolean,
     text: string
 }
-const Ability = (props: { ability: Ability }) => {
+export const Ability = (props: { ability: Ability }) => {
     const createAbilityName = (name) => {
         if (name) {
             return <span className="ability-name">{name}</span>
@@ -29,13 +31,16 @@ const Ability = (props: { ability: Ability }) => {
             return ""
         }
     }
-    //TODO: either sanitize first and only allow `b`, `em`, and `li` or parse markdown or custom markup
+
+    //TODO: investigate parsing markdown or custom markup instead of allowing em, ul, li
+    let sanitizedText = sanitize(props.ability.text)
+
     return (
         <div className="ability">
             <i className={props.ability.filled ? "dot filled" : "dot unfilled"}></i>
             <div className="ability-description">
                 {createAbilityName(props.ability.name)}
-                <span className="ability-text" dangerouslySetInnerHTML={{ __html: props.ability.text }}></span>
+                <span className="ability-text" dangerouslySetInnerHTML={{ __html: sanitizedText }}></span>
             </div>
         </div>)
 }
