@@ -17,7 +17,7 @@ export const defaultFontConfig = {
     trackFont: "Simonetta"
 };
 
-export const makeMergedConfig = (config): FontConfig => {
+export const makeMergedConfig = (config = {}): FontConfig => {
     let merged = Object.assign({}, defaultFontConfig)
     for (let key in merged) {
         merged[key] = config[key] || merged[key]

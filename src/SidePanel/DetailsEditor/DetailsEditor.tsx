@@ -35,7 +35,8 @@ function ViewSwitcher(props: {
 
 type DetailsEditorProps = {
     currentAsset: AssetDocument,
-    setCurrentAsset(asset): void,
+    updateAsset(asset): void,
+    askToDelete(): void,
     previewAssetImage(): void,
     downloadAssetImage(): void
 }
@@ -69,7 +70,7 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
 
     handleJSONChange(json) {
         try {
-            this.props.setCurrentAsset(JSON.parse(json))
+            this.props.updateAsset(JSON.parse(json))
             this.setState({
                 editorJSON: "",
                 errorText: ""
@@ -105,7 +106,7 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                     author: iconAuthorInput.value,
                     svg: transformSvgString(svg)
                 }
-                this.props.setCurrentAsset(this.props.currentAsset)
+                this.props.updateAsset(this.props.currentAsset)
             }
             fileReader.readAsText(file)
         } else {
@@ -120,26 +121,27 @@ export default class DetailsEditor extends React.Component<DetailsEditorProps, D
                 {this.state.activeView === "top" &&
                     <TopView
                         currentAsset={this.props.currentAsset}
-                        setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}
+                        updateAsset={(asset) => this.props.updateAsset(asset)}
+                        askToDelete={() => this.props.askToDelete()}
                         handleIconImport={() => this.handleIconImport()}></TopView>
                 }
 
                 {this.state.activeView === "abilities" &&
                     <AbilitiesView
                         currentAsset={this.props.currentAsset}
-                        setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}></AbilitiesView>
+                        updateAsset={(asset) => this.props.updateAsset(asset)}></AbilitiesView>
                 }
 
                 {this.state.activeView === "track" &&
                     <TrackView
                         currentAsset={this.props.currentAsset}
-                        setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}></TrackView>
+                        updateAsset={(asset) => this.props.updateAsset(asset)}></TrackView>
                 }
 
                 {this.state.activeView === "fonts" &&
                     <FontsView
                         currentAsset={this.props.currentAsset}
-                        setCurrentAsset={(asset) => this.props.setCurrentAsset(asset)}></FontsView>
+                        updateAsset={(asset) => this.props.updateAsset(asset)}></FontsView>
 
                 }
 

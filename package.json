@@ -1,6 +1,6 @@
 {
   "name": "ironsworn-asset-workbench",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "private": true,
   "homepage": "https://effortlessmountain.github.io/ironsworn-asset-workbench",
   "dependencies": {
@@ -17,6 +17,7 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0",
+    "sanitize-html": "^1.27.1",
     "typescript": "^3.7.5"
   },
   "scripts": {
@@ -44,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^4.5.0"
+    "cypress": "^4.5.0",
+    "react-test-renderer": "^16.13.1"
   }
 }

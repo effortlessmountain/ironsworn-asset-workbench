@@ -2,37 +2,74 @@ import React from "react";
 import { SidePanel } from "./SidePanel/SidePanel";
 import { AssetDocument, UnspecifiedAssetDocument } from "./models/assetModels";
 import { transformToLatest } from "./models/assetTransformation";
-import { caveLion } from "./exampleAssets";
 import { calculateScale, AssetScale } from "./assetScaling";
 import { Asset } from "./Asset/Asset";
 import Download from "./SidePanel/Download"
 import AssetSelection from './AssetSelection'
+import AssetCreation from "./AssetCreation";
+import { Collection, createCollection } from "./models/collection";
+import { putLoneAssetIntoCollection } from "./models/collectionTransformation";
 
 
 
-type Screen = "choose" | "edit" | "preview-download"
+type Screen = "choose" | "new" | "edit" | "preview-download"
 
 type AppState = {
     currentAsset: AssetDocument,
+    currentCollection: Collection,
+    currentAssetIndex: number,
     assetScale: AssetScale,
     currentScreen: Screen
     previewDownload: boolean
 }
 
+export function sussCurrentCollection(maybeCollections, maybeAsset) {
+    let startingCollection = null
+    if (maybeCollections && maybeCollections.length > 0) {
+        startingCollection = maybeCollections[0]
+    } else {
+        if (maybeAsset) {
+            startingCollection = putLoneAssetIntoCollection(maybeAsset)
+        } else {
+            startingCollection = createCollection()
+        }
+    }
+    return startingCollection
+}
+
 export default class App extends React.Component<{}, AppState> {
     constructor(props) {
         super(props)
-        let startingAsset = transformToLatest(caveLion as UnspecifiedAssetDocument) //This is where I learn the tragic extent of the failings of TypeScript's type inference.
+
+        let maybeCollections = this.maybeGetLocalCollections()
+        let maybeAsset = this.maybeGetLocalAsset()
+        let startingCollection = sussCurrentCollection(maybeCollections, maybeAsset)
+
         let startingScale = calculateScale()
+
         this.state = {
-            currentAsset: startingAsset,
+            currentAsset: null,
+            currentAssetIndex: null,
+            currentCollection: startingCollection,
             assetScale: startingScale,
             currentScreen: "choose",
             previewDownload: true
         }
     }
 
-    getLocalAsset(): UnspecifiedAssetDocument {
+    maybeGetLocalCollections(): Collection[] {
+        const maybeCollections = window.localStorage.getItem("collections")
+        if (maybeCollections) {
+            try {
+                return JSON.parse(maybeCollections)
+            } catch (error) {
+                window.alert("Error parsing local collections: " + error.toString())
+            }
+        }
+        return null
+    }
+
+    maybeGetLocalAsset(): UnspecifiedAssetDocument {
         const maybeAsset = window.localStorage.getItem("currentAsset")
         if (maybeAsset) {
             try {
@@ -41,33 +78,57 @@ export default class App extends React.Component<{}, AppState> {
                 window.alert("Error parsing local asset: " + error.toString())
             }
         }
-        return {
-            documentFormatVersion: 2,
-            abilities: [],
-            description: "",
-            name: "Your Asset",
-            type: "",
-            fonts: {},
-            icon: "",
-            track: null,
-            writeIn: ""
-        }
+        return null
     }
 
     handleAssetScaleChange(newScale) {
         this.setState({ assetScale: newScale })
     }
 
-    setCurrentAsset(asset) {
-        this.setState({
-            currentAsset: transformToLatest(asset)
-        })
-        window.localStorage.setItem("currentAsset", JSON.stringify(asset))
+    persistCollection(collection) {
+        window.localStorage.setItem("collections", JSON.stringify([collection]))
     }
 
-    chooseAsset(asset) {
+    updateAsset(asset) {
+        this.setState((state) => {
+            state.currentCollection.assets[state.currentAssetIndex] = asset
+            this.persistCollection(state.currentCollection)
+            return {
+                currentAsset: transformToLatest(asset)
+            }
+        })
+    }
+
+    askToDelete() {
+        if (window.confirm("Delete this asset?")) {
+            this.setState((state) => {
+                state.currentCollection.assets.splice(state.currentAssetIndex, 1)
+                this.persistCollection(state.currentCollection)
+                return {
+                    currentCollection: state.currentCollection,
+                    currentScreen: "choose"
+                }
+            })
+        }
+    }
+
+    createAsset(asset) {
+        this.setState((state) => {
+            let index = (state.currentCollection.assets.push(asset)) - 1
+            window.localStorage.setItem("collections", JSON.stringify([state.currentCollection]))
+            return {
+                currentAsset: transformToLatest(asset),
+                currentAssetIndex: index,
+                currentCollection: state.currentCollection,
+                currentScreen: "edit"
+            }
+        })
+    }
+
+    chooseAsset(asset, index) {
         this.setState({
             currentAsset: transformToLatest(asset),
+            currentAssetIndex: index,
             currentScreen: "edit"
         })
     }
@@ -88,7 +149,7 @@ export default class App extends React.Component<{}, AppState> {
         return (
             <div className="app">
                 <header className="app-header">
-                    <h2> Ironsworn Asset Workbench v0.8.2</h2>
+                    <h2> Ironsworn Asset Workbench v0.9.0</h2>
                 </header>
                 {this.state.currentScreen === "preview-download" &&
                     <Download
@@ -100,8 +161,15 @@ export default class App extends React.Component<{}, AppState> {
 
                 {this.state.currentScreen === "choose" &&
                     <AssetSelection
-                        chooseAsset={(asset) => this.chooseAsset(asset)}
-                        localAsset={this.getLocalAsset()}></AssetSelection>
+                        chooseAsset={(asset, index) => this.chooseAsset(asset, index)}
+                        showNewScreen={() => this.showScreen("new")}
+                        assets={this.state.currentCollection.assets}></AssetSelection>
+                }
+
+                {this.state.currentScreen === "new" &&
+                    <AssetCreation
+                        createAsset={(asset) => this.createAsset(asset)}
+                        showChooseScreen={() => this.showScreen("choose")}></AssetCreation>
                 }
 
                 {this.state.currentScreen === "edit" &&
@@ -114,7 +182,8 @@ export default class App extends React.Component<{}, AppState> {
                         </div>
                         <SidePanel
                             currentAsset={this.state.currentAsset}
-                            setCurrentAsset={(asset) => this.setCurrentAsset(asset)}
+                            updateAsset={(asset) => this.updateAsset(asset)}
+                            askToDelete={() => this.askToDelete()}
                             assetScale={this.state.assetScale}
                             handleAssetScaleChange={(e) => this.handleAssetScaleChange(e)}
                             showScreen={(screen) => this.showScreen(screen)}

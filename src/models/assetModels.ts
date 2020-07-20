@@ -68,7 +68,25 @@ export interface AssetDocument {
     icon?: string | SvgIcon
 }
 
-export type UnspecifiedAssetDocument = AssetDocumentV1 | AssetDocument
+export interface UnspecifiedAssetDocument {
+    documentFormatVersion?: number,
+    type: string,
+    name: string
+}
+
+export function createBlankAsset(properties = {}): AssetDocument {
+    return {
+        documentFormatVersion: 2,
+        abilities: [],
+        description: "",
+        name: "Your Asset",
+        type: "",
+        fonts: {},
+        icon: "",
+        track: null,
+        writeIn: ""
+    }
+}
 
 const extractPropertyValue = (key, svgString) => {
     const regexp = new RegExp(`${key}=(?:"|')(.*?)(?:"|')`)

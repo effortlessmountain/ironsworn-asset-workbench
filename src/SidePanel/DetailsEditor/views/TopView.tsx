@@ -4,31 +4,38 @@ import { AssetDocument } from '../../../models/assetModels';
 
 type TopViewProps = {
     currentAsset: AssetDocument;
-    setCurrentAsset(asset): void;
+    updateAsset(asset): void;
+    askToDelete(): void;
     handleIconImport(): void; //todo: move fully inte here
 };
 
 export class TopView extends React.Component<TopViewProps> {
     render() {
         return (<div className="editor-view misc-editor-view">
-            <div className="vertical">
-                <LabeledTextInput label="Asset Name" id="asset-name-input" value={this.props.currentAsset.name} handleChange={(e) => {
-                    this.props.currentAsset.name = e.currentTarget.value;
-                    this.props.setCurrentAsset(this.props.currentAsset);
-                }}></LabeledTextInput>
-                <LabeledTextInput label="Type" id="asset-type-input" value={this.props.currentAsset.type} handleChange={(e) => {
-                    this.props.currentAsset.type = e.currentTarget.value;
-                    this.props.setCurrentAsset(this.props.currentAsset);
-                }}></LabeledTextInput>
-                <LabeledTextInput label="Write-in (optional)" id="asset-write-in-input" value={this.props.currentAsset.writeIn || ""} handleChange={(e) => {
-                    this.props.currentAsset.writeIn = e.currentTarget.value;
-                    this.props.setCurrentAsset(this.props.currentAsset);
-                }}></LabeledTextInput>
-                <LabeledTextAreaInput label="Description (optional)" className="asset-description-input" value={this.props.currentAsset.description} handleChange={(e) => {
-                    this.props.currentAsset.description = e.currentTarget.value;
-                    this.props.setCurrentAsset(this.props.currentAsset);
-                }}></LabeledTextAreaInput>
+            <div className="horizontal">
+                <div className="vertical">
+                    <LabeledTextInput label="Asset Name" id="asset-name-input" value={this.props.currentAsset.name} handleChange={(e) => {
+                        this.props.currentAsset.name = e.currentTarget.value;
+                        this.props.updateAsset(this.props.currentAsset);
+                    }}></LabeledTextInput>
+                    <LabeledTextInput label="Type" id="asset-type-input" value={this.props.currentAsset.type} handleChange={(e) => {
+                        this.props.currentAsset.type = e.currentTarget.value;
+                        this.props.updateAsset(this.props.currentAsset);
+                    }}></LabeledTextInput>
+                    <LabeledTextInput label="Write-in (optional)" id="asset-write-in-input" value={this.props.currentAsset.writeIn || ""} handleChange={(e) => {
+                        this.props.currentAsset.writeIn = e.currentTarget.value;
+                        this.props.updateAsset(this.props.currentAsset);
+                    }}></LabeledTextInput>
+
+                </div>
+                <div>
+                    <button onClick={this.props.askToDelete}>DELETE ASSET</button>
+                </div>
             </div>
+            <LabeledTextAreaInput label="Description (optional)" className="asset-description-input" value={this.props.currentAsset.description} handleChange={(e) => {
+                this.props.currentAsset.description = e.currentTarget.value;
+                this.props.updateAsset(this.props.currentAsset);
+            }}></LabeledTextAreaInput>
             <div className="icon-import">
                 <div className="icon-import-helptext">
                     <p>SVG icons are supported. Use a transparent background for best results.</p>

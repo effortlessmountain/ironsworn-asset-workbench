@@ -5,7 +5,8 @@ import DetailsEditor from './DetailsEditor/DetailsEditor'
 
 type SidePanelProps = {
     currentAsset: AssetDocument,
-    setCurrentAsset(asset: AssetDocument): void
+    updateAsset(asset: AssetDocument): void,
+    askToDelete(): void,
     assetScale: string,
     handleAssetScaleChange(newScale: string): void
     showScreen(screen): void,
@@ -15,7 +16,14 @@ type SidePanelProps = {
 
 export function SidePanel(props: SidePanelProps) {
     return (<div className="interface">
-        <div className="top-row-controls">
+        <DetailsEditor
+            currentAsset={props.currentAsset}
+            updateAsset={props.updateAsset}
+            askToDelete={props.askToDelete}
+            previewAssetImage={props.previewAssetImage}
+            downloadAssetImage={props.downloadAssetImage}></DetailsEditor>
+
+        <div className="bottom-controls">
             <div>
                 <label>Scale (also affects Download size)</label>
                 <select
@@ -29,20 +37,18 @@ export function SidePanel(props: SidePanelProps) {
                     <option value="full">750px by 1050px</option>
                 </select>
             </div>
-            <button onClick={() => props.showScreen("choose")}>Back</button>
+            <button className="asset-back-button" onClick={() => props.showScreen("choose")}>Back</button>
         </div>
 
-        <DetailsEditor
-            currentAsset={props.currentAsset}
-            setCurrentAsset={props.setCurrentAsset}
-            previewAssetImage={props.previewAssetImage}
-            downloadAssetImage={props.downloadAssetImage}></DetailsEditor>
         <div>
             <p className="credits">
                 Ironsworn and the official Ironsworn assets Copyright ©2019 Shawn Tomkin and used under
                 the Creative Commons Attribution-NonCommercial-
                 ShareAlike 4.0 International license.
                 </p>
+            <p className="credits">
+                Have a suggestion or run into a bug? File an issue <a href="https://github.com/effortlessmountain/ironsworn-asset-workbench/issues">here on Github</a> or contact EffortlessMountain on the Ironsworn discord server.
+            </p>
         </div>
     </div>)
 }

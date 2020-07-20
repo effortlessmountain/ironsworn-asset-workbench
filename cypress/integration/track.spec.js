@@ -3,7 +3,8 @@
 describe("the Track editor screen", () => {
     it("can get to the Track edit screen", () => {
         cy.visit("http://localhost:3000")
-        cy.contains('your asset', { matchCase: false }).click()
+        cy.contains('add new asset', { matchCase: false }).click()
+        cy.get('.add-new-asset', { matchCase: false }).click()
         cy.get('#show-track-view').click()
     })
     it("can select a numerical track", () => {

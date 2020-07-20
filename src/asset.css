@@ -111,7 +111,9 @@ li {
 .track {
     display        : flex;
     justify-content: center;
-    margin-bottom  : .95em;
+    margin-bottom  : .85em;
+    font-size      : 1.42em;
+    font-family: Simonetta;
     color          : var(--gray);
     width          : 91.5%;
     align-self     : center;
@@ -120,8 +122,6 @@ li {
 .value.text {
     padding    : .7em;
     text-align : center;
-    font-size  : 1.1em;
-    font-family: Simonetta;
 }
 
 .value {
@@ -133,8 +133,6 @@ li {
     display        : flex;
     justify-content: center;
     align-items    : center;
-    font-size      : 1.42em;
-    font-family    : Simonetta;
 }
 
 .value svg {

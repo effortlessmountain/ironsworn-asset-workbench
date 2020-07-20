@@ -1,45 +1,29 @@
 import React from 'react'
-
-import { ironclad, lightbearer, caveLion } from './exampleAssets'
-import { Asset } from './Asset/Asset'
 import { UnspecifiedAssetDocument } from './models/assetModels'
-import { transformToLatest } from "./models/assetTransformation"
-
-function AssetChoice(props: {
-    handleClick(),
-    asset: UnspecifiedAssetDocument
-}) {
-    let transformedAsset = transformToLatest(props.asset as UnspecifiedAssetDocument)
-    return (
-        <div className="asset-choice" onClick={props.handleClick}>
-            <Asset asset={transformedAsset} scale={"one-third"}></Asset>
-        </div>
-    )
-}
+import AssetChoice from './AssetChoice'
+import AssetCardButton from './AssetCardButton'
 
 export default function AssetSelection(props: {
-    chooseAsset: (asset) => void,
-    localAsset: UnspecifiedAssetDocument
+    chooseAsset: (asset, index) => void,
+    showNewScreen(),
+    assets: UnspecifiedAssetDocument[]
 }) {
     return (
-        <div className="asset-selection">
-            <h3>Choose asset to edit</h3>
-            <div className="example-controls">
-                <AssetChoice
-                    asset={props.localAsset}
-                    handleClick={() => props.chooseAsset(props.localAsset)}></AssetChoice>
-            </div>
-            <h3>Examples</h3>
-            <div className="example-controls">
-                <AssetChoice
-                    asset={lightbearer as UnspecifiedAssetDocument}
-                    handleClick={() => props.chooseAsset(lightbearer)}></AssetChoice>
-                <AssetChoice
-                    asset={ironclad as UnspecifiedAssetDocument}
-                    handleClick={() => props.chooseAsset(ironclad)}></AssetChoice>
-                <AssetChoice
-                    asset={caveLion as UnspecifiedAssetDocument}
-                    handleClick={() => props.chooseAsset(caveLion)}></AssetChoice>
+        <div className="horizontal">
+            <div className="asset-selection">
+                <div className="asset-selection-controls">
+                    {props.assets.map((asset, index) => {
+                        return (<AssetChoice
+                            asset={asset}
+                            key={asset.name + index}
+                            handleClick={() => props.chooseAsset(asset, index)}></AssetChoice>)
+                    })}
+                </div>
+            </div >
+            <div className="vertical">
+                <button onClick={props.showNewScreen}>ADD NEW ASSET</button>
+                {/* <button>FONTS</button> */}
+                {/* <button>EXPORT</button> */}
             </div>
         </div>
     )
