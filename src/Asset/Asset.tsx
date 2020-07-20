@@ -50,7 +50,12 @@ const TrackValue = (props: {
     value: number,
     scale: string
 }) => {
-    if (props.value > props.track) {
+    if (props.value === 0) {
+        return <div className="value" key="zed">0</div>
+    }
+    else if (props.value <= props.track) {
+        return <div className="value number">+{props.value}</div>
+    } else {
         return <div className="value empty">
             <svg xmlns='http://www.w3.org/2000/svg'
                 version='1.1'
@@ -61,8 +66,6 @@ const TrackValue = (props: {
                 <line x1='0' y1='100' x2='100' y2='0' stroke='rgb(65,64,66)' style={{ strokeWidth: 3.5 }} />
             </svg>
         </div>
-    } else {
-        return <div className="value number">+{props.value}</div>
     }
 }
 
@@ -73,22 +76,20 @@ const Track = (props: {
 }) => {
     if (!props.track) {
         return null
-    } else if (Array.isArray(props.track)) {
-        const innerEntries = props.track.map((entry, index) => {
-            return <div className="value text" key={index}>{entry}</div>
-        })
-        return <div className="track" style={props.style}>
-            {innerEntries}
-        </div>
     } else {
-        let trackLength = props.track > 5 ? props.track : 5
         let innerEntries = []
 
-        for (let i = 1; i <= trackLength; i++) {
-            innerEntries.push(<TrackValue track={props.track} value={i} scale={props.scale} key={i}></TrackValue>)
+        if (Array.isArray(props.track)) {
+            innerEntries = props.track.map((entry, index) => {
+                return <div className="value text" key={index}>{entry}</div>
+            })
+        } else {
+            let trackLength = Math.max(5, props.track)
+            for (let i = 0; i <= trackLength; i++) {
+                innerEntries.push(<TrackValue track={props.track} value={i} scale={props.scale} key={i}></TrackValue>)
+            }
         }
         return <div className="track" style={props.style}>
-            <div className="value">0</div>
             {innerEntries}
         </div>
     }
