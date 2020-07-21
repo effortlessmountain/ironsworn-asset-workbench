@@ -1,4 +1,4 @@
-import { AssetDocument } from '../models/assetModels'
+import { AssetDocument } from '../Asset/asset'
 import React from 'react'
 import DetailsEditor from './DetailsEditor/DetailsEditor'
 

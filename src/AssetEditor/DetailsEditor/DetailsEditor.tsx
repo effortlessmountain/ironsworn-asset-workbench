@@ -1,9 +1,9 @@
 import React from 'react'
-import { AssetDocument, transformSvgString } from '../../models/assetModels'
-import { AbilitiesView } from './views/AbilitiesView'
-import { TopView } from './views/TopView'
-import TrackView from './views/TrackView'
-import FontsView from './views/FontsView'
+import { AssetDocument, transformSvgString } from '../../Asset/asset'
+import { AbilitiesView } from './AbilitiesView'
+import { TopView } from './TopView'
+import TrackView from './TrackView'
+import FontsView from './FontsView'
 
 type EditorView = "JSON" | "top" | "abilities" | "track" | "fonts" | "export"
 

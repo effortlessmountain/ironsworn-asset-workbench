@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import sanitize from './sanitize'
 
-import { scaleRatio, AssetScale } from '../assetScaling'
-import { FontConfig, makeMergedConfig, createGoogleFontString } from '../models/assetStyleModels'
+import { scaleRatio, AssetScale } from './assetScaling'
+import { FontConfig, makeMergedConfig, createGoogleFontString } from './fonts'
 
 
 const WriteIn = (props: { writeIn?: string }) => {
@@ -23,7 +23,7 @@ interface Ability {
     filled: boolean,
     text: string
 }
-export const Ability = (props: { ability: Ability }) => {
+export const AbilityDisplay = (props: { ability: Ability }) => {
     const createAbilityName = (name) => {
         if (name) {
             return <span className="ability-name">{name}</span>
@@ -69,7 +69,7 @@ const TrackValue = (props: {
     }
 }
 
-const Track = (props: {
+const TrackDisplay = (props: {
     track: string[] | number,
     scale: string,
     style
@@ -95,7 +95,7 @@ const Track = (props: {
     }
 }
 
-const Icon = (props: { icon: string | { svg: { d: string, fill: string, fillOpacity: string } }, scale: string }) => {
+const IconDisplay = (props: { icon: string | { svg: { d: string, fill: string, fillOpacity: string } }, scale: string }) => {
     if (typeof props.icon === "string") {
         return (
             <div className="header-circle">
@@ -159,7 +159,7 @@ interface AssetProps {
     scale: AssetScale
 }
 
-export const Asset = (props: AssetProps) => {
+export const AssetDisplay = (props: AssetProps) => {
     let asset = props.asset
     let fonts = makeFontStyles(asset.fonts)
 
@@ -169,24 +169,24 @@ export const Asset = (props: AssetProps) => {
         <div className="main-matter">
             <div className="top">
                 <div className="type" style={fonts.type}>{asset.type}</div>
-                <Icon icon={asset.icon} scale={props.scale} />
+                <IconDisplay icon={asset.icon} scale={props.scale} />
                 <div className="asset-name" style={fonts.assetName}>{asset.name}</div>
             </div>
             <div className="details" style={fonts.details}>
                 <WriteIn writeIn={asset.writeIn}></WriteIn>
                 <Description description={asset.description} />
                 <div className="abilities">
-                    {asset.abilities.map((ability, index) => <Ability ability={ability} key={index}></Ability>)}
+                    {asset.abilities.map((ability, index) => <AbilityDisplay ability={ability} key={index}></AbilityDisplay>)}
                 </div>
             </div>
         </div>
-        <Track track={asset.track} scale={props.scale} style={fonts.track} />
+        <TrackDisplay track={asset.track} scale={props.scale} style={fonts.track} />
     </div >)
 }
 
 export const showAssetIn = (element, asset, scale, callback?: () => void) => {
     console.log("Showing asset with scale", scale, "in", element)
     // TODO: watch for state changes inside of a react component instead of re-rendering everything    
-    ReactDOM.render(<Asset asset={asset} scale={scale} />,
+    ReactDOM.render(<AssetDisplay asset={asset} scale={scale} />,
         element, callback)
 }

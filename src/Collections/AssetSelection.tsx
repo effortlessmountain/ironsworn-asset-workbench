@@ -1,5 +1,5 @@
 import React from 'react'
-import { UnspecifiedAssetDocument } from './models/assetModels'
+import { UnspecifiedAssetDocument } from '../Asset/asset'
 import AssetChoice from './AssetChoice'
 import AssetCardButton from './AssetCardButton'
 

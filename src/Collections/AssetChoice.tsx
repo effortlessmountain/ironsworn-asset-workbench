@@ -1,7 +1,7 @@
 import React from 'react';
-import { Asset } from './Asset/Asset';
-import { UnspecifiedAssetDocument } from './models/assetModels';
-import { transformToLatest } from "./models/assetTransformation";
+import { AssetDisplay } from '../Asset/AssetDisplay';
+import { UnspecifiedAssetDocument } from '../Asset/asset';
+import { transformToLatest } from "../Asset/assetTransformation";
 
 export default function AssetChoice(props: {
     handleClick();
@@ -10,7 +10,7 @@ export default function AssetChoice(props: {
     let transformedAsset = transformToLatest(props.asset);
     return (
         <div className="asset-choice" onClick={props.handleClick}>
-            <Asset asset={transformedAsset} scale={"one-third"}></Asset>
+            <AssetDisplay asset={transformedAsset} scale={"one-third"}></AssetDisplay>
         </div>
     );
 }

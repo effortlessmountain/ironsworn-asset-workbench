@@ -1,4 +1,4 @@
-import { AssetDocumentV1, AssetDocument, transformSvgString, UnspecifiedAssetDocument } from "./assetModels";
+import { AssetDocumentV1, AssetDocument, transformSvgString, UnspecifiedAssetDocument } from "./asset";
 function transformToV2(v1: AssetDocumentV1): AssetDocument {
     const v2: AssetDocument = {
         documentFormatVersion: 2,

@@ -1,4 +1,4 @@
-import { AssetDocumentV1, AssetDocument, SvgIcon, SvgIconV1 } from './assetModels'
+import { AssetDocumentV1, AssetDocument, SvgIcon, SvgIconV1 } from './asset'
 import { transformToLatest } from "./assetTransformation"
 
 

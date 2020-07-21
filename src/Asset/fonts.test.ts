@@ -1,4 +1,4 @@
-import { makeMergedConfig } from './assetStyleModels'
+import { makeMergedConfig } from './fonts'
 
 describe("font styles", () => {
     test("merged font config handles specified sizes but unspecified fonts", () => {

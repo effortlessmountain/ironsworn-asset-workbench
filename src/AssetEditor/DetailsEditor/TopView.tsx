@@ -1,6 +1,6 @@
 import React from 'react';
-import { LabeledTextInput, LabeledTextAreaInput } from '../../LabeledInputs';
-import { AssetDocument } from '../../../models/assetModels';
+import { LabeledTextInput, LabeledTextAreaInput } from '../LabeledInputs';
+import { AssetDocument } from '../../Asset/asset';
 
 type TopViewProps = {
     currentAsset: AssetDocument;

@@ -1,5 +1,5 @@
 import { putLoneAssetIntoCollection } from './collectionTransformation'
-import { createV1Asset } from './assetTransformation.test'
+import { createV1Asset } from '../Asset/assetTransformation.test'
 
 describe("putting an asset into a collection", () => {
     it("returns a Collection with a transformed asset", () => {

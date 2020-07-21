@@ -1,8 +1,8 @@
 import React from 'react'
-import { AssetDocument } from '../models/assetModels'
-import { Asset } from '../Asset/Asset'
+import { AssetDocument } from '../Asset/asset'
+import { AssetDisplay } from '../Asset/AssetDisplay'
 import html2canvas from 'html2canvas'
-import { AssetScale } from '../assetScaling'
+import { AssetScale } from '../Asset/assetScaling'
 
 type DownloadProps = {
     asset: AssetDocument,
@@ -49,7 +49,7 @@ export default class Download extends React.Component<DownloadProps, DownloadSta
         if (!this.state.canvas) {
             return (
                 <div className="render">
-                    <Asset asset={this.props.asset} scale={this.props.scale}></Asset>
+                    <AssetDisplay asset={this.props.asset} scale={this.props.scale}></AssetDisplay>
                 </div>
             )
         } else if (!this.props.preview) {

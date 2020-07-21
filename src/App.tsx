@@ -1,14 +1,14 @@
 import React from "react";
-import { SidePanel } from "./SidePanel/SidePanel";
-import { AssetDocument, UnspecifiedAssetDocument } from "./models/assetModels";
-import { transformToLatest } from "./models/assetTransformation";
-import { calculateScale, AssetScale } from "./assetScaling";
-import { Asset } from "./Asset/Asset";
-import Download from "./SidePanel/Download"
-import AssetSelection from './AssetSelection'
-import AssetCreation from "./AssetCreation";
-import { Collection, createCollection } from "./models/collection";
-import { putLoneAssetIntoCollection } from "./models/collectionTransformation";
+import { SidePanel } from "./AssetEditor/AssetEditor";
+import { AssetDocument, UnspecifiedAssetDocument } from "./Asset/asset";
+import { transformToLatest } from "./Asset/assetTransformation";
+import { calculateScale, AssetScale } from "./Asset/assetScaling";
+import { AssetDisplay } from "./Asset/AssetDisplay";
+import Download from "./Export/Download"
+import AssetSelection from './Collections/AssetSelection'
+import AssetCreation from "./Collections/AssetCreation";
+import { Collection, createCollection } from "./Collections/collection";
+import { putLoneAssetIntoCollection } from "./Collections/collectionTransformation";
 
 
 
@@ -175,10 +175,10 @@ export default class App extends React.Component<{}, AppState> {
                 {this.state.currentScreen === "edit" &&
                     <div className="container">
                         <div className="assets">
-                            <Asset
+                            <AssetDisplay
                                 asset={this.state.currentAsset}
                                 scale={this.state.assetScale}
-                            ></Asset>
+                            ></AssetDisplay>
                         </div>
                         <SidePanel
                             currentAsset={this.state.currentAsset}

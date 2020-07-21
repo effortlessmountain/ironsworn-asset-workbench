@@ -1,5 +1,5 @@
 import React from 'react'
-import { Ability } from './Asset'
+import { AbilityDisplay } from './AssetDisplay'
 import renderer from 'react-test-renderer'
 
 function getDangerousHTML(tree) {
@@ -15,7 +15,7 @@ describe("sanitizing html input", () => {
         }
 
         const tree = renderer
-            .create(<Ability ability={ability}></Ability>)
+            .create(<AbilityDisplay ability={ability}></AbilityDisplay>)
             .toJSON()
 
         expect(getDangerousHTML(tree)).toBe('some text here')

@@ -1,6 +1,6 @@
 import React from 'react'
-import { createBlankAsset, UnspecifiedAssetDocument } from './models/assetModels'
-import { ironclad, lightbearer, caveLion } from './exampleAssets'
+import { createBlankAsset, UnspecifiedAssetDocument } from '../Asset/asset'
+import { ironclad, lightbearer, caveLion } from '../Asset/exampleAssets'
 import AssetChoice from './AssetChoice'
 import AssetCardButton from './AssetCardButton'
 import { cloneDeep } from 'lodash'

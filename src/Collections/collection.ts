@@ -1,4 +1,4 @@
-import { AssetDocument } from './assetModels'
+import { AssetDocument } from '../Asset/asset'
 
 export type Collection = {
     name: string,
