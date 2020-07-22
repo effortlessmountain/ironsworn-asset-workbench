@@ -56,6 +56,7 @@ select {
     border        : 2px solid var(--gray);
     font-weight   : bold;
     text-transform: uppercase;
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 label {
@@ -86,11 +87,18 @@ button.selected {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 10px solid #fff;
+    border: 7px solid #fff;
+    border-radius: 10px;
+    transition: .2s ease-in-out;
 }
 
 .asset-choice:hover {
-    border: 10px solid var(--gray);
+    border: 7px solid var(--gray);
+    background: var(--gray);
+}
+
+.asset-choice .asset {
+    border-radius: 5px;
 }
 
 .add-new-asset.asset {

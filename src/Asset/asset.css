@@ -10,6 +10,7 @@
     font-family    : "PT Serif";
     border         : 0.13em solid var(--gray);
     color          : var(--darkest);
+    background-color: #fff;
     box-sizing     : border-box;
     font-size      : var(--asset-font-size);
     height         : var(--asset-height);
