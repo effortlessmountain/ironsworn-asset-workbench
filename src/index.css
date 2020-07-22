@@ -87,14 +87,13 @@ button.selected {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 7px solid #fff;
-    border-radius: 10px;
     transition: .2s ease-in-out;
+    margin: 10px;
 }
 
 .asset-choice:hover {
-    border: 7px solid var(--gray);
-    background: var(--gray);
+    transform: scale(1.15,1.15);
+    z-index: 100;
 }
 
 .asset-choice .asset {

@@ -8,9 +8,10 @@
 
 .asset {
     font-family    : "PT Serif";
-    border         : 0.13em solid var(--gray);
     color          : var(--darkest);
     background-color: #fff;
+    background-image: url('./ironsworn_asset_background.svg');
+    background-size: contain;
     box-sizing     : border-box;
     font-size      : var(--asset-font-size);
     height         : var(--asset-height);
@@ -28,7 +29,6 @@
 }
 
 .type {
-    background-color: var(--gray);
     color           : white;
     padding         : .8em 0 .3em .95em;
     font-size       : 1.03em;
@@ -41,8 +41,7 @@
 
 .header-circle {
     color          : white;
-    background     : var(--gray);
-    border         : .19em solid white;
+    border         : .19em solid transparent;
     border-radius  : 50%;
     width          : 4em;
     height         : 4em;
