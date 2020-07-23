@@ -1,9 +1,21 @@
+export interface FontConfig {
+    assetTypeFontSize?: string;
+    assetTypeFont?: string;
+    assetNameFontSize?: string;
+    assetNameFont?: string;
+    detailsFontSize?: string;
+    detailsFont?: string;
+    trackFontSize?: string;
+    trackFont?: string;
+}
+
 export const createGoogleFontString = (...fonts) => {
     let urlifiedFonts = Array.from(new Set(fonts))
         .filter(font => font)
         .map(font => font.replace(/ /g, "+"))
-        .join("|");
-    return urlifiedFonts ? `https://fonts.googleapis.com/css?family=${urlifiedFonts}&display=swap` : "";
+        .map(font => `family=${font}`)
+        .join("&");
+    return urlifiedFonts ? `https://fonts.googleapis.com/css2?${urlifiedFonts}&display=swap` : "";
 };
 
 export const defaultFontConfig = {
@@ -25,13 +37,32 @@ export const makeMergedConfig = (config = {}): FontConfig => {
     return merged
 };
 
-export interface FontConfig {
-    assetTypeFontSize?: string;
-    assetTypeFont?: string;
-    assetNameFontSize?: string;
-    assetNameFont?: string;
-    detailsFontSize?: string;
-    detailsFont?: string;
-    trackFontSize?: string;
-    trackFont?: string;
+export const makeFontStyles = (unmergedFonts: FontConfig) => {
+    let fonts: FontConfig = makeMergedConfig(unmergedFonts)
+    let googleFontUrl = createGoogleFontString(fonts.assetTypeFont, fonts.assetNameFont, fonts.detailsFont, fonts.trackFont)
+
+    function toFontFamily(font) {
+        const fontName = font.split(':')[0].replace(/\+/g, " ")
+        return `"${fontName}"`
+    }
+
+    return {
+        googleFontUrl,
+        type: {
+            fontFamily: toFontFamily(fonts.assetTypeFont),
+            fontSize: fonts.assetTypeFontSize
+        },
+        assetName: {
+            fontFamily: toFontFamily(fonts.assetNameFont),
+            fontSize: fonts.assetNameFontSize
+        },
+        details: {
+            fontFamily: toFontFamily(fonts.detailsFont),
+            fontSize: fonts.detailsFontSize
+        },
+        track: {
+            fontFamily: toFontFamily(fonts.trackFont),
+            fontSize: fonts.trackFontSize
+        }
+    }
 }

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import sanitize from './sanitize'
 
 import { scaleRatio, AssetScale } from './assetScaling'
-import { FontConfig, makeMergedConfig, createGoogleFontString } from './fonts'
+import { FontConfig, makeMergedConfig, createGoogleFontString, makeFontStyles } from './fonts'
 
 
 const WriteIn = (props: { writeIn?: string }) => {
@@ -115,31 +115,6 @@ const IconDisplay = (props: { icon: string | { svg: { d: string, fill: string, f
             </div>)
     } else {
         return null
-    }
-}
-
-const makeFontStyles = (unmergedFonts: FontConfig) => {
-    let fonts: FontConfig = makeMergedConfig(unmergedFonts)
-    let googleFontUrl = createGoogleFontString(fonts.assetTypeFont, fonts.assetNameFont, fonts.detailsFont, fonts.trackFont)
-
-    return {
-        googleFontUrl,
-        type: {
-            fontFamily: `"${fonts.assetTypeFont}"`,
-            fontSize: fonts.assetTypeFontSize
-        },
-        assetName: {
-            fontFamily: `"${fonts.assetNameFont}"`,
-            fontSize: fonts.assetNameFontSize
-        },
-        details: {
-            fontFamily: `"${fonts.detailsFont}"`,
-            fontSize: fonts.detailsFontSize
-        },
-        track: {
-            fontFamily: `"${fonts.trackFont}`,
-            fontSize: fonts.trackFontSize
-        }
     }
 }
 

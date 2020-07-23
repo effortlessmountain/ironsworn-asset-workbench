@@ -22,11 +22,11 @@ function FontInputs(props: {
 }) {
     return (<div className="font-inputs">
         <LabeledTextInput
-            label={props.label}
+            label={props.label + " font"}
             id={`${props.idPrefix}-font-input`}
             value={props.font}
             handleChange={props.handleFontChange}></LabeledTextInput>
-        <LabeledNumberInput label={props.label} id={`${props.idPrefix}-size-input`} value={numberFromEm(props.size)} step="0.01" handleChange={props.handleSizeChange}></LabeledNumberInput>
+        <LabeledNumberInput label={props.label + " size"} id={`${props.idPrefix}-size-input`} value={numberFromEm(props.size)} step="0.01" handleChange={props.handleSizeChange}></LabeledNumberInput>
     </div>)
 }
 
@@ -60,28 +60,28 @@ export default function FontsView(props: {
         <p>The fonts from <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">Google Fonts</a> are supported. Put in the name of the font into the corresponding box here and you're all set! Note: font names are case-sensitive.</p>
 
         <FontInputs
-            label="Asset Type font"
+            label="Asset Type"
             idPrefix="asset-type"
             font={fonts.assetTypeFont}
             size={fonts.assetTypeFontSize}
             handleFontChange={handleFontChange((fonts, val) => fonts.assetTypeFont = val)}
             handleSizeChange={handleSizeChange((fonts, val) => fonts.assetTypeFontSize = val)}></FontInputs>
         <FontInputs
-            label="Asset Name font"
+            label="Asset Name"
             idPrefix="asset-name"
             font={fonts.assetNameFont}
             size={fonts.assetNameFontSize}
             handleFontChange={handleFontChange((fonts, val) => fonts.assetNameFont = val)}
             handleSizeChange={handleSizeChange((fonts, val) => fonts.assetNameFontSize = val)}></FontInputs>
         <FontInputs
-            label="Details font"
+            label="Details"
             idPrefix="details"
             font={fonts.detailsFont}
             size={fonts.detailsFontSize}
             handleFontChange={handleFontChange((fonts, val) => fonts.detailsFont = val)}
             handleSizeChange={handleSizeChange((fonts, val) => fonts.detailsFontSize = val)}></FontInputs>
         <FontInputs
-            label="Track font"
+            label="Track"
             idPrefix="track"
             font={fonts.trackFont}
             size={fonts.trackFontSize}

@@ -189,6 +189,10 @@ input, textarea {
     display: flex;
 }
 
+.font-inputs .text-input input {
+    width: 350px;
+}
+
 .thin-box-border {
     border: 1px solid var(--gray);
     margin: 5px;

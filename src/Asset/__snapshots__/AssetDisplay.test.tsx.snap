@@ -5,7 +5,7 @@ exports[`renders the asset Cave Lion 1`] = `
   className="asset full"
 >
   <link
-    href="https://fonts.googleapis.com/css?family=Simonetta|PT+Serif&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Simonetta&family=PT+Serif&display=swap"
     rel="stylesheet"
   />
   <div
@@ -155,7 +155,7 @@ exports[`renders the asset Cave Lion 1`] = `
     className="track"
     style={
       Object {
-        "fontFamily": "\\"Simonetta",
+        "fontFamily": "\\"Simonetta\\"",
         "fontSize": "1.42em",
       }
     }
@@ -223,7 +223,7 @@ exports[`renders the asset Ironclad 1`] = `
   className="asset full"
 >
   <link
-    href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|Russo+One|Quicksand|Krona+One&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Russo+One&family=Quicksand&family=Krona+One&display=swap"
     rel="stylesheet"
   />
   <div
@@ -356,7 +356,7 @@ exports[`renders the asset Ironclad 1`] = `
     className="track"
     style={
       Object {
-        "fontFamily": "\\"Krona One",
+        "fontFamily": "\\"Krona One\\"",
         "fontSize": "1.12em",
       }
     }
@@ -380,7 +380,7 @@ exports[`renders the asset Lightbearer 1`] = `
   className="asset full"
 >
   <link
-    href="https://fonts.googleapis.com/css?family=Simonetta|PT+Serif&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Simonetta&family=PT+Serif&display=swap"
     rel="stylesheet"
   />
   <div
@@ -508,7 +508,7 @@ exports[`renders the asset Lightbearer 1`] = `
     className="track"
     style={
       Object {
-        "fontFamily": "\\"Simonetta",
+        "fontFamily": "\\"Simonetta\\"",
         "fontSize": "1.42em",
       }
     }
