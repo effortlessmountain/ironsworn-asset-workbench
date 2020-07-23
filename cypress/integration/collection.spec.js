@@ -10,7 +10,7 @@ describe("managing a collection", () => {
             cy.contains('add new asset', { matchCase: false }).click()
             cy.get('.add-new-asset', { matchCase: false }).click()
             cy.get('.asset-back-button').click()
-            cy.get('.asset-selection-controls').children().eq(0).should('have.text', "Your Asset")
+            cy.get('.asset-selection-controls').children().eq(0).should('contain.text', "Your Asset")
         })
         it("can create an asset from an example", () => {
             cy.contains('add new asset', { matchCase: false }).click()

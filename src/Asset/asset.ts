@@ -80,7 +80,7 @@ export function createBlankAsset(properties = {}): AssetDocument {
         abilities: [],
         description: "",
         name: "Your Asset",
-        type: "",
+        type: "New",
         fonts: {},
         icon: "",
         track: null,

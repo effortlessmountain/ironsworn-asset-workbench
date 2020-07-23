@@ -14,7 +14,7 @@ describe("the 'Top' editor screen", () => {
     })
 
     it("can set the asset type", () => {
-        cy.get('#asset-type-input').type('path')
+        cy.get('#asset-type-input').clear().type('path')
         cy.get('.type').should('have.text', 'path')
     })
 
