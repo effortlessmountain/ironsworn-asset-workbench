@@ -57,7 +57,7 @@ export default function FontsView(props: {
 
     return (<div className="editor-view">
         <h3>What fonts can I use?</h3>
-        <p>The fonts from <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">Google Fonts</a> are supported. Put in the name of the font into the corresponding box here and you're all set! Note: font names are case-sensitive.</p>
+        <p>The fonts from <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer">Google Fonts</a> are supported. Put in the name of the font into the corresponding box here and you're all set! Font names are case-sensitive. If you want to use a Style other than the "Regular", click "Select This Style" on the Google Fonts Page, then click "Embed" on the sidebar that pops up on the right. Copy the part in bold ( such as <b>Red+Rose:wght@700</b> ) and paste it in below.</p>
 
         <FontInputs
             label="Asset Type"
