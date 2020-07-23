@@ -16,6 +16,11 @@ body {
     justify-content: center;
 }
 
+.app-version {
+    color: var(--gray);
+    font-size: 0.7em;
+}
+
 .preview-download {
     display: flex;
     justify-content: space-around;
