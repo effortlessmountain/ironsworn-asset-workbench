@@ -52,7 +52,8 @@ body {
     flex-direction    : column;
     justify-content   : space-around;
     width: 720px;
-    margin-left: 50px;
+    margin-left: 25px;
+    margin-right: 25px;
 }
 
 button,
@@ -322,4 +323,7 @@ input, textarea {
     flex-wrap      : wrap;
     align-items    : center;
     justify-content: center;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 20px;
 }
