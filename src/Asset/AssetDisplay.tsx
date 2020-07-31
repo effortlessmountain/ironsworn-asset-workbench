@@ -160,7 +160,6 @@ export const AssetDisplay = (props: AssetProps) => {
 }
 
 export const showAssetIn = (element, asset, scale, callback?: () => void) => {
-    console.log("Showing asset with scale", scale, "in", element)
     // TODO: watch for state changes inside of a react component instead of re-rendering everything    
     ReactDOM.render(<AssetDisplay asset={asset} scale={scale} />,
         element, callback)
