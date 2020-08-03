@@ -9,6 +9,7 @@ import AssetSelection from './Collections/AssetSelection'
 import AssetCreation from "./Collections/AssetCreation";
 import { Collection, createCollection } from "./Collections/collection";
 import { putLoneAssetIntoCollection } from "./Collections/collectionTransformation";
+import { Footer } from "./Footer";
 
 
 
@@ -191,6 +192,7 @@ export default class App extends React.Component<{}, AppState> {
                             downloadAssetImage={() => this.downloadAssetImage()}
                         ></SidePanel>
                     </div>}
+                <Footer></Footer>
             </div>)
     }
 }

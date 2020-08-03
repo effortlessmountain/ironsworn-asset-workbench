@@ -311,10 +311,27 @@ input, textarea {
     flex-wrap: wrap;
 }
 
-.credits {
-    max-width : 500px;
-    color     : var(--gray);
+.footer {
     text-align: center;
+    color: #777;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.footer a, .footer a:visited {
+    color: blue;
+    text-decoration: none;
+}
+
+.footer p {
+    max-width: 570px;
+    margin: 0 15px 10px 15px;
+}
+
+.credits {
+    font-size: 0.9em;
+    max-width: 800px;
 }
 
 .assets {

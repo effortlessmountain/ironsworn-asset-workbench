@@ -39,16 +39,5 @@ export function SidePanel(props: SidePanelProps) {
             </div>
             <button className="asset-back-button" onClick={() => props.showScreen("choose")}>Back</button>
         </div>
-
-        <div>
-            <p className="credits">
-                Ironsworn and the official Ironsworn assets Copyright ©2019 Shawn Tomkin and used under
-                the Creative Commons Attribution-NonCommercial-
-                ShareAlike 4.0 International license.
-                </p>
-            <p className="credits">
-                Have a suggestion or run into a bug? File an issue <a href="https://github.com/effortlessmountain/ironsworn-asset-workbench/issues">here on Github</a> or contact EffortlessMountain on the Ironsworn discord server.
-            </p>
-        </div>
     </div>)
 }
