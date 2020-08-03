@@ -63,8 +63,6 @@ export function LabeledNumberInput(props: {
         }
     }
 
-    console.log("value is ", props.value)
-
     return (<div className="number-input">
         <label>{props.label}</label>
         <input type="number"
