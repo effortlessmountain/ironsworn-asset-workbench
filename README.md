@@ -7,7 +7,10 @@ Thanks for lending a hand!
 
 ### Technical to-do list:
 * use Redux for state management.
-* use a component library for smoother input behavior (particularly for number inputs).
+* make site keyboard-navigable and generally accessible.
+* make the HTML more semantic.
+* investigate using a component library.
+* consider using a style library.
 * flesh out test coverage of components.
 * revisit code organization.
 * provide sane back button support (such as with a proper router).
