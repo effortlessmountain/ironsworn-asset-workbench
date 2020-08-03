@@ -158,9 +158,3 @@ export const AssetDisplay = (props: AssetProps) => {
         <TrackDisplay track={asset.track} scale={props.scale} style={fonts.track} />
     </div >)
 }
-
-export const showAssetIn = (element, asset, scale, callback?: () => void) => {
-    // TODO: watch for state changes inside of a react component instead of re-rendering everything    
-    ReactDOM.render(<AssetDisplay asset={asset} scale={scale} />,
-        element, callback)
-}
