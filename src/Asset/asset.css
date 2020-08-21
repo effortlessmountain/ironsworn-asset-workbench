@@ -1,163 +1,163 @@
 :root {
-    --darkest        : #221a0f;
-    --gray           : #414042;
-    --asset-width    : 750px;
-    --asset-height   : 1050px;
-    --asset-font-size: 2.2em;
+  --darkest: #221a0f;
+  --gray: #414042;
+  --asset-width: 750px;
+  --asset-height: 1050px;
+  --asset-font-size: 2.2em;
 }
 
 .asset {
-    font-family    : "PT Serif";
-    color          : var(--darkest);
-    background-color: #fff;
-    background-image: url('./ironsworn_asset_background.svg');
-    background-size: contain;
-    box-sizing     : border-box;
-    font-size      : var(--asset-font-size);
-    height         : var(--asset-height);
-    width          : var(--asset-width);
-    line-height    : 1.3em;
-    display        : flex;
-    flex-direction : column;
-    justify-content: space-between;
+  font-family: "PT Serif";
+  color: var(--darkest);
+  background-color: #fff;
+  background-image: url("./ironsworn_asset_background.svg");
+  background-size: contain;
+  box-sizing: border-box;
+  font-size: var(--asset-font-size);
+  height: var(--asset-height);
+  width: var(--asset-width);
+  line-height: 1.3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .top {
-    text-transform: uppercase;
-    font-weight   : 900;
-    font-family   : Simonetta;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-family: Simonetta;
 }
 
 .type {
-    color           : white;
-    padding         : .8em 0 .3em .95em;
-    font-size       : 1.03em;
+  color: white;
+  padding: 0.8em 0 0.3em 0.95em;
+  font-size: 1.03em;
 }
 
 .asset-name {
-    font-size: 1.26em;
-    padding  : .7em .7em .53em .7em;
+  font-size: 1.26em;
+  padding: 0.7em 0.7em 0.53em 0.7em;
 }
 
 .header-circle {
-    color          : white;
-    border         : .19em solid transparent;
-    border-radius  : 50%;
-    width          : 4em;
-    height         : 4em;
-    float          : right;
-    margin-top     : -1.8em;
-    margin-right   : 1em;
-    display        : flex;
-    align-items    : center;
-    justify-content: center;
+  color: white;
+  border: 0.19em solid transparent;
+  border-radius: 50%;
+  width: 4em;
+  height: 4em;
+  float: right;
+  margin-top: -1.8em;
+  margin-right: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-icon {
-    font-size: 2.5em;
+  font-size: 2.5em;
 }
 
 .details {
-    margin-left : .9em;
-    margin-right: .7em;
-    font-size   : 0.97em;
+  margin-left: 0.9em;
+  margin-right: 0.7em;
+  font-size: 0.97em;
 }
 
 .write-in {
-    border-bottom: .14em solid var(--gray);
-    margin-right : .2em;
-    margin-bottom: .71em;
+  border-bottom: 0.14em solid var(--gray);
+  margin-right: 0.2em;
+  margin-bottom: 0.71em;
 }
 
 .write-in::after {
-    content: ":"
+  content: ":";
 }
 
 .description {
-    margin-bottom: .28em;
+  margin-bottom: 0.28em;
 }
 
 .ability {
-    display    : flex;
-    line-height: 1.36em;
+  display: flex;
+  line-height: 1.36em;
 }
 
 .ability-name {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .ability-name::after {
-    content: ": "
+  content: ": ";
 }
 
 .dot {
-    margin   : -.06em .27em 0 -.03em;
-    font-size: 1.58em;
+  margin: -0.06em 0.27em 0 -0.03em;
+  font-size: 1.58em;
 }
 
 .filled::before {
-    content: "●";
+  content: "●";
 }
 
 .unfilled::before {
-    content: "○"
+  content: "○";
 }
 
 li {
-    list-style-position: outside;
-    margin-left        : 1em;
+  list-style-position: outside;
+  margin-left: 1em;
 }
 
 .track {
-    display        : flex;
-    justify-content: center;
-    margin-bottom  : .85em;
-    font-size      : 1.42em;
-    font-family: Simonetta;
-    color          : var(--gray);
-    width          : 91.5%;
-    align-self     : center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.85em;
+  font-size: 1.42em;
+  font-family: Simonetta;
+  color: var(--gray);
+  width: 91.5%;
+  align-self: center;
 }
 
 .value.text {
-    padding    : .7em;
-    text-align : center;
+  padding: 0.7em;
+  text-align: center;
 }
 
 .value {
-    width          : 100%;
-    height         : 1.7em;
-    border         : .1em solid var(--gray);
-    border-left    : .05em solid var(--gray);
-    font-weight    : bolder;
-    display        : flex;
-    justify-content: center;
-    align-items    : center;
+  width: 100%;
+  height: 1.7em;
+  border: 0.1em solid var(--gray);
+  border-left: 0.05em solid var(--gray);
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .value svg {
-    width : 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
 .value:first-child {
-    border-left: .1em solid var(--gray);
+  border-left: 0.1em solid var(--gray);
 }
 
 .asset.two-thirds {
-    height   : calc(var(--asset-height)*(2/3));
-    width    : calc(var(--asset-width)*(2/3));
-    font-size: calc(var(--asset-font-size)*(2/3));
+  height: calc(var(--asset-height) * (2 / 3));
+  width: calc(var(--asset-width) * (2 / 3));
+  font-size: calc(var(--asset-font-size) * (2 / 3));
 }
 
 .asset.one-half {
-    height   : calc(var(--asset-height)/2);
-    width    : calc(var(--asset-width)/2);
-    font-size: calc(var(--asset-font-size)/2);
+  height: calc(var(--asset-height) / 2);
+  width: calc(var(--asset-width) / 2);
+  font-size: calc(var(--asset-font-size) / 2);
 }
 
 .asset.one-third {
-    height   : calc(var(--asset-height)/3);
-    width    : calc(var(--asset-width)/3);
-    font-size: calc(var(--asset-font-size)/3);
+  height: calc(var(--asset-height) / 3);
+  width: calc(var(--asset-width) / 3);
+  font-size: calc(var(--asset-font-size) / 3);
 }

@@ -27,6 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "cypress:open": "cypress open",
+    "e2etest": "cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "cypress": "^4.5.0",
+    "prettier": "2.0.5",
     "react-test-renderer": "^16.13.1"
   }
 }
