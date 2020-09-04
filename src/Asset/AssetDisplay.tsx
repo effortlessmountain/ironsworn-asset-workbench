@@ -1,14 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import sanitize from "./sanitize";
 
 import { scaleRatio, AssetScale } from "./assetScaling";
-import {
-  FontConfig,
-  makeMergedConfig,
-  createGoogleFontString,
-  makeFontStyles,
-} from "./fonts";
+import { FontConfig, makeFontStyles } from "./fonts";
 
 const WriteIn = (props: { writeIn?: string }) => {
   return props.writeIn ? <div className="write-in">{props.writeIn}</div> : null;

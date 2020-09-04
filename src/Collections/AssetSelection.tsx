@@ -1,7 +1,6 @@
 import React from "react";
 import { UnspecifiedAssetDocument } from "../Asset/asset";
 import AssetChoice from "./AssetChoice";
-import AssetCardButton from "./AssetCardButton";
 
 export default function AssetSelection(props: {
   chooseAsset: (asset, index) => void;
