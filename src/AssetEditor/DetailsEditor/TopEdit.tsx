@@ -2,14 +2,14 @@ import React from "react";
 import { LabeledTextInput, LabeledTextAreaInput } from "../LabeledInputs";
 import { AssetDocument } from "../../Asset/asset";
 
-type TopViewProps = {
+type TopEditProps = {
   currentAsset: AssetDocument;
   updateAsset(asset): void;
   askToDelete(): void;
   handleIconImport(): void; //todo: move fully inte here
 };
 
-export class TopView extends React.Component<TopViewProps> {
+export class TopEdit extends React.Component<TopEditProps> {
   render() {
     return (
       <div className="editor-view misc-editor-view">

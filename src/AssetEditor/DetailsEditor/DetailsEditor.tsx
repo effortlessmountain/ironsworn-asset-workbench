@@ -1,9 +1,9 @@
 import React from "react";
 import { AssetDocument, transformSvgString } from "../../Asset/asset";
-import { AbilitiesView } from "./AbilitiesView";
-import { TopView } from "./TopView";
-import TrackView from "./TrackView";
-import FontsView from "./FontsView";
+import { AbilitiesEdit } from "./AbilitiesEdit";
+import { TopEdit } from "./TopEdit";
+import TrackEdit from "./TrackEdit";
+import FontsEdit from "./FontsEdit";
 
 type EditorView = "JSON" | "top" | "abilities" | "track" | "fonts" | "export";
 
@@ -173,33 +173,33 @@ export default class DetailsEditor extends React.Component<
           switchView={(view) => this.switchView(view)}
         ></ViewSwitcher>
         {this.state.activeView === "top" && (
-          <TopView
+          <TopEdit
             currentAsset={this.props.currentAsset}
             updateAsset={(asset) => this.props.updateAsset(asset)}
             askToDelete={() => this.props.askToDelete()}
             handleIconImport={() => this.handleIconImport()}
-          ></TopView>
+          ></TopEdit>
         )}
 
         {this.state.activeView === "abilities" && (
-          <AbilitiesView
+          <AbilitiesEdit
             currentAsset={this.props.currentAsset}
             updateAsset={(asset) => this.props.updateAsset(asset)}
-          ></AbilitiesView>
+          ></AbilitiesEdit>
         )}
 
         {this.state.activeView === "track" && (
-          <TrackView
+          <TrackEdit
             currentAsset={this.props.currentAsset}
             updateAsset={(asset) => this.props.updateAsset(asset)}
-          ></TrackView>
+          ></TrackEdit>
         )}
 
         {this.state.activeView === "fonts" && (
-          <FontsView
+          <FontsEdit
             currentAsset={this.props.currentAsset}
             updateAsset={(asset) => this.props.updateAsset(asset)}
-          ></FontsView>
+          ></FontsEdit>
         )}
 
         {this.state.activeView === "JSON" && (

@@ -25,12 +25,12 @@ function LabeledRadioInput(props: {
   );
 }
 
-type TrackViewProps = {
+type TrackEditProps = {
   currentAsset: AssetDocument; //todo: not require passing in the entire asset to every view
   updateAsset(asset): void;
 };
 
-export default class TrackView extends React.Component<TrackViewProps> {
+export default class TrackEdit extends React.Component<TrackEditProps> {
   handleTrackTypeChange(e) {
     if (e.currentTarget.value === "none") {
       this.props.currentAsset.track = null;

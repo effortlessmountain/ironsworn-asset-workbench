@@ -6,7 +6,7 @@ import {
   LabeledTextAreaInput,
 } from "../LabeledInputs";
 
-type AbilitiesViewProps = {
+type AbilitiesEditProps = {
   currentAsset: AssetDocument;
   updateAsset(asset): void;
 };
@@ -58,7 +58,7 @@ function AbilityInput(props: {
     </div>
   );
 }
-export class AbilitiesView extends React.Component<AbilitiesViewProps> {
+export class AbilitiesEdit extends React.Component<AbilitiesEditProps> {
   updateAbility(ability, index) {
     this.props.currentAsset.abilities[index] = ability;
     this.props.updateAsset(this.props.currentAsset);

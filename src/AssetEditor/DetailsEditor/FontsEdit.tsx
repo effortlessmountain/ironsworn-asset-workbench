@@ -39,7 +39,7 @@ function FontInputs(props: {
   );
 }
 
-export default function FontsView(props: {
+export default function FontsEdit(props: {
   currentAsset: AssetDocument;
   updateAsset(AssetDocument): void;
 }) {
