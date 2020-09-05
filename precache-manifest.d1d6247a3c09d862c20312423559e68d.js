@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c2e54beae3eb76e8784a5d429cbf7585",
+    "revision": "1664b70c44a8cc13ad1152d81debf805",
     "url": "/ironsworn-asset-workbench/index.html"
   },
   {
-    "revision": "a1128a1d0d0cd226a6f7",
+    "revision": "75601d98d0a35371b6a7",
     "url": "/ironsworn-asset-workbench/static/css/main.5115eebf.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ironsworn-asset-workbench/static/js/2.f066a47e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a1128a1d0d0cd226a6f7",
-    "url": "/ironsworn-asset-workbench/static/js/main.ab193889.chunk.js"
+    "revision": "75601d98d0a35371b6a7",
+    "url": "/ironsworn-asset-workbench/static/js/main.e43ae1da.chunk.js"
   },
   {
     "revision": "8e0afc15f46bbab9dc85",
