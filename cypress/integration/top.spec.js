@@ -3,8 +3,7 @@
 describe("the 'Top' editor screen", () => {
   it("can get to the Top editor screen", () => {
     cy.visit("http://localhost:3000");
-    cy.contains("add new asset", { matchCase: false }).click();
-    cy.get(".add-new-asset", { matchCase: false }).click();
+    cy.get(".add-new-asset").click();
     cy.get("#show-top-view").should("have.class", "selected");
   });
 

@@ -36,6 +36,10 @@ export function sussCurrentCollection(maybeCollections, maybeAsset) {
   return startingCollection;
 }
 
+function selectDefaultScreen(assets) {
+  return assets.length === 0 ? "new" : "choose";
+}
+
 export default class App extends React.Component<{}, AppState> {
   constructor(props) {
     super(props);
@@ -54,7 +58,7 @@ export default class App extends React.Component<{}, AppState> {
       currentAssetIndex: null,
       currentCollection: startingCollection,
       assetScale: startingScale,
-      currentScreen: "choose",
+      currentScreen: selectDefaultScreen(startingCollection.assets),
       previewDownload: true,
     };
   }
@@ -108,7 +112,7 @@ export default class App extends React.Component<{}, AppState> {
         this.persistCollection(state.currentCollection);
         return {
           currentCollection: state.currentCollection,
-          currentScreen: "choose",
+          currentScreen: selectDefaultScreen(state.currentCollection.assets),
         };
       });
     }
@@ -158,7 +162,7 @@ export default class App extends React.Component<{}, AppState> {
       <div className="app">
         <header className="app-header">
           <h2>
-            Asset Workbench <span className="app-version">v0.11.0</span>
+            Asset Workbench <span className="app-version">v0.12.0</span>
           </h2>
         </header>
         {this.state.currentScreen === "preview-download" && (
