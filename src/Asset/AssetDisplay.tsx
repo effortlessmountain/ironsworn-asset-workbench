@@ -157,6 +157,7 @@ interface Asset {
   icon?: string | { svg: { d: string; fill: string; fillOpacity: string } };
   name: string;
   writeIn?: string;
+  writeIn2?: string;
   description: string;
   abilities: Ability[];
   track?: number | string[];
@@ -187,6 +188,7 @@ export const AssetDisplay = (props: AssetProps) => {
         </div>
         <div className="details" style={fonts.details}>
           <WriteIn writeIn={asset.writeIn}></WriteIn>
+          <WriteIn writeIn={asset.writeIn2}></WriteIn>
           <Description description={asset.description} />
           <div className="abilities">
             {asset.abilities.map((ability, index) => (

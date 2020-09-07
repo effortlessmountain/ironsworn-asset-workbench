@@ -61,6 +61,7 @@ export interface AssetDocument {
   type: string;
   name: string;
   writeIn?: string;
+  writeIn2?: string;
   track?: number | string[];
   description: string;
   abilities: Array<Ability>;
@@ -84,6 +85,7 @@ export function createBlankAsset(properties = {}): AssetDocument {
     icon: "",
     track: null,
     writeIn: "",
+    writeIn2: "",
   };
 }
 

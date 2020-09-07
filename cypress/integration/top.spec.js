@@ -22,8 +22,14 @@ describe("the 'Top' editor screen", () => {
     cy.get(".write-in").should("have.text", "Name");
   });
 
+  it("can set a second write-in", () => {
+    cy.get("#asset-second-write-in-input").type("Stat");
+    cy.get(".write-in").eq(1).should("have.text", "Stat");
+  });
+
   it("can totally remove a write-in", () => {
     cy.get("#asset-write-in-input").clear();
+    cy.get("#asset-second-write-in-input").clear();
     cy.get(".details").children().should("not.have.class", "write-in");
   });
 

@@ -162,7 +162,7 @@ export default class App extends React.Component<{}, AppState> {
       <div className="app">
         <header className="app-header">
           <h2>
-            Asset Workbench <span className="app-version">v0.12.0</span>
+            Asset Workbench <span className="app-version">v0.13.0</span>
           </h2>
         </header>
         {this.state.currentScreen === "preview-download" && (

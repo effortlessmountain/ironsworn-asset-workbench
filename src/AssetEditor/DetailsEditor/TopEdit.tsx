@@ -42,6 +42,15 @@ export class TopEdit extends React.Component<TopEditProps> {
                 this.props.updateAsset(this.props.currentAsset);
               }}
             ></LabeledTextInput>
+            <LabeledTextInput
+              label="Second Write-in (optional)"
+              id="asset-second-write-in-input"
+              value={this.props.currentAsset.writeIn2 || ""}
+              handleChange={(e) => {
+                this.props.currentAsset.writeIn2 = e.currentTarget.value;
+                this.props.updateAsset(this.props.currentAsset);
+              }}
+            ></LabeledTextInput>
           </div>
           <div>
             <button onClick={this.props.askToDelete}>DELETE ASSET</button>
