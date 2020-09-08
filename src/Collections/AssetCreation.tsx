@@ -17,7 +17,7 @@ export default function AssetCreation(props: {
           text="Blank Asset"
           handleClick={() => props.createAsset(createBlankAsset())}
         ></AssetCardButton>
-        {[ironclad, lightbearer, caveLion].map((example, index) => {
+        {[ironclad(), lightbearer(), caveLion()].map((example, index) => {
           return (
             <AssetChoice
               key={index}
