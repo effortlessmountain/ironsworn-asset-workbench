@@ -10,7 +10,10 @@ const WriteIn = (props: { writeIn?: string }) => {
 
 const Description = (props: { description: string }) => {
   return props.description ? (
-    <div className="description">{props.description}</div>
+    <div
+      className="description"
+      dangerouslySetInnerHTML={{ __html: sanitize(props.description) }}
+    ></div>
   ) : null;
 };
 

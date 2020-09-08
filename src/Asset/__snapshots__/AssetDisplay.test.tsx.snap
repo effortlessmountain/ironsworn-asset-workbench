@@ -70,9 +70,12 @@ exports[`renders the asset Cave Lion 1`] = `
       </div>
       <div
         className="description"
-      >
-        Your cat takes down its prey.
-      </div>
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Your cat takes down its prey.",
+          }
+        }
+      />
       <div
         className="abilities"
       >
@@ -283,9 +286,12 @@ exports[`renders the asset Ironclad 1`] = `
     >
       <div
         className="description"
-      >
-        If you wear high-tech armor...
-      </div>
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "If you wear high-tech armor...",
+          }
+        }
+      />
       <div
         className="abilities"
       >
