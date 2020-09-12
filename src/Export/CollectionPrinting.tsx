@@ -34,11 +34,14 @@ export function CollectionPrinting(props: { assets: AssetDocument[]; back() }) {
     <>
       <section className="print-controls">
         <p>
-          Print using your browser. If you want a PDF, print using the browser
-          and select the "Print to PDF" printer. If you want the images of the
-          sheets of assets, right click and save.
+          If you want a PDF, select "Print to PDF" as your printer when you
+          print. If you want the images of the sheets of assets, right click and
+          save.
         </p>
-        <button onClick={props.back}>BACK</button>
+        <div className="vertical">
+          <button onClick={window.print}>PRINT</button>
+          <button onClick={props.back}>BACK</button>
+        </div>
       </section>
       {images.map((image, i) => {
         return (
