@@ -8,13 +8,15 @@
 }
 
 /* to fix jumpy scrollbar */
-html {
+/* Commented out because it messes up the html2canvas export */
+/* html {
   margin-left: calc(100vw - 100%);
   margin-right: 0;
-}
+} */
 
 body {
   font-family: var(--font);
+  background-color: white;
 }
 
 .app-header {
@@ -344,4 +346,10 @@ textarea {
   margin-left: 25px;
   margin-right: 25px;
   margin-bottom: 20px;
+}
+
+.sheet-of-assets {
+  display: flex;
+  flex-wrap: wrap;
+  width: 2250px;
 }

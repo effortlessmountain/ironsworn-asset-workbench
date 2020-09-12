@@ -1,0 +1,45 @@
+.print-page {
+  /* paper-css sheet styles */
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  page-break-after: always;
+
+  /* dimensions */
+  width: 8.5in;
+  height: 11in;
+  padding: 0.25in 0.5in;
+
+  /* my styles */
+}
+
+.print-page img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Hiding everything but what I want */
+@media print {
+  .app-header,
+  .footer,
+  .print-controls {
+    display: none;
+  }
+}
+
+/** For screen preview **/
+@media screen {
+  .print-page {
+    background: white;
+    box-shadow: 0 0.5mm 2mm rgba(0, 0, 0, 0.3);
+    margin: 5mm auto;
+  }
+}
+
+/** Fix for Chrome issue #273306 **/
+@media print {
+  .print-page {
+    width: 8.5in;
+  }
+}

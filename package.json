@@ -1,6 +1,6 @@
 {
   "name": "ironsworn-asset-workbench",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "private": true,
   "homepage": "https://effortlessmountain.github.io/ironsworn-asset-workbench",
   "dependencies": {
@@ -14,6 +14,7 @@
     "gh-pages": "^2.2.0",
     "html2canvas": "^1.0.0-rc.5",
     "lodash": "^4.17.15",
+    "paper-css": "^0.4.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0",

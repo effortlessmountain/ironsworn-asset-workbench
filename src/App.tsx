@@ -4,14 +4,15 @@ import { AssetDocument, UnspecifiedAssetDocument } from "./Asset/asset";
 import { transformToLatest } from "./Asset/assetTransformation";
 import { calculateScale, AssetScale } from "./Asset/assetScaling";
 import { AssetDisplay } from "./Asset/AssetDisplay";
-import Download from "./Export/Download";
+import { ExportAsset } from "./Export/ExportAssetImage";
 import AssetSelection from "./Collections/AssetSelection";
 import AssetCreation from "./Collections/AssetCreation";
 import { Collection, createCollection } from "./Collections/collection";
 import { putLoneAssetIntoCollection } from "./Collections/collectionTransformation";
 import { Footer } from "./Footer";
+import { CollectionPrinting } from "./Export/CollectionPrinting";
 
-type Screen = "choose" | "new" | "edit" | "preview-download";
+type Screen = "choose" | "new" | "edit" | "preview-download" | "print";
 
 type AppState = {
   currentAsset: AssetDocument;
@@ -162,22 +163,23 @@ export default class App extends React.Component<{}, AppState> {
       <div className="app">
         <header className="app-header">
           <h2>
-            Asset Workbench <span className="app-version">v0.14.0</span>
+            Asset Workbench <span className="app-version">v0.15.0</span>
           </h2>
         </header>
         {this.state.currentScreen === "preview-download" && (
-          <Download
+          <ExportAsset
             asset={this.state.currentAsset}
             scale={this.state.assetScale}
             goBackToMain={() => this.showScreen("edit")}
             preview={this.state.previewDownload}
-          ></Download>
+          ></ExportAsset>
         )}
 
         {this.state.currentScreen === "choose" && (
           <AssetSelection
             chooseAsset={(asset, index) => this.chooseAsset(asset, index)}
             showNewScreen={() => this.showScreen("new")}
+            showPrintScreen={() => this.showScreen("print")}
             assets={this.state.currentCollection.assets}
           ></AssetSelection>
         )}
@@ -208,6 +210,12 @@ export default class App extends React.Component<{}, AppState> {
               downloadAssetImage={() => this.downloadAssetImage()}
             ></SidePanel>
           </div>
+        )}
+        {this.state.currentScreen === "print" && (
+          <CollectionPrinting
+            assets={this.state.currentCollection.assets}
+            back={() => this.showScreen("choose")}
+          ></CollectionPrinting>
         )}
         <Footer></Footer>
       </div>

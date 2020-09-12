@@ -5,6 +5,7 @@ import AssetChoice from "./AssetChoice";
 export default function AssetSelection(props: {
   chooseAsset: (asset, index) => void;
   showNewScreen();
+  showPrintScreen();
   assets: UnspecifiedAssetDocument[];
 }) {
   return (
@@ -24,6 +25,7 @@ export default function AssetSelection(props: {
       </div>
       <div className="vertical">
         <button onClick={props.showNewScreen}>ADD NEW ASSET</button>
+        <button onClick={props.showPrintScreen}>PRINT</button>
         {/* <button>FONTS</button> */}
         {/* <button>EXPORT</button> */}
       </div>
