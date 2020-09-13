@@ -2,54 +2,43 @@ import React, { useState } from "react";
 import { AssetDocument } from "../Asset/asset";
 import { RenderImage } from "./RenderImage";
 import { AssetDisplay } from "../Asset/AssetDisplay";
+import { PrintPreview } from "./PrintPreview";
+import { AssetSelectionForPrinting } from "./AssetSelectionForPrinting";
 
 export function CollectionPrinting(props: { assets: AssetDocument[]; back() }) {
   const [images, setImages] = useState([]);
-  const startingIndex = images.length * 9;
+  const [assetsToPrint, setAssetsToPrint] = useState([]);
 
-  if (startingIndex < props.assets.length) {
-    const assetsToRender = props.assets.slice(startingIndex, startingIndex + 9);
+  if (assetsToPrint.length === 0) {
     return (
-      <RenderImage
-        handleImage={(dataUrl) => {
-          setImages([...images, dataUrl]);
-        }}
-      >
-        <div className="sheet-of-assets">
-          {assetsToRender.map((asset, index) => {
-            return (
-              <AssetDisplay
-                key={index}
-                asset={asset}
-                scale="full"
-              ></AssetDisplay>
-            );
-          })}
-        </div>
-      </RenderImage>
+      <AssetSelectionForPrinting
+        back={props.back}
+        assets={props.assets}
+        setAssetsToPrint={setAssetsToPrint}
+      ></AssetSelectionForPrinting>
     );
   }
 
+  const startingIndex = images.length * 9;
+
+  if (startingIndex >= assetsToPrint.length) {
+    return <PrintPreview images={images} back={props.back}></PrintPreview>;
+  }
+
+  const assetsToRender = assetsToPrint.slice(startingIndex, startingIndex + 9);
   return (
-    <>
-      <section className="print-controls">
-        <p>
-          If you want a PDF, select "Print to PDF" as your printer when you
-          print. If you want the images of the sheets of assets, right click and
-          save.
-        </p>
-        <div className="vertical">
-          <button onClick={window.print}>PRINT</button>
-          <button onClick={props.back}>BACK</button>
-        </div>
-      </section>
-      {images.map((image, i) => {
-        return (
-          <section className="print-page" key={i}>
-            <img src={image} alt="A rendered page of assets"></img>
-          </section>
-        );
-      })}
-    </>
+    <RenderImage
+      handleImage={(dataUrl) => {
+        setImages([...images, dataUrl]);
+      }}
+    >
+      <div className="sheet-of-assets">
+        {assetsToRender.map((asset, index) => {
+          return (
+            <AssetDisplay key={index} asset={asset} scale="full"></AssetDisplay>
+          );
+        })}
+      </div>
+    </RenderImage>
   );
 }
