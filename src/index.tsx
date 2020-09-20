@@ -1,5 +1,5 @@
 import "paper-css/paper.css";
-import "./index.css";
+import "./index.scss";
 import "./Asset/asset.css";
 import "./Export/print.css";
 import App from "./App";

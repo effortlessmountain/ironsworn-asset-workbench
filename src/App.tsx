@@ -1,9 +1,8 @@
 import React from "react";
-import { SidePanel } from "./AssetEditor/AssetEditor";
+import { AssetEditor } from "./AssetEditor/AssetEditor";
 import { AssetDocument, UnspecifiedAssetDocument } from "./Asset/asset";
 import { transformToLatest } from "./Asset/assetTransformation";
 import { calculateScale, AssetScale } from "./Asset/assetScaling";
-import { AssetDisplay } from "./Asset/AssetDisplay";
 import { ExportAsset } from "./Export/ExportAssetImage";
 import AssetSelection from "./Collections/AssetSelection";
 import AssetCreation from "./Collections/AssetCreation";
@@ -193,13 +192,7 @@ export default class App extends React.Component<{}, AppState> {
 
         {this.state.currentScreen === "edit" && (
           <div className="container">
-            <div className="assets">
-              <AssetDisplay
-                asset={this.state.currentAsset}
-                scale={this.state.assetScale}
-              ></AssetDisplay>
-            </div>
-            <SidePanel
+            <AssetEditor
               currentAsset={this.state.currentAsset}
               updateAsset={(asset) => this.updateAsset(asset)}
               askToDelete={() => this.askToDelete()}
@@ -208,7 +201,7 @@ export default class App extends React.Component<{}, AppState> {
               showScreen={(screen) => this.showScreen(screen)}
               previewAssetImage={() => this.previewAssetImage()}
               downloadAssetImage={() => this.downloadAssetImage()}
-            ></SidePanel>
+            ></AssetEditor>
           </div>
         )}
         {this.state.currentScreen === "print" && (

@@ -46,18 +46,6 @@ body {
   flex-wrap: wrap;
 }
 
-.interface {
-  color: var(--darkest);
-  /* height         : 80vh; */
-  display: flex;
-  /* align-items       : center; */
-  flex-direction: column;
-  justify-content: space-around;
-  width: 720px;
-  margin-left: 25px;
-  margin-right: 25px;
-}
-
 button,
 select {
   width: 190px;
@@ -150,14 +138,41 @@ button.selected {
   width: 400px;
 }
 
-.editor {
+.sidebar {
+  max-width: 200px;
+}
+
+.asset-editor {
+  color: var(--darkest);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.asset-being-edited {
+  min-width: 40%;
+  display: flex;
+  justify-content: center;
+}
+
+.details-editor {
   display: flex;
   flex-direction: column;
   border: 5px solid var(--gray);
   box-sizing: border-box;
-  width: 100%;
+  width: 40%;
   min-height: 300px;
   background-color: var(--off-white);
+}
+
+@media only screen and (max-width: 1165px) {
+  .asset-editor {
+    flex-direction: column;
+  }
+  .asset-being-edited,
+  .details-editor {
+    width: 100%;
+  }
 }
 
 .editor-view {

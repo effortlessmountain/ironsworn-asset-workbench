@@ -5,7 +5,6 @@ import { AssetDocument } from "../../Asset/asset";
 type TopEditProps = {
   currentAsset: AssetDocument;
   updateAsset(asset): void;
-  askToDelete(): void;
   handleIconImport(): void; //todo: move fully inte here
 };
 
@@ -51,9 +50,6 @@ export class TopEdit extends React.Component<TopEditProps> {
                 this.props.updateAsset(this.props.currentAsset);
               }}
             ></LabeledTextInput>
-          </div>
-          <div>
-            <button onClick={this.props.askToDelete}>DELETE ASSET</button>
           </div>
         </div>
         <LabeledTextAreaInput

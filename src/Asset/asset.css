@@ -11,6 +11,7 @@
   color: var(--darkest);
   background-color: #fff;
   background-image: url("./ironsworn_asset_background.svg");
+  background-repeat: no-repeat;
   background-size: contain;
   box-sizing: border-box;
   font-size: var(--asset-font-size);
