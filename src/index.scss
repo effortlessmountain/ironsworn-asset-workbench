@@ -128,21 +128,6 @@ button:focus {
   min-width: 400px;
 }
 
-.json-error-container {
-  height: 100px;
-}
-
-.json-error {
-  height: 100%;
-  margin-left: 5px;
-  display: flex;
-  align-items: center;
-}
-
-.json-error button {
-  width: 400px;
-}
-
 .sidebar {
   max-width: 200px;
   height: 100%;
@@ -174,6 +159,10 @@ button:focus {
   background-color: var(--off-white);
 }
 
+.details-editor button {
+  margin-left: 0;
+}
+
 @media only screen and (max-width: 1165px) {
   .asset-editor {
     flex-direction: column;
@@ -203,12 +192,6 @@ textarea {
   font-family: var(--font);
   font-size: 16px;
   padding: 5px;
-}
-
-.text-input input,
-.number-input input,
-.text-input textarea {
-  margin-left: 5px;
 }
 
 .text-input input {
@@ -267,7 +250,7 @@ textarea {
 }
 
 .ability-input {
-  margin: 10px 10px 20px 10px;
+  margin: 10px 10px 20px 2px;
   padding: 5px;
   border-left: 4px solid var(--gray);
   border-radius: 4px;
@@ -286,9 +269,7 @@ textarea {
 
 .ability-button {
   width: 100px;
-  border: 1px solid var(--gray);
   margin: 0;
-  margin-left: 5px;
 }
 
 .icon-import {
@@ -298,7 +279,6 @@ textarea {
 }
 
 .icon-import-helptext {
-  margin-left: 5px;
   width: 80%;
 }
 
@@ -311,11 +291,6 @@ textarea {
 
 .icon-import-author input {
   width: 200px;
-}
-
-.icon-import-author input,
-.icon-import-fileselect input {
-  margin-left: 5px;
 }
 
 .help {
