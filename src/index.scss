@@ -66,9 +66,14 @@ label {
 }
 
 button:hover,
+button:focus,
 button.selected {
   color: white;
   background-color: var(--gray);
+}
+
+button:focus {
+  border: 2px solid white;
 }
 
 .asset-selection {
@@ -140,6 +145,10 @@ button.selected {
 
 .sidebar {
   max-width: 200px;
+  height: 100%;
+  background-color: var(--off-white);
+  border: 5px solid var(--gray);
+  border-right: none;
 }
 
 .asset-editor {
@@ -243,12 +252,15 @@ textarea {
   margin: 0;
   border: none;
   background-color: var(--gray);
+  border: 2px solid var(--gray);
   color: var(--off-white);
 }
 
 .change-view.selected,
+.change-view:focus,
 .change-view:hover {
   background-color: var(--off-white);
+  border: 2px solid var(--off-white);
   color: var(--gray);
 }
 

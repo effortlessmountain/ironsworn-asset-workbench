@@ -23,7 +23,7 @@ export default function AssetSelection(props: {
           })}
         </div>
       </div>
-      <div className="vertical">
+      <div className="sidebar">
         <button onClick={props.showNewScreen}>ADD NEW ASSET</button>
         <button onClick={props.showPrintScreen}>PRINT</button>
         {/* <button>FONTS</button> */}
