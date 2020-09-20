@@ -221,6 +221,7 @@ textarea {
 
 .font-inputs {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .font-inputs .text-input input {
