@@ -103,9 +103,9 @@ button:focus {
   z-index: 100;
 }
 
-.asset-choice .asset {
-  background-image: url("./Asset/ironsworn_asset_background_rounded.svg");
-}
+// .asset-choice .asset {
+//   background-image: url("./Asset/ironsworn_asset_background_rounded.svg");
+// }
 
 .add-new-asset.asset {
   display: flex;
@@ -380,4 +380,19 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   width: 2250px;
+}
+
+.print-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.print-help {
+  display: flex;
+  justify-content: center;
+}
+
+.asset-print-selection {
+  display: flex;
+  justify-content: center;
 }

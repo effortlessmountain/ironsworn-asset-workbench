@@ -33,12 +33,12 @@ export function AssetSelectionForPrinting(props: {
   };
 
   return (
-    <section style={{ marginLeft: "20px" }}>
-      <h2>Select assets to print:</h2>
+    <section className="asset-print-selection">
       <div
         className="choose-to-print"
         style={{ marginBottom: "20px", fontSize: "18px", lineHeight: "25px" }}
       >
+        <h2>Select assets to print:</h2>
         <button onClick={toggleAll}>All/None</button>
         {props.assets.map((asset, i) => {
           return (
@@ -52,10 +52,10 @@ export function AssetSelectionForPrinting(props: {
             </div>
           );
         })}
-      </div>
-      <div className="vertical">
-        <button onClick={print}>NEXT</button>
-        <button onClick={props.back}>BACK</button>
+        <div className="vertical">
+          <button onClick={print}>NEXT</button>
+          <button onClick={props.back}>BACK</button>
+        </div>
       </div>
     </section>
   );
