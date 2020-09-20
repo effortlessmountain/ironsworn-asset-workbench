@@ -62,7 +62,7 @@ select {
 }
 
 label {
-  margin-left: 5px;
+  padding: 5px;
 }
 
 button:hover,
@@ -202,6 +202,7 @@ input,
 textarea {
   font-family: var(--font);
   font-size: 16px;
+  padding: 5px;
 }
 
 .text-input input,
