@@ -51,7 +51,7 @@ export function AssetEditor(props: SidePanelProps) {
         >
           BACK
         </button>
-        <div>
+        <div className="scale-control">
           <label>Scale (also affects Download size)</label>
           <select
             id="scale-select"

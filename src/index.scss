@@ -136,6 +136,19 @@ button:focus {
   border-right: none;
 }
 
+.sidebar label {
+  display: inline-block;
+}
+
+.scale-control {
+  margin: 5px;
+  border: 1px solid var(--gray);
+}
+
+#scale-select {
+  width: auto;
+}
+
 .asset-editor {
   color: var(--darkest);
   display: flex;
