@@ -5,6 +5,7 @@
   --gray: #414042;
   --font: "Lato";
   --off-white: #f9f9f9;
+  --warning: #bb2222;
 }
 
 /* to fix jumpy scrollbar */
@@ -143,6 +144,16 @@ button:focus {
 .scale-control {
   margin: 5px;
   border: 1px solid var(--gray);
+}
+
+.delete-asset-button {
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+.delete-asset-button:hover,
+.delete-asset-button:focus {
+  background-color: var(--warning);
 }
 
 #scale-select {
@@ -323,11 +334,6 @@ textarea {
   height: 100%;
   display: flex;
   align-items: center;
-}
-
-.scale-buttons {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .footer {

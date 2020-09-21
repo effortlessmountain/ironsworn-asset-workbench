@@ -73,7 +73,9 @@ export function AssetEditor(props: SidePanelProps) {
         <button onClick={() => downloadJson(props.currentAsset)}>
           DOWNLOAD JSON
         </button>
-        <button onClick={props.askToDelete}>DELETE ASSET</button>
+        <button onClick={props.askToDelete} className="delete-asset-button">
+          DELETE
+        </button>
       </div>
     </div>
   );
