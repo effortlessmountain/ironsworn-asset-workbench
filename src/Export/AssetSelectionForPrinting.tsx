@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { AssetDocument } from "../Asset/asset";
+
 export function AssetSelectionForPrinting(props: {
   assets: AssetDocument[];
-  back();
   setAssetsToPrint(assets);
 }) {
   const [selected, setSelected] = useState(
     new Set(props.assets.map((_, i) => i))
   );
+  const history = useHistory();
 
   const handleChange = (i) => {
     const newSelected = new Set(selected);
@@ -54,7 +56,7 @@ export function AssetSelectionForPrinting(props: {
         })}
         <div className="vertical">
           <button onClick={print}>NEXT</button>
-          <button onClick={props.back}>BACK</button>
+          <button onClick={() => history.push("/")}>BACK</button>
         </div>
       </div>
     </section>

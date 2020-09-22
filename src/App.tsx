@@ -1,5 +1,7 @@
-import React, { SetStateAction, useState } from "react";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { cloneDeep } from "lodash";
+
 import { AssetEditor } from "./AssetEditor/AssetEditor";
 import { AssetDocument, UnspecifiedAssetDocument } from "./Asset/asset";
 import { transformToLatest } from "./Asset/assetTransformation";
@@ -7,12 +9,10 @@ import { calculateScale, AssetScale } from "./Asset/assetScaling";
 import { ExportAsset } from "./Export/ExportAssetImage";
 import AssetSelection from "./Collections/AssetSelection";
 import AssetCreation from "./Collections/AssetCreation";
-import { Collection, createCollection } from "./Collections/collection";
+import { CollectionDocument, createCollection } from "./Collections/collection";
 import { putLoneAssetIntoCollection } from "./Collections/collectionTransformation";
 import { Footer } from "./Footer";
 import { CollectionPrinting } from "./Export/CollectionPrinting";
-
-type Screen = "choose" | "new" | "edit" | "preview-download" | "print";
 
 export function sussCurrentCollection(maybeCollections, maybeAsset) {
   let startingCollection = null;
@@ -26,10 +26,6 @@ export function sussCurrentCollection(maybeCollections, maybeAsset) {
     }
   }
   return startingCollection;
-}
-
-function selectDefaultScreen(assets): Screen {
-  return assets.length === 0 ? "new" : "choose";
 }
 
 export default function App() {
@@ -49,8 +45,8 @@ export default function App() {
   ] = useState(null);
 
   const [currentCollection, setCurrentCollection]: [
-    Collection,
-    React.Dispatch<Collection>
+    CollectionDocument,
+    React.Dispatch<CollectionDocument>
   ] = useState(startingCollection);
 
   const [assetScale, setAssetScale]: [
@@ -58,17 +54,7 @@ export default function App() {
     React.Dispatch<AssetScale>
   ] = useState(startingScale);
 
-  const [previewDownload, setPreviewDownload]: [
-    boolean,
-    React.Dispatch<SetStateAction<boolean>>
-  ] = useState(true);
-
-  const [currentScreen, setCurrentScreen]: [
-    Screen,
-    React.Dispatch<Screen>
-  ] = useState(selectDefaultScreen(startingCollection.assets));
-
-  function maybeGetLocalCollections(): Collection[] {
+  function maybeGetLocalCollections(): CollectionDocument[] {
     const maybeCollections = window.localStorage.getItem("collections");
     if (maybeCollections) {
       try {
@@ -106,16 +92,16 @@ export default function App() {
     setCurrentAsset(cloneDeep(transformToLatest(asset)));
   }
 
-  function askToDelete() {
+  function askToDelete(history) {
     if (window.confirm("Delete this asset?")) {
       currentCollection.assets.splice(currentAssetIndex, 1);
       persistCollection(currentCollection);
       setCurrentCollection(currentCollection);
-      setCurrentScreen(selectDefaultScreen(currentCollection.assets));
+      history.push("/");
     }
   }
 
-  function createAsset(asset) {
+  function createAsset(asset, history) {
     let index = currentCollection.assets.push(asset) - 1;
     window.localStorage.setItem(
       "collections",
@@ -124,82 +110,68 @@ export default function App() {
     setCurrentAsset(transformToLatest(asset));
     setCurrentAssetIndex(index);
     setCurrentCollection(currentCollection);
-    setCurrentScreen("edit");
-  }
-
-  function chooseAsset(asset, index) {
-    setCurrentAsset(transformToLatest(asset));
-    setCurrentAssetIndex(index);
-    setCurrentScreen("edit");
-  }
-
-  function showScreen(screen) {
-    setCurrentScreen(screen);
-  }
-
-  function previewAssetImage() {
-    setCurrentScreen("preview-download");
-    setPreviewDownload(true);
-  }
-
-  function downloadAssetImage() {
-    setCurrentScreen("preview-download");
-    setPreviewDownload(false);
+    history.push("/assets/edit");
   }
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <h2>
-          Asset Workbench <span className="app-version">v0.17.0</span>
-        </h2>
-      </header>
-      {currentScreen === "preview-download" && (
-        <ExportAsset
-          asset={currentAsset}
-          scale={assetScale}
-          goBackToMain={() => showScreen("edit")}
-          preview={previewDownload}
-        ></ExportAsset>
-      )}
+    <Router>
+      <div className="app">
+        <header className="app-header">
+          <h2>
+            Asset Workbench <span className="app-version">v0.17.0</span>
+          </h2>
+        </header>
 
-      {currentScreen === "choose" && (
-        <AssetSelection
-          chooseAsset={chooseAsset}
-          showNewScreen={() => showScreen("new")}
-          showPrintScreen={() => showScreen("print")}
-          assets={currentCollection.assets}
-        ></AssetSelection>
-      )}
+        <Switch>
+          <Route exact path="/">
+            <AssetSelection
+              assets={currentCollection.assets}
+              setCurrentAsset={setCurrentAsset}
+              setCurrentAssetIndex={setCurrentAssetIndex}
+            ></AssetSelection>
+          </Route>
 
-      {currentScreen === "new" && (
-        <AssetCreation
-          createAsset={createAsset}
-          showChooseScreen={() => showScreen("choose")}
-        ></AssetCreation>
-      )}
+          <Route path="/assets/new">
+            <AssetCreation createAsset={createAsset}></AssetCreation>
+          </Route>
 
-      {currentScreen === "edit" && (
-        <div className="container">
-          <AssetEditor
-            currentAsset={currentAsset}
-            updateAsset={updateAsset}
-            askToDelete={askToDelete}
-            assetScale={assetScale}
-            handleAssetScaleChange={handleAssetScaleChange}
-            showScreen={showScreen}
-            previewAssetImage={previewAssetImage}
-            downloadAssetImage={downloadAssetImage}
-          ></AssetEditor>
-        </div>
-      )}
-      {currentScreen === "print" && (
-        <CollectionPrinting
-          assets={currentCollection.assets}
-          back={() => showScreen("choose")}
-        ></CollectionPrinting>
-      )}
-      <Footer></Footer>
-    </div>
+          <Route path="/assets/preview">
+            <ExportAsset
+              asset={currentAsset}
+              scale={assetScale}
+              preview={true}
+            ></ExportAsset>
+          </Route>
+
+          <Route path="/assets/download">
+            <ExportAsset
+              asset={currentAsset}
+              scale={assetScale}
+              preview={false}
+            ></ExportAsset>
+          </Route>
+
+          <Route path="/assets/edit">
+            <div className="container">
+              <AssetEditor
+                currentAsset={currentAsset}
+                updateAsset={updateAsset}
+                askToDelete={askToDelete}
+                assetScale={assetScale}
+                handleAssetScaleChange={handleAssetScaleChange}
+              ></AssetEditor>
+            </div>
+          </Route>
+
+          <Route path="/collections/print">
+            <CollectionPrinting
+              assets={currentCollection.assets}
+            ></CollectionPrinting>
+          </Route>
+        </Switch>
+
+        <Footer></Footer>
+      </div>
+    </Router>
   );
 }

@@ -1,13 +1,28 @@
 import React from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import { UnspecifiedAssetDocument } from "../Asset/asset";
+import { transformToLatest } from "../Asset/assetTransformation";
 import AssetChoice from "./AssetChoice";
 
 export default function AssetSelection(props: {
-  chooseAsset: (asset, index) => void;
-  showNewScreen();
-  showPrintScreen();
+  setCurrentAsset(asset);
+  setCurrentAssetIndex(index);
   assets: UnspecifiedAssetDocument[];
 }) {
+  const history = useHistory();
+  const location = useLocation();
+
+  if (props.assets.length === 0) {
+    history.push("/assets/new");
+    return null;
+  }
+
+  function chooseAsset(asset, index) {
+    props.setCurrentAsset(transformToLatest(asset));
+    props.setCurrentAssetIndex(index);
+    history.push("/assets/edit");
+  }
+
   return (
     <div className="horizontal">
       <div className="asset-selection">
@@ -17,15 +32,19 @@ export default function AssetSelection(props: {
               <AssetChoice
                 asset={asset}
                 key={asset.name + index}
-                handleClick={() => props.chooseAsset(asset, index)}
+                handleClick={() => chooseAsset(asset, index)}
               ></AssetChoice>
             );
           })}
         </div>
       </div>
       <div className="sidebar">
-        <button onClick={props.showNewScreen}>ADD NEW ASSET</button>
-        <button onClick={props.showPrintScreen}>PRINT</button>
+        <button onClick={() => history.push("/assets/new")}>
+          ADD NEW ASSET
+        </button>
+        <button onClick={() => history.push("/collections/print")}>
+          PRINT
+        </button>
         {/* <button>FONTS</button> */}
         {/* <button>EXPORT</button> */}
       </div>

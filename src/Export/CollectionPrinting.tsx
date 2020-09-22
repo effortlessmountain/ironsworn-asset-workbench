@@ -5,14 +5,13 @@ import { AssetDisplay } from "../Asset/AssetDisplay";
 import { PrintPreview } from "./PrintPreview";
 import { AssetSelectionForPrinting } from "./AssetSelectionForPrinting";
 
-export function CollectionPrinting(props: { assets: AssetDocument[]; back() }) {
+export function CollectionPrinting(props: { assets: AssetDocument[] }) {
   const [images, setImages] = useState([]);
   const [assetsToPrint, setAssetsToPrint] = useState([]);
 
   if (assetsToPrint.length === 0) {
     return (
       <AssetSelectionForPrinting
-        back={props.back}
         assets={props.assets}
         setAssetsToPrint={setAssetsToPrint}
       ></AssetSelectionForPrinting>
@@ -22,7 +21,7 @@ export function CollectionPrinting(props: { assets: AssetDocument[]; back() }) {
   const startingIndex = images.length * 9;
 
   if (startingIndex >= assetsToPrint.length) {
-    return <PrintPreview images={images} back={props.back}></PrintPreview>;
+    return <PrintPreview images={images}></PrintPreview>;
   }
 
   const assetsToRender = assetsToPrint.slice(startingIndex, startingIndex + 9);

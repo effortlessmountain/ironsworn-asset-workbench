@@ -1,6 +1,9 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
-export function PrintPreview(props: { images: string[]; back() }) {
+export function PrintPreview(props: { images: string[] }) {
+  const history = useHistory();
+
   return (
     <>
       <section className="print-controls" style={{ marginLeft: "20px" }}>
@@ -11,7 +14,7 @@ export function PrintPreview(props: { images: string[]; back() }) {
           </p>
         </div>
         <div className="sidebar">
-          <button onClick={props.back}>BACK</button>
+          <button onClick={() => history.push("/")}>BACK</button>
           <button onClick={window.print}>PRINT</button>
         </div>
       </section>

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { AssetDocument } from "../Asset/asset";
 import { AssetDisplay } from "../Asset/AssetDisplay";
 import { AssetScale } from "../Asset/assetScaling";
 import { RenderImage } from "./RenderImage";
 
-function ImagePreview(props: { alt: string; dataUrl: string; goBackToMain() }) {
+function ImagePreview(props: { alt: string; dataUrl: string }) {
+  const history = useHistory();
   return (
     <div className="preview-download">
       <div className="image-container">
@@ -16,7 +18,7 @@ function ImagePreview(props: { alt: string; dataUrl: string; goBackToMain() }) {
           try making your browser window bigger before pressing 'preview' or
           'download as image'.
         </p>
-        <button id="done-downloading" onClick={() => props.goBackToMain()}>
+        <button id="done-downloading" onClick={() => history.push("/")}>
           close
         </button>
       </div>
@@ -27,12 +29,12 @@ function ImagePreview(props: { alt: string; dataUrl: string; goBackToMain() }) {
 type DownloadProps = {
   asset: AssetDocument;
   scale: AssetScale;
-  goBackToMain: () => void;
   preview: boolean;
 };
 
 export function ExportAsset(props: DownloadProps) {
   const [image, setImage] = useState(null);
+  const history = useHistory();
 
   function saveImage() {
     const link = document.createElement("a");
@@ -50,15 +52,9 @@ export function ExportAsset(props: DownloadProps) {
       </RenderImage>
     );
   } else if (props.preview) {
-    return (
-      <ImagePreview
-        dataUrl={image}
-        alt={props.asset.name}
-        goBackToMain={props.goBackToMain}
-      ></ImagePreview>
-    );
+    return <ImagePreview dataUrl={image} alt={props.asset.name}></ImagePreview>;
   }
   saveImage();
-  props.goBackToMain();
+  history.push("/assets/edit");
   return null;
 }

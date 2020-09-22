@@ -1,11 +1,13 @@
 import { AssetDocument } from "../Asset/asset";
 
-export type Collection = {
+export type CollectionDocument = {
   name: string;
   assets: AssetDocument[];
 };
 
-export function createCollection(name = "Default Collection"): Collection {
+export function createCollection(
+  name = "Default Collection"
+): CollectionDocument {
   return {
     name: name,
     assets: [],

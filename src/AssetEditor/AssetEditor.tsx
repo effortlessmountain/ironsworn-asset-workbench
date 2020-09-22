@@ -1,5 +1,6 @@
-import { AssetDocument } from "../Asset/asset";
 import React from "react";
+import { useHistory } from "react-router-dom";
+import { AssetDocument } from "../Asset/asset";
 import DetailsEditor from "./DetailsEditor/DetailsEditor";
 import { AssetDisplay } from "../Asset/AssetDisplay";
 import { AssetScale } from "../Asset/assetScaling";
@@ -7,12 +8,9 @@ import { AssetScale } from "../Asset/assetScaling";
 type SidePanelProps = {
   currentAsset: AssetDocument;
   updateAsset(asset: AssetDocument): void;
-  askToDelete(): void;
+  askToDelete(history): void;
   assetScale: AssetScale;
   handleAssetScaleChange(newScale: string): void;
-  showScreen(screen): void;
-  previewAssetImage(): void;
-  downloadAssetImage(): void;
 };
 
 function downloadJson(asset) {
@@ -28,6 +26,8 @@ function downloadJson(asset) {
 }
 
 export function AssetEditor(props: SidePanelProps) {
+  const history = useHistory();
+
   return (
     <div className="asset-editor">
       <div className="asset-being-edited">
@@ -45,10 +45,7 @@ export function AssetEditor(props: SidePanelProps) {
       ></DetailsEditor>
 
       <div className="sidebar">
-        <button
-          className="asset-back-button"
-          onClick={() => props.showScreen("choose")}
-        >
+        <button className="asset-back-button" onClick={() => history.push("/")}>
           BACK
         </button>
         <div className="scale-control">
@@ -64,16 +61,22 @@ export function AssetEditor(props: SidePanelProps) {
             <option value="full">750px by 1050px</option>
           </select>
         </div>
-        <button id="preview-download" onClick={props.previewAssetImage}>
+        <button
+          id="preview-download"
+          onClick={() => history.push("/assets/preview")}
+        >
           PREVIEW IMAGE
         </button>
-        <button id="download" onClick={props.downloadAssetImage}>
+        <button id="download" onClick={() => history.push("/assets/download")}>
           DOWNLOAD IMAGE
         </button>
         <button onClick={() => downloadJson(props.currentAsset)}>
           DOWNLOAD JSON
         </button>
-        <button onClick={props.askToDelete} className="delete-asset-button">
+        <button
+          onClick={() => props.askToDelete(history)}
+          className="delete-asset-button"
+        >
           DELETE
         </button>
       </div>

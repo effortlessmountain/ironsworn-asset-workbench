@@ -2,11 +2,6 @@
 
 describe("managing a collection", () => {
   describe("creating an asset", () => {
-    it("can get to the main screen with no assets", () => {
-      cy.visit("http://localhost:3000");
-      cy.contains("CANCEL", { matchCase: false }).click();
-      cy.get(".asset-selection-controls").should("be.empty");
-    });
     it("starts on New Asset screen when no assets in a collection", () => {
       cy.visit("http://localhost:3000");
       cy.get(".add-new-asset").should("exist");
