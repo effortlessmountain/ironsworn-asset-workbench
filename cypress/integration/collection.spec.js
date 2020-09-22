@@ -27,9 +27,9 @@ describe("managing a collection", () => {
     });
     it("can delete assets and shows the New Asset screen when none are left", () => {
       cy.contains("Ironclad").click();
-      cy.contains("DELETE ASSET").click();
+      cy.contains("DELETE").click();
       cy.get(".asset-choice").click();
-      cy.contains("DELETE ASSET").click();
+      cy.contains("DELETE").click();
       cy.get(".add-new-asset").should("exist");
       // to ensure localstorage was updated. Note that moving this to another test doesn't work unless the test makes the app persist to localstorage again because Cypress clears localstorage between tests.
       cy.reload();
