@@ -1,4 +1,5 @@
-import React from "react";
+import React, { SetStateAction, useState } from "react";
+import { cloneDeep } from "lodash";
 import { AssetEditor } from "./AssetEditor/AssetEditor";
 import { AssetDocument, UnspecifiedAssetDocument } from "./Asset/asset";
 import { transformToLatest } from "./Asset/assetTransformation";
@@ -12,15 +13,6 @@ import { Footer } from "./Footer";
 import { CollectionPrinting } from "./Export/CollectionPrinting";
 
 type Screen = "choose" | "new" | "edit" | "preview-download" | "print";
-
-type AppState = {
-  currentAsset: AssetDocument;
-  currentCollection: Collection;
-  currentAssetIndex: number;
-  assetScale: AssetScale;
-  currentScreen: Screen;
-  previewDownload: boolean;
-};
 
 export function sussCurrentCollection(maybeCollections, maybeAsset) {
   let startingCollection = null;
@@ -36,34 +28,47 @@ export function sussCurrentCollection(maybeCollections, maybeAsset) {
   return startingCollection;
 }
 
-function selectDefaultScreen(assets) {
+function selectDefaultScreen(assets): Screen {
   return assets.length === 0 ? "new" : "choose";
 }
 
-export default class App extends React.Component<{}, AppState> {
-  constructor(props) {
-    super(props);
+export default function App() {
+  let maybeCollections = maybeGetLocalCollections();
+  let maybeAsset = maybeGetLocalAsset();
+  let startingCollection = sussCurrentCollection(maybeCollections, maybeAsset);
+  let startingScale = calculateScale();
 
-    let maybeCollections = this.maybeGetLocalCollections();
-    let maybeAsset = this.maybeGetLocalAsset();
-    let startingCollection = sussCurrentCollection(
-      maybeCollections,
-      maybeAsset
-    );
+  const [currentAsset, setCurrentAsset]: [
+    AssetDocument,
+    React.Dispatch<AssetDocument>
+  ] = useState(null);
 
-    let startingScale = calculateScale();
+  const [currentAssetIndex, setCurrentAssetIndex]: [
+    number,
+    React.Dispatch<number>
+  ] = useState(null);
 
-    this.state = {
-      currentAsset: null,
-      currentAssetIndex: null,
-      currentCollection: startingCollection,
-      assetScale: startingScale,
-      currentScreen: selectDefaultScreen(startingCollection.assets),
-      previewDownload: true,
-    };
-  }
+  const [currentCollection, setCurrentCollection]: [
+    Collection,
+    React.Dispatch<Collection>
+  ] = useState(startingCollection);
 
-  maybeGetLocalCollections(): Collection[] {
+  const [assetScale, setAssetScale]: [
+    AssetScale,
+    React.Dispatch<AssetScale>
+  ] = useState(startingScale);
+
+  const [previewDownload, setPreviewDownload]: [
+    boolean,
+    React.Dispatch<SetStateAction<boolean>>
+  ] = useState(true);
+
+  const [currentScreen, setCurrentScreen]: [
+    Screen,
+    React.Dispatch<Screen>
+  ] = useState(selectDefaultScreen(startingCollection.assets));
+
+  function maybeGetLocalCollections(): Collection[] {
     const maybeCollections = window.localStorage.getItem("collections");
     if (maybeCollections) {
       try {
@@ -75,7 +80,7 @@ export default class App extends React.Component<{}, AppState> {
     return null;
   }
 
-  maybeGetLocalAsset(): UnspecifiedAssetDocument {
+  function maybeGetLocalAsset(): UnspecifiedAssetDocument {
     const maybeAsset = window.localStorage.getItem("currentAsset");
     if (maybeAsset) {
       try {
@@ -87,131 +92,114 @@ export default class App extends React.Component<{}, AppState> {
     return null;
   }
 
-  handleAssetScaleChange(newScale) {
-    this.setState({ assetScale: newScale });
+  function handleAssetScaleChange(newScale) {
+    setAssetScale(newScale);
   }
 
-  persistCollection(collection) {
+  function persistCollection(collection) {
     window.localStorage.setItem("collections", JSON.stringify([collection]));
   }
 
-  updateAsset(asset) {
-    this.setState((state) => {
-      state.currentCollection.assets[state.currentAssetIndex] = asset;
-      this.persistCollection(state.currentCollection);
-      return {
-        currentAsset: transformToLatest(asset),
-      };
-    });
+  function updateAsset(asset) {
+    currentCollection.assets[currentAssetIndex] = asset;
+    persistCollection(currentCollection);
+    setCurrentAsset(cloneDeep(transformToLatest(asset)));
   }
 
-  askToDelete() {
+  function askToDelete() {
     if (window.confirm("Delete this asset?")) {
-      this.setState((state) => {
-        state.currentCollection.assets.splice(state.currentAssetIndex, 1);
-        this.persistCollection(state.currentCollection);
-        return {
-          currentCollection: state.currentCollection,
-          currentScreen: selectDefaultScreen(state.currentCollection.assets),
-        };
-      });
+      currentCollection.assets.splice(currentAssetIndex, 1);
+      persistCollection(currentCollection);
+      setCurrentCollection(currentCollection);
+      setCurrentScreen(selectDefaultScreen(currentCollection.assets));
     }
   }
 
-  createAsset(asset) {
-    this.setState((state) => {
-      let index = state.currentCollection.assets.push(asset) - 1;
-      window.localStorage.setItem(
-        "collections",
-        JSON.stringify([state.currentCollection])
-      );
-      return {
-        currentAsset: transformToLatest(asset),
-        currentAssetIndex: index,
-        currentCollection: state.currentCollection,
-        currentScreen: "edit",
-      };
-    });
-  }
-
-  chooseAsset(asset, index) {
-    this.setState({
-      currentAsset: transformToLatest(asset),
-      currentAssetIndex: index,
-      currentScreen: "edit",
-    });
-  }
-
-  showScreen(screen) {
-    this.setState({ currentScreen: screen });
-  }
-
-  previewAssetImage() {
-    this.setState({ currentScreen: "preview-download", previewDownload: true });
-  }
-
-  downloadAssetImage() {
-    this.setState({
-      currentScreen: "preview-download",
-      previewDownload: false,
-    });
-  }
-
-  render() {
-    return (
-      <div className="app">
-        <header className="app-header">
-          <h2>
-            Asset Workbench <span className="app-version">v0.17.0</span>
-          </h2>
-        </header>
-        {this.state.currentScreen === "preview-download" && (
-          <ExportAsset
-            asset={this.state.currentAsset}
-            scale={this.state.assetScale}
-            goBackToMain={() => this.showScreen("edit")}
-            preview={this.state.previewDownload}
-          ></ExportAsset>
-        )}
-
-        {this.state.currentScreen === "choose" && (
-          <AssetSelection
-            chooseAsset={(asset, index) => this.chooseAsset(asset, index)}
-            showNewScreen={() => this.showScreen("new")}
-            showPrintScreen={() => this.showScreen("print")}
-            assets={this.state.currentCollection.assets}
-          ></AssetSelection>
-        )}
-
-        {this.state.currentScreen === "new" && (
-          <AssetCreation
-            createAsset={(asset) => this.createAsset(asset)}
-            showChooseScreen={() => this.showScreen("choose")}
-          ></AssetCreation>
-        )}
-
-        {this.state.currentScreen === "edit" && (
-          <div className="container">
-            <AssetEditor
-              currentAsset={this.state.currentAsset}
-              updateAsset={(asset) => this.updateAsset(asset)}
-              askToDelete={() => this.askToDelete()}
-              assetScale={this.state.assetScale}
-              handleAssetScaleChange={(e) => this.handleAssetScaleChange(e)}
-              showScreen={(screen) => this.showScreen(screen)}
-              previewAssetImage={() => this.previewAssetImage()}
-              downloadAssetImage={() => this.downloadAssetImage()}
-            ></AssetEditor>
-          </div>
-        )}
-        {this.state.currentScreen === "print" && (
-          <CollectionPrinting
-            assets={this.state.currentCollection.assets}
-            back={() => this.showScreen("choose")}
-          ></CollectionPrinting>
-        )}
-        <Footer></Footer>
-      </div>
+  function createAsset(asset) {
+    let index = currentCollection.assets.push(asset) - 1;
+    window.localStorage.setItem(
+      "collections",
+      JSON.stringify([currentCollection])
     );
+    setCurrentAsset(transformToLatest(asset));
+    setCurrentAssetIndex(index);
+    setCurrentCollection(currentCollection);
+    setCurrentScreen("edit");
   }
+
+  function chooseAsset(asset, index) {
+    setCurrentAsset(transformToLatest(asset));
+    setCurrentAssetIndex(index);
+    setCurrentScreen("edit");
+  }
+
+  function showScreen(screen) {
+    setCurrentScreen(screen);
+  }
+
+  function previewAssetImage() {
+    setCurrentScreen("preview-download");
+    setPreviewDownload(true);
+  }
+
+  function downloadAssetImage() {
+    setCurrentScreen("preview-download");
+    setPreviewDownload(false);
+  }
+
+  return (
+    <div className="app">
+      <header className="app-header">
+        <h2>
+          Asset Workbench <span className="app-version">v0.17.0</span>
+        </h2>
+      </header>
+      {currentScreen === "preview-download" && (
+        <ExportAsset
+          asset={currentAsset}
+          scale={assetScale}
+          goBackToMain={() => showScreen("edit")}
+          preview={previewDownload}
+        ></ExportAsset>
+      )}
+
+      {currentScreen === "choose" && (
+        <AssetSelection
+          chooseAsset={chooseAsset}
+          showNewScreen={() => showScreen("new")}
+          showPrintScreen={() => showScreen("print")}
+          assets={currentCollection.assets}
+        ></AssetSelection>
+      )}
+
+      {currentScreen === "new" && (
+        <AssetCreation
+          createAsset={createAsset}
+          showChooseScreen={() => showScreen("choose")}
+        ></AssetCreation>
+      )}
+
+      {currentScreen === "edit" && (
+        <div className="container">
+          <AssetEditor
+            currentAsset={currentAsset}
+            updateAsset={updateAsset}
+            askToDelete={askToDelete}
+            assetScale={assetScale}
+            handleAssetScaleChange={handleAssetScaleChange}
+            showScreen={showScreen}
+            previewAssetImage={previewAssetImage}
+            downloadAssetImage={downloadAssetImage}
+          ></AssetEditor>
+        </div>
+      )}
+      {currentScreen === "print" && (
+        <CollectionPrinting
+          assets={currentCollection.assets}
+          back={() => showScreen("choose")}
+        ></CollectionPrinting>
+      )}
+      <Footer></Footer>
+    </div>
+  );
 }
