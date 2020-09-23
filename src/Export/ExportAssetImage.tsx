@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { AssetDocument } from "../Asset/asset";
 import { AssetDisplay } from "../Asset/AssetDisplay";
@@ -26,13 +26,14 @@ function ImagePreview(props: { alt: string; dataUrl: string }) {
   );
 }
 
-type DownloadProps = {
+type ExportAssetProps = {
   asset: AssetDocument;
+  index: number;
   scale: AssetScale;
   preview: boolean;
 };
 
-export function ExportAsset(props: DownloadProps) {
+export function ExportAsset(props: ExportAssetProps) {
   const [image, setImage] = useState(null);
   const history = useHistory();
 
@@ -45,6 +46,13 @@ export function ExportAsset(props: DownloadProps) {
     document.body.removeChild(link);
   }
 
+  useEffect(() => {
+    if (image && !props.preview) {
+      saveImage();
+      history.push(`/assets/${props.index}/edit`);
+    }
+  });
+
   if (!image) {
     return (
       <RenderImage handleImage={(dataUrl) => setImage(dataUrl)}>
@@ -54,7 +62,5 @@ export function ExportAsset(props: DownloadProps) {
   } else if (props.preview) {
     return <ImagePreview dataUrl={image} alt={props.asset.name}></ImagePreview>;
   }
-  saveImage();
-  history.push("/assets/edit");
   return null;
 }

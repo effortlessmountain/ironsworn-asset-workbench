@@ -13,6 +13,7 @@ import { CollectionDocument, createCollection } from "./Collections/collection";
 import { putLoneAssetIntoCollection } from "./Collections/collectionTransformation";
 import { Footer } from "./Footer";
 import { CollectionPrinting } from "./Export/CollectionPrinting";
+import { AssetPopulater } from "./AssetPopulater";
 
 export function sussCurrentCollection(maybeCollections, maybeAsset) {
   let startingCollection = null;
@@ -97,6 +98,7 @@ export default function App() {
       currentCollection.assets.splice(currentAssetIndex, 1);
       persistCollection(currentCollection);
       setCurrentCollection(currentCollection);
+      setCurrentAsset(null); // important for not overwriting an asset when pressing back & editing a deleted one
       history.push("/");
     }
   }
@@ -110,7 +112,12 @@ export default function App() {
     setCurrentAsset(transformToLatest(asset));
     setCurrentAssetIndex(index);
     setCurrentCollection(currentCollection);
-    history.push("/assets/edit");
+    history.push(`/assets/${index}/edit`);
+  }
+
+  function setCurrentAssetById(index) {
+    setCurrentAsset(currentCollection.assets[index]);
+    setCurrentAssetIndex(index);
   }
 
   return (
@@ -135,32 +142,50 @@ export default function App() {
             <AssetCreation createAsset={createAsset}></AssetCreation>
           </Route>
 
-          <Route path="/assets/preview">
-            <ExportAsset
+          <Route path="/assets/:assetId/preview">
+            <AssetPopulater
               asset={currentAsset}
-              scale={assetScale}
-              preview={true}
-            ></ExportAsset>
+              setCurrentAssetById={setCurrentAssetById}
+            >
+              <ExportAsset
+                asset={currentAsset}
+                scale={assetScale}
+                index={currentAssetIndex}
+                preview={true}
+              ></ExportAsset>
+            </AssetPopulater>
           </Route>
 
-          <Route path="/assets/download">
-            <ExportAsset
+          <Route path="/assets/:assetId/download">
+            <AssetPopulater
               asset={currentAsset}
-              scale={assetScale}
-              preview={false}
-            ></ExportAsset>
+              setCurrentAssetById={setCurrentAssetById}
+            >
+              <ExportAsset
+                asset={currentAsset}
+                scale={assetScale}
+                index={currentAssetIndex}
+                preview={false}
+              ></ExportAsset>
+            </AssetPopulater>
           </Route>
 
-          <Route path="/assets/edit">
-            <div className="container">
-              <AssetEditor
-                currentAsset={currentAsset}
-                updateAsset={updateAsset}
-                askToDelete={askToDelete}
-                assetScale={assetScale}
-                handleAssetScaleChange={handleAssetScaleChange}
-              ></AssetEditor>
-            </div>
+          <Route path="/assets/:assetId/edit">
+            <AssetPopulater
+              asset={currentAsset}
+              setCurrentAssetById={setCurrentAssetById}
+            >
+              <div className="container">
+                <AssetEditor
+                  currentAsset={currentAsset}
+                  currentAssetId={currentAssetIndex}
+                  updateAsset={updateAsset}
+                  askToDelete={askToDelete}
+                  assetScale={assetScale}
+                  handleAssetScaleChange={handleAssetScaleChange}
+                ></AssetEditor>
+              </div>
+            </AssetPopulater>
           </Route>
 
           <Route path="/collections/print">

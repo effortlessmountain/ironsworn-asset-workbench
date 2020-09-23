@@ -5,8 +5,9 @@ import DetailsEditor from "./DetailsEditor/DetailsEditor";
 import { AssetDisplay } from "../Asset/AssetDisplay";
 import { AssetScale } from "../Asset/assetScaling";
 
-type SidePanelProps = {
+type AssetEditorProps = {
   currentAsset: AssetDocument;
+  currentAssetId: number;
   updateAsset(asset: AssetDocument): void;
   askToDelete(history): void;
   assetScale: AssetScale;
@@ -25,7 +26,7 @@ function downloadJson(asset) {
   document.body.removeChild(link);
 }
 
-export function AssetEditor(props: SidePanelProps) {
+export function AssetEditor(props: AssetEditorProps) {
   const history = useHistory();
 
   return (
@@ -38,12 +39,10 @@ export function AssetEditor(props: SidePanelProps) {
           ></AssetDisplay>
         </div>
       </div>
-
       <DetailsEditor
         currentAsset={props.currentAsset}
         updateAsset={props.updateAsset}
       ></DetailsEditor>
-
       <div className="sidebar">
         <button className="asset-back-button" onClick={() => history.push("/")}>
           BACK
@@ -63,11 +62,18 @@ export function AssetEditor(props: SidePanelProps) {
         </div>
         <button
           id="preview-download"
-          onClick={() => history.push("/assets/preview")}
+          onClick={() =>
+            history.push(`/assets/${props.currentAssetId}/preview`)
+          }
         >
           PREVIEW IMAGE
         </button>
-        <button id="download" onClick={() => history.push("/assets/download")}>
+        <button
+          id="download"
+          onClick={() =>
+            history.push(`/assets/${props.currentAssetId}/download`)
+          }
+        >
           DOWNLOAD IMAGE
         </button>
         <button onClick={() => downloadJson(props.currentAsset)}>

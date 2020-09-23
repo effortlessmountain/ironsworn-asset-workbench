@@ -73,10 +73,6 @@ type DetailsEditorState = {
   activeView: EditorView;
 };
 
-function asJSON(val) {
-  return JSON.stringify(val, null, 2);
-}
-
 export default class DetailsEditor extends React.Component<
   DetailsEditorProps,
   DetailsEditorState

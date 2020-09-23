@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { UnspecifiedAssetDocument } from "../Asset/asset";
 import { transformToLatest } from "../Asset/assetTransformation";
 import AssetChoice from "./AssetChoice";
@@ -10,7 +10,6 @@ export default function AssetSelection(props: {
   assets: UnspecifiedAssetDocument[];
 }) {
   const history = useHistory();
-  const location = useLocation();
 
   if (props.assets.length === 0) {
     history.push("/assets/new");
@@ -20,7 +19,7 @@ export default function AssetSelection(props: {
   function chooseAsset(asset, index) {
     props.setCurrentAsset(transformToLatest(asset));
     props.setCurrentAssetIndex(index);
-    history.push("/assets/edit");
+    history.push(`/assets/${index}/edit`);
   }
 
   return (
