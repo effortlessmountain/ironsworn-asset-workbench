@@ -43,6 +43,7 @@ export function AssetImport(props: Props) {
         <label htmlFor="asset-fileselect">Upload Asset in JSON format:</label>
         <input type="file" accept=".json" id="asset-fileselect" />
         <button onClick={handleAssetJsonImport}>IMPORT</button>
+        <button onClick={() => history.push("/")}>BACK</button>
       </div>
     </div>
   );
