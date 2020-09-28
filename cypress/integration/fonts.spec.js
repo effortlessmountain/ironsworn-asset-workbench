@@ -1,10 +1,10 @@
 /// <reference types="Cypress" />
-import getAsset from "../fixtures/asset";
+import { makeAssetFixture } from "../fixtures/assets";
 
 describe("the Font editing screen", () => {
   before(() => {
     //todo: figure out why this works since we don't start at localhost:3000
-    localStorage.setItem("currentAsset", JSON.stringify(getAsset()));
+    localStorage.setItem("currentAsset", JSON.stringify(makeAssetFixture()));
   });
   it("can get to the Fonts edit screen", () => {
     cy.visit("http://localhost:3000");

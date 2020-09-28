@@ -1,6 +1,6 @@
-import { AssetDocument } from "../../src/models/models";
+import { AssetDocument } from "../../src/Asset/asset";
 
-export default function getAsset(): AssetDocument {
+export function makeAssetFixture(): AssetDocument {
   const asset = {
     documentFormatVersion: 2,
     abilities: [
