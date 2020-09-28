@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ironsworn-asset-workbench/static/css/main.e730bd14.chunk.css",
-    "main.js": "/ironsworn-asset-workbench/static/js/main.39541e0e.chunk.js",
-    "main.js.map": "/ironsworn-asset-workbench/static/js/main.39541e0e.chunk.js.map",
+    "main.js": "/ironsworn-asset-workbench/static/js/main.ba640672.chunk.js",
+    "main.js.map": "/ironsworn-asset-workbench/static/js/main.ba640672.chunk.js.map",
     "runtime-main.js": "/ironsworn-asset-workbench/static/js/runtime-main.c6dfef67.js",
     "runtime-main.js.map": "/ironsworn-asset-workbench/static/js/runtime-main.c6dfef67.js.map",
     "static/css/2.a77e9a52.chunk.css": "/ironsworn-asset-workbench/static/css/2.a77e9a52.chunk.css",
     "static/js/2.3c7e97d0.chunk.js": "/ironsworn-asset-workbench/static/js/2.3c7e97d0.chunk.js",
     "static/js/2.3c7e97d0.chunk.js.map": "/ironsworn-asset-workbench/static/js/2.3c7e97d0.chunk.js.map",
     "index.html": "/ironsworn-asset-workbench/index.html",
-    "precache-manifest.58b2bfcb0cc57c99c6ff9de46536ecdf.js": "/ironsworn-asset-workbench/precache-manifest.58b2bfcb0cc57c99c6ff9de46536ecdf.js",
+    "precache-manifest.94ec5dcb6ea1304a4ff7741a6129e28a.js": "/ironsworn-asset-workbench/precache-manifest.94ec5dcb6ea1304a4ff7741a6129e28a.js",
     "service-worker.js": "/ironsworn-asset-workbench/service-worker.js",
     "static/css/2.a77e9a52.chunk.css.map": "/ironsworn-asset-workbench/static/css/2.a77e9a52.chunk.css.map",
     "static/css/main.e730bd14.chunk.css.map": "/ironsworn-asset-workbench/static/css/main.e730bd14.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.a77e9a52.chunk.css",
     "static/js/2.3c7e97d0.chunk.js",
     "static/css/main.e730bd14.chunk.css",
-    "static/js/main.39541e0e.chunk.js"
+    "static/js/main.ba640672.chunk.js"
   ]
 }
