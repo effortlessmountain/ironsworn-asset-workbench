@@ -6,11 +6,6 @@ import {
   LabeledTextAreaInput,
 } from "../LabeledInputs";
 
-type AbilitiesEditProps = {
-  currentAsset: AssetDocument;
-  updateAsset(asset): void;
-};
-
 function AbilityInput(props: {
   ability: Ability;
   updateAbility(value): void;
@@ -58,42 +53,46 @@ function AbilityInput(props: {
     </div>
   );
 }
-export class AbilitiesEdit extends React.Component<AbilitiesEditProps> {
-  updateAbility(ability, index) {
-    this.props.currentAsset.abilities[index] = ability;
-    this.props.updateAsset(this.props.currentAsset);
+
+type AbilitiesEditProps = {
+  currentAsset: AssetDocument;
+  updateAsset(asset): void;
+};
+
+export function AbilitiesEdit(props: AbilitiesEditProps) {
+  function updateAbility(ability, index) {
+    props.currentAsset.abilities[index] = ability;
+    props.updateAsset(props.currentAsset);
   }
-  removeAbility(index) {
-    this.props.currentAsset.abilities.splice(index, 1);
-    this.props.updateAsset(this.props.currentAsset);
+  function removeAbility(index) {
+    props.currentAsset.abilities.splice(index, 1);
+    props.updateAsset(props.currentAsset);
   }
-  addAbility() {
-    this.props.currentAsset.abilities.push({
+  function addAbility() {
+    props.currentAsset.abilities.push({
       filled: false,
       name: "",
       text: "",
     });
-    this.props.updateAsset(this.props.currentAsset);
+    props.updateAsset(props.currentAsset);
   }
-  render() {
-    return (
-      <div className="editor-view">
-        <div className="vertical">
-          {this.props.currentAsset.abilities.map((ability, index) => {
-            return (
-              <AbilityInput
-                key={index}
-                ability={ability}
-                updateAbility={(changed) => this.updateAbility(changed, index)}
-                removeAbility={() => this.removeAbility(index)}
-              ></AbilityInput>
-            );
-          })}
-          <button className="ability-button" onClick={() => this.addAbility()}>
-            Add
-          </button>
-        </div>
+  return (
+    <div className="editor-view">
+      <div className="vertical">
+        {props.currentAsset.abilities.map((ability, index) => {
+          return (
+            <AbilityInput
+              key={index}
+              ability={ability}
+              updateAbility={(changed) => updateAbility(changed, index)}
+              removeAbility={() => removeAbility(index)}
+            ></AbilityInput>
+          );
+        })}
+        <button className="ability-button" onClick={() => addAbility()}>
+          Add
+        </button>
       </div>
-    );
-  }
+    </div>
+  );
 }

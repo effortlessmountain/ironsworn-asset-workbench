@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { AssetDocument } from "../Asset/asset";
-import DetailsEditor from "./DetailsEditor/DetailsEditor";
+import { DetailsEditor } from "./DetailsEditor/DetailsEditor";
 import { AssetDisplay } from "../Asset/AssetDisplay";
 import { AssetScale } from "../Asset/assetScaling";
 

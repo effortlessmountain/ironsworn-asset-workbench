@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { AssetDocument, transformSvgString } from "../../Asset/asset";
 import { AbilitiesEdit } from "./AbilitiesEdit";
 import { TopEdit } from "./TopEdit";
-import TrackEdit from "./TrackEdit";
-import FontsEdit from "./FontsEdit";
+import { TrackEdit } from "./TrackEdit";
+import { FontsEdit } from "./FontsEdit";
 
 type EditorView = "top" | "abilities" | "track" | "fonts";
 
@@ -69,28 +69,17 @@ type DetailsEditorProps = {
   updateAsset(asset): void;
 };
 
-type DetailsEditorState = {
-  activeView: EditorView;
-};
+export function DetailsEditor(props: DetailsEditorProps) {
+  const [activeView, setActiveView]: [
+    EditorView,
+    React.Dispatch<EditorView>
+  ] = useState("top" as EditorView);
 
-export default class DetailsEditor extends React.Component<
-  DetailsEditorProps,
-  DetailsEditorState
-> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeView: "top",
-    };
+  function switchView(view: EditorView) {
+    setActiveView(view);
   }
 
-  switchView(view: EditorView) {
-    this.setState({
-      activeView: view,
-    });
-  }
-
-  handleIconImport() {
+  function handleIconImport() {
     //todo: move away from queryselecting and use React
     const iconFileInput = document.querySelector(
       "#icon-fileselect"
@@ -104,13 +93,13 @@ export default class DetailsEditor extends React.Component<
       var fileReader = new FileReader();
       fileReader.onload = (e) => {
         var svg = e.target.result as string;
-        this.props.currentAsset.icon = {
+        props.currentAsset.icon = {
           type: "svg",
           name: file.name.split(".").slice(0, -1).join("."),
           author: iconAuthorInput.value,
           svg: transformSvgString(svg),
         };
-        this.props.updateAsset(this.props.currentAsset);
+        props.updateAsset(props.currentAsset);
       };
       fileReader.readAsText(file);
     } else {
@@ -118,42 +107,40 @@ export default class DetailsEditor extends React.Component<
     }
   }
 
-  render() {
-    return (
-      <div className="details-editor">
-        <ViewSwitcher
-          activeView={this.state.activeView}
-          switchView={(view) => this.switchView(view)}
-        ></ViewSwitcher>
-        {this.state.activeView === "top" && (
-          <TopEdit
-            currentAsset={this.props.currentAsset}
-            updateAsset={(asset) => this.props.updateAsset(asset)}
-            handleIconImport={() => this.handleIconImport()}
-          ></TopEdit>
-        )}
+  return (
+    <div className="details-editor">
+      <ViewSwitcher
+        activeView={activeView}
+        switchView={(view) => switchView(view)}
+      ></ViewSwitcher>
+      {activeView === "top" && (
+        <TopEdit
+          currentAsset={props.currentAsset}
+          updateAsset={(asset) => props.updateAsset(asset)}
+          handleIconImport={() => handleIconImport()}
+        ></TopEdit>
+      )}
 
-        {this.state.activeView === "abilities" && (
-          <AbilitiesEdit
-            currentAsset={this.props.currentAsset}
-            updateAsset={(asset) => this.props.updateAsset(asset)}
-          ></AbilitiesEdit>
-        )}
+      {activeView === "abilities" && (
+        <AbilitiesEdit
+          currentAsset={props.currentAsset}
+          updateAsset={(asset) => props.updateAsset(asset)}
+        ></AbilitiesEdit>
+      )}
 
-        {this.state.activeView === "track" && (
-          <TrackEdit
-            currentAsset={this.props.currentAsset}
-            updateAsset={(asset) => this.props.updateAsset(asset)}
-          ></TrackEdit>
-        )}
+      {activeView === "track" && (
+        <TrackEdit
+          currentAsset={props.currentAsset}
+          updateAsset={(asset) => props.updateAsset(asset)}
+        ></TrackEdit>
+      )}
 
-        {this.state.activeView === "fonts" && (
-          <FontsEdit
-            currentAsset={this.props.currentAsset}
-            updateAsset={(asset) => this.props.updateAsset(asset)}
-          ></FontsEdit>
-        )}
-      </div>
-    );
-  }
+      {activeView === "fonts" && (
+        <FontsEdit
+          currentAsset={props.currentAsset}
+          updateAsset={(asset) => props.updateAsset(asset)}
+        ></FontsEdit>
+      )}
+    </div>
+  );
 }
