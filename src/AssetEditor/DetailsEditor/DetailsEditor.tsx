@@ -4,6 +4,7 @@ import { AbilitiesEdit } from "./AbilitiesEdit";
 import { TopEdit } from "./TopEdit";
 import { TrackEdit } from "./TrackEdit";
 import { FontsEdit } from "./FontsEdit";
+import { UpdateAsset } from "../../App";
 
 type EditorView = "top" | "abilities" | "track" | "fonts";
 
@@ -66,7 +67,7 @@ function ViewSwitcher(props: {
 
 type DetailsEditorProps = {
   currentAsset: AssetDocument;
-  updateAsset(asset): void;
+  updateAsset: UpdateAsset;
 };
 
 export function DetailsEditor(props: DetailsEditorProps) {

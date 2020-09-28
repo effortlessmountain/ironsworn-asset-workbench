@@ -2,6 +2,7 @@ import React from "react";
 import { cloneDeep } from "lodash";
 import { AssetDocument } from "../../Asset/asset";
 import { LabeledTextAreaInput, LabeledNumberInput } from "../LabeledInputs";
+import { UpdateAsset } from "../../App";
 
 type TrackType = "none" | "numerical" | "text";
 
@@ -27,7 +28,7 @@ function LabeledRadioInput(props: {
 
 type TrackEditProps = {
   currentAsset: AssetDocument; //todo: not require passing in the entire asset to every view
-  updateAsset(asset): void;
+  updateAsset: UpdateAsset;
 };
 
 export function TrackEdit(props: TrackEditProps) {

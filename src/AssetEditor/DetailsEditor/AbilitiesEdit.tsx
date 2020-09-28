@@ -1,4 +1,5 @@
 import React from "react";
+import { UpdateAsset } from "../../App";
 import { AssetDocument, Ability } from "../../Asset/asset";
 import {
   LabeledTextInput,
@@ -6,10 +7,13 @@ import {
   LabeledTextAreaInput,
 } from "../LabeledInputs";
 
+type UpdateAbility = (ability: Ability) => void;
+type RemoveAbitily = () => void;
+
 function AbilityInput(props: {
   ability: Ability;
-  updateAbility(value): void;
-  removeAbility(ability): void;
+  updateAbility: UpdateAbility;
+  removeAbility: RemoveAbitily;
 }) {
   return (
     <div className="ability-input">
@@ -36,7 +40,7 @@ function AbilityInput(props: {
         </div>
         <button
           className="ability-button remove-ability"
-          onClick={() => props.removeAbility(props.ability)}
+          onClick={props.removeAbility}
         >
           remove
         </button>
@@ -56,17 +60,21 @@ function AbilityInput(props: {
 
 type AbilitiesEditProps = {
   currentAsset: AssetDocument;
-  updateAsset(asset): void;
+  updateAsset: UpdateAsset;
 };
 
 export function AbilitiesEdit(props: AbilitiesEditProps) {
-  function updateAbility(ability, index) {
-    props.currentAsset.abilities[index] = ability;
-    props.updateAsset(props.currentAsset);
+  function makeUpdateAbility(index): UpdateAbility {
+    return (ability) => {
+      props.currentAsset.abilities[index] = ability;
+      props.updateAsset(props.currentAsset);
+    };
   }
-  function removeAbility(index) {
-    props.currentAsset.abilities.splice(index, 1);
-    props.updateAsset(props.currentAsset);
+  function makeRemoveAbility(index): RemoveAbitily {
+    return () => {
+      props.currentAsset.abilities.splice(index, 1);
+      props.updateAsset(props.currentAsset);
+    };
   }
   function addAbility() {
     props.currentAsset.abilities.push({
@@ -84,8 +92,8 @@ export function AbilitiesEdit(props: AbilitiesEditProps) {
             <AbilityInput
               key={index}
               ability={ability}
-              updateAbility={(changed) => updateAbility(changed, index)}
-              removeAbility={() => removeAbility(index)}
+              updateAbility={makeUpdateAbility(index)}
+              removeAbility={makeRemoveAbility(index)}
             ></AbilityInput>
           );
         })}

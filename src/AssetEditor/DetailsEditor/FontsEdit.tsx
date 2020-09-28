@@ -3,6 +3,7 @@ import { LabeledTextInput, LabeledNumberInput } from "../LabeledInputs";
 import { AssetDocument } from "../../Asset/asset";
 import { makeMergedConfig, defaultFontConfig } from "../../Asset/fonts";
 import { assign } from "lodash";
+import { UpdateAsset } from "../../App";
 
 function numberFromEm(em) {
   return +em.replace("em", "");
@@ -41,7 +42,7 @@ function FontInputs(props: {
 
 export function FontsEdit(props: {
   currentAsset: AssetDocument;
-  updateAsset(AssetDocument): void;
+  updateAsset: UpdateAsset;
 }) {
   const configuredFonts = makeMergedConfig(props.currentAsset.fonts || {});
   const [fonts, updateFonts] = useState(configuredFonts);

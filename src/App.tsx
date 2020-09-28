@@ -35,6 +35,8 @@ export type CreateAsset = (
   goToNextScreen: (id: string | number) => void
 ) => void;
 
+export type UpdateAsset = (asset: AssetDocument) => void;
+
 export default function App() {
   let maybeCollections = maybeGetLocalCollections();
   let maybeAsset = maybeGetLocalAsset();
@@ -93,11 +95,11 @@ export default function App() {
     window.localStorage.setItem("collections", JSON.stringify([collection]));
   }
 
-  function updateAsset(asset) {
+  const updateAsset: UpdateAsset = (asset) => {
     currentCollection.assets[currentAssetIndex] = asset;
     persistCollection(currentCollection);
     setCurrentAsset(cloneDeep(transformToLatest(asset)));
-  }
+  };
 
   function askToDelete(history) {
     if (window.confirm("Delete this asset?")) {

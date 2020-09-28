@@ -4,11 +4,12 @@ import { AssetDocument } from "../Asset/asset";
 import { DetailsEditor } from "./DetailsEditor/DetailsEditor";
 import { AssetDisplay } from "../Asset/AssetDisplay";
 import { AssetScale } from "../Asset/assetScaling";
+import { UpdateAsset } from "../App";
 
 type AssetEditorProps = {
   currentAsset: AssetDocument;
   currentAssetId: number;
-  updateAsset(asset: AssetDocument): void;
+  updateAsset: UpdateAsset;
   askToDelete(history): void;
   assetScale: AssetScale;
   handleAssetScaleChange(newScale: string): void;

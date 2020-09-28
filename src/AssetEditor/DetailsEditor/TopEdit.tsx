@@ -1,10 +1,11 @@
 import React from "react";
 import { LabeledTextInput, LabeledTextAreaInput } from "../LabeledInputs";
 import { AssetDocument } from "../../Asset/asset";
+import { UpdateAsset } from "../../App";
 
 type TopEditProps = {
   currentAsset: AssetDocument;
-  updateAsset(asset): void;
+  updateAsset: UpdateAsset;
   handleIconImport(): void; //todo: move fully inte here
 };
 
