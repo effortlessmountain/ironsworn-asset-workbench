@@ -14,6 +14,7 @@ import { putLoneAssetIntoCollection } from "./Collections/collectionTransformati
 import { Footer } from "./Footer";
 import { CollectionPrinting } from "./Export/CollectionPrinting";
 import { AssetPopulater } from "./AssetPopulater";
+import { AssetImport } from "./Collections/AssetImport";
 
 export function sussCurrentCollection(maybeCollections, maybeAsset) {
   let startingCollection = null;
@@ -28,6 +29,11 @@ export function sussCurrentCollection(maybeCollections, maybeAsset) {
   }
   return startingCollection;
 }
+
+export type CreateAsset = (
+  asset: UnspecifiedAssetDocument,
+  goToNextScreen: (id: string | number) => void
+) => void;
 
 export default function App() {
   let maybeCollections = maybeGetLocalCollections();
@@ -103,17 +109,18 @@ export default function App() {
     }
   }
 
-  function createAsset(asset, history) {
-    let index = currentCollection.assets.push(asset) - 1;
+  const createAsset: CreateAsset = (asset, goToNextScreen) => {
+    const transformedAsset = transformToLatest(asset);
+    const index = currentCollection.assets.push(transformedAsset) - 1;
     window.localStorage.setItem(
       "collections",
       JSON.stringify([currentCollection])
     );
-    setCurrentAsset(transformToLatest(asset));
+    setCurrentAsset(transformedAsset);
     setCurrentAssetIndex(index);
     setCurrentCollection(currentCollection);
-    history.push(`/assets/${index}/edit`);
-  }
+    goToNextScreen(index);
+  };
 
   function setCurrentAssetById(index) {
     setCurrentAsset(currentCollection.assets[index]);
@@ -125,7 +132,7 @@ export default function App() {
       <div className="app">
         <header className="app-header">
           <h2>
-            Asset Workbench <span className="app-version">v0.17.0</span>
+            Asset Workbench <span className="app-version">v0.18.0</span>
           </h2>
         </header>
 
@@ -140,6 +147,10 @@ export default function App() {
 
           <Route path="/assets/new">
             <AssetCreation createAsset={createAsset}></AssetCreation>
+          </Route>
+
+          <Route path="/assets/import">
+            <AssetImport createAsset={createAsset}></AssetImport>
           </Route>
 
           <Route path="/assets/:assetId/preview">

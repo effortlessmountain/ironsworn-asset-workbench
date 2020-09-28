@@ -41,6 +41,9 @@ export default function AssetSelection(props: {
         <button onClick={() => history.push("/assets/new")}>
           ADD NEW ASSET
         </button>
+        <button onClick={() => history.push("/assets/import")}>
+          IMPORT ASSET
+        </button>
         <button onClick={() => history.push("/collections/print")}>
           PRINT
         </button>

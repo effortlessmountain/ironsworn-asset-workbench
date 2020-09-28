@@ -336,6 +336,13 @@ textarea {
   align-items: center;
 }
 
+.asset-import {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+}
+
 .footer {
   text-align: center;
   color: #777;
