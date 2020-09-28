@@ -128,11 +128,11 @@ export default function App() {
   }
 
   return (
-    <Router>
+    <Router basename="/ironsworn-asset-workbench">
       <div className="app">
         <header className="app-header">
           <h2>
-            Asset Workbench <span className="app-version">v0.18.0</span>
+            Asset Workbench <span className="app-version">v0.18.1</span>
           </h2>
         </header>
 
