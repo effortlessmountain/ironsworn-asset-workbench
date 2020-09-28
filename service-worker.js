@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ironsworn-asset-workbench/precache-manifest.31f0858a951e47d8374c5af6ece3a683.js"
+  "/ironsworn-asset-workbench/precache-manifest.58b2bfcb0cc57c99c6ff9de46536ecdf.js"
 );
 
 self.addEventListener('message', (event) => {
