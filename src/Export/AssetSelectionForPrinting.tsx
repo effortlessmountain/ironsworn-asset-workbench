@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AssetDocument } from "../Asset/asset";
 
-export function AssetSelectionForPrinting(props: {
+type Props = {
   assets: AssetDocument[];
-  setAssetsToPrint(assets);
-}) {
+  setAssetsToPrint: React.Dispatch<AssetDocument[]>;
+};
+
+export function AssetSelectionForPrinting(props: Props) {
   const [selected, setSelected] = useState(
     new Set(props.assets.map((_, i) => i))
   );

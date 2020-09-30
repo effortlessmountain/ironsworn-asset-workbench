@@ -2,9 +2,11 @@ import React, { ReactNode, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AssetDocument } from "./Asset/asset";
 
+export type SetCurrentAssetById = (index: number) => void;
+
 interface AssetPopulaterProps {
   asset: AssetDocument;
-  setCurrentAssetById(index);
+  setCurrentAssetById: SetCurrentAssetById;
   children: ReactNode;
 }
 export function AssetPopulater(props: AssetPopulaterProps) {

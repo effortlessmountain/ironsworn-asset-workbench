@@ -5,9 +5,16 @@ import { AssetDisplay } from "../Asset/AssetDisplay";
 import { PrintPreview } from "./PrintPreview";
 import { AssetSelectionForPrinting } from "./AssetSelectionForPrinting";
 
-export function CollectionPrinting(props: { assets: AssetDocument[] }) {
-  const [images, setImages] = useState([]);
-  const [assetsToPrint, setAssetsToPrint] = useState([]);
+type Props = { assets: AssetDocument[] };
+
+export function CollectionPrinting(props: Props) {
+  const [images, setImages]: [string[], React.Dispatch<string[]>] = useState(
+    []
+  );
+  const [assetsToPrint, setAssetsToPrint]: [
+    AssetDocument[],
+    React.Dispatch<AssetDocument[]>
+  ] = useState([]);
 
   if (assetsToPrint.length === 0) {
     return (

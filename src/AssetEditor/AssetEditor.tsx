@@ -6,15 +6,6 @@ import { AssetDisplay } from "../Asset/AssetDisplay";
 import { AssetScale } from "../Asset/assetScaling";
 import { UpdateAsset } from "../App";
 
-type AssetEditorProps = {
-  currentAsset: AssetDocument;
-  currentAssetId: number;
-  updateAsset: UpdateAsset;
-  askToDelete(history): void;
-  assetScale: AssetScale;
-  handleAssetScaleChange(newScale: string): void;
-};
-
 function downloadJson(asset) {
   var assetJson =
     "data:text/json;charset=utf-8," +
@@ -26,6 +17,17 @@ function downloadJson(asset) {
   link.click();
   document.body.removeChild(link);
 }
+
+export type HandleAssetScaleChange = (newScale: AssetScale) => void;
+
+type AssetEditorProps = {
+  currentAsset: AssetDocument;
+  currentAssetId: number;
+  updateAsset: UpdateAsset;
+  askToDelete(history): void;
+  assetScale: AssetScale;
+  handleAssetScaleChange: HandleAssetScaleChange;
+};
 
 export function AssetEditor(props: AssetEditorProps) {
   const history = useHistory();
@@ -52,7 +54,9 @@ export function AssetEditor(props: AssetEditorProps) {
           <label>Scale (also affects Download size)</label>
           <select
             id="scale-select"
-            onChange={(e) => props.handleAssetScaleChange(e.target.value)}
+            onChange={(e) =>
+              props.handleAssetScaleChange(e.target.value as AssetScale)
+            }
             value={props.assetScale}
           >
             <option value="one-third">250px by 350px</option>

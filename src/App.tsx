@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { cloneDeep } from "lodash";
 
-import { AssetEditor } from "./AssetEditor/AssetEditor";
+import { AssetEditor, HandleAssetScaleChange } from "./AssetEditor/AssetEditor";
 import { AssetDocument, UnspecifiedAssetDocument } from "./Asset/asset";
 import { transformToLatest } from "./Asset/assetTransformation";
 import { calculateScale, AssetScale } from "./Asset/assetScaling";
@@ -13,7 +13,7 @@ import { CollectionDocument, createCollection } from "./Collections/collection";
 import { putLoneAssetIntoCollection } from "./Collections/collectionTransformation";
 import { Footer } from "./Footer";
 import { CollectionPrinting } from "./Export/CollectionPrinting";
-import { AssetPopulater } from "./AssetPopulater";
+import { AssetPopulater, SetCurrentAssetById } from "./AssetPopulater";
 import { AssetImport } from "./Collections/AssetImport";
 
 export function sussCurrentCollection(maybeCollections, maybeAsset) {
@@ -87,9 +87,9 @@ export default function App() {
     return null;
   }
 
-  function handleAssetScaleChange(newScale) {
+  const handleAssetScaleChange: HandleAssetScaleChange = (newScale) => {
     setAssetScale(newScale);
-  }
+  };
 
   function persistCollection(collection) {
     window.localStorage.setItem("collections", JSON.stringify([collection]));
@@ -124,10 +124,10 @@ export default function App() {
     goToNextScreen(index);
   };
 
-  function setCurrentAssetById(index) {
+  const setCurrentAssetById: SetCurrentAssetById = (index: number) => {
     setCurrentAsset(currentCollection.assets[index]);
     setCurrentAssetIndex(index);
-  }
+  };
 
   return (
     <Router basename="/ironsworn-asset-workbench">
