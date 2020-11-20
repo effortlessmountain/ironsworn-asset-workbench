@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AssetDocument, transformSvgString } from "../../Asset/asset";
+import { AssetDocument, createDataUri } from "../../Asset/asset";
 import { AbilitiesEdit } from "./AbilitiesEdit";
 import { TopEdit } from "./TopEdit";
 import { TrackEdit } from "./TrackEdit";
@@ -95,10 +95,9 @@ export function DetailsEditor(props: DetailsEditorProps) {
       fileReader.onload = (e) => {
         var svg = e.target.result as string;
         props.currentAsset.icon = {
-          type: "svg",
           name: file.name.split(".").slice(0, -1).join("."),
           author: iconAuthorInput.value,
-          svg: transformSvgString(svg),
+          dataUri: createDataUri(svg),
         };
         props.updateAsset(props.currentAsset);
       };

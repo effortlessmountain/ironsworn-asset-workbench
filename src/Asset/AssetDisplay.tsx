@@ -3,6 +3,7 @@ import sanitize from "./sanitize";
 
 import { scaleRatio, AssetScale } from "./assetScaling";
 import { FontConfig, makeFontStyles } from "./fonts";
+import { Icon } from "./asset";
 
 const WriteIn = (props: { writeIn?: string }) => {
   return props.writeIn ? <div className="write-in">{props.writeIn}</div> : null;
@@ -121,20 +122,20 @@ const TrackDisplay = (props: {
   }
 };
 
-const IconDisplay = (props: {
-  icon: string | { svg: { d: string; fill: string; fillOpacity: string } };
-  scale: string;
-}) => {
-  if (typeof props.icon === "string") {
+const IconDisplay = (props: { icon: Icon; scale: string }) => {
+  if (props.icon != null) {
     return (
-      <div className="header-circle">
-        <i className="header-icon">{props.icon}</i>
-      </div>
-    );
-  } else if (typeof props.icon === "object") {
-    return (
-      <div className="header-circle">
-        <svg
+      <div
+        className="icon"
+        style={{
+          backgroundImage: `url(${props.icon.dataUri})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "100%",
+        }}
+      >
+        {/* <div style={{ background: `url(${props.icon.dataUri})` }}></div> */}
+        {/* <img src={props.icon.dataUri} /> */}
+        {/* <svg
           height={154 * scaleRatio[props.scale]}
           width={154 * scaleRatio[props.scale]}
           viewBox="0 0 512 512"
@@ -146,7 +147,7 @@ const IconDisplay = (props: {
               fillOpacity={props.icon.svg.fillOpacity}
             ></path>
           </g>
-        </svg>
+        </svg> */}
       </div>
     );
   } else {
@@ -157,7 +158,7 @@ const IconDisplay = (props: {
 interface Asset {
   fonts?: FontConfig;
   type: string;
-  icon?: string | { svg: { d: string; fill: string; fillOpacity: string } };
+  icon?: Icon;
   name: string;
   writeIn?: string;
   writeIn2?: string;
