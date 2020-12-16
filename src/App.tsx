@@ -125,7 +125,7 @@ export default function App() {
   };
 
   const setCurrentAssetById: SetCurrentAssetById = (index: number) => {
-    setCurrentAsset(currentCollection.assets[index]);
+    setCurrentAsset(transformToLatest(currentCollection.assets[index]));
     setCurrentAssetIndex(index);
   };
 
