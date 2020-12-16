@@ -132,23 +132,7 @@ const IconDisplay = (props: { icon: Icon; scale: string }) => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "100%",
         }}
-      >
-        {/* <div style={{ background: `url(${props.icon.dataUri})` }}></div> */}
-        {/* <img src={props.icon.dataUri} /> */}
-        {/* <svg
-          height={154 * scaleRatio[props.scale]}
-          width={154 * scaleRatio[props.scale]}
-          viewBox="0 0 512 512"
-        >
-          <g>
-            <path
-              d={props.icon.svg.d}
-              fill={props.icon.svg.fill}
-              fillOpacity={props.icon.svg.fillOpacity}
-            ></path>
-          </g>
-        </svg> */}
-      </div>
+      ></div>
     );
   } else {
     return null;
