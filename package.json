@@ -12,7 +12,7 @@
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
     "gh-pages": "^2.2.0",
-    "html2canvas": "^1.0.0-rc.5",
+    "html2canvas": "^1.0.0-rc.7",
     "lodash": "^4.17.15",
     "node-sass": "^4.14.1",
     "paper-css": "^0.4.1",
