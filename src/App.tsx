@@ -38,6 +38,7 @@ export type CreateAsset = (
 export type UpdateAsset = (asset: AssetDocument) => void;
 
 export default function App() {
+  //todo: make localstorage adapter & unit test transformations on load
   let maybeCollections = maybeGetLocalCollections();
   let maybeAsset = maybeGetLocalAsset();
   let startingCollection = sussCurrentCollection(maybeCollections, maybeAsset);
@@ -67,7 +68,11 @@ export default function App() {
     const maybeCollections = window.localStorage.getItem("collections");
     if (maybeCollections) {
       try {
-        return JSON.parse(maybeCollections);
+        const collections: CollectionDocument[] = JSON.parse(maybeCollections);
+        return collections.map((c) => {
+          c.assets = (c.assets || []).map((asset) => transformToLatest(asset));
+          return c;
+        });
       } catch (error) {
         window.alert("Error parsing local collections: " + error.toString());
       }
@@ -79,7 +84,8 @@ export default function App() {
     const maybeAsset = window.localStorage.getItem("currentAsset");
     if (maybeAsset) {
       try {
-        return JSON.parse(maybeAsset);
+        const asset = JSON.parse(maybeAsset);
+        return transformToLatest(asset);
       } catch (error) {
         window.alert("Error parsing local asset: " + error.toString());
       }
