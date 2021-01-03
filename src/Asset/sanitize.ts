@@ -6,3 +6,10 @@ export default function sanitize(text) {
     allowedAttributes: {},
   });
 }
+
+export function sanitizeSvg(svg: string) {
+  return sanitizer(svg, {
+    allowedTags: ["svg", "path", "g"],
+    allowedAttributes: false, //false allows ALL attributes
+  });
+}

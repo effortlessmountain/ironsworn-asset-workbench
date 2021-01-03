@@ -140,7 +140,7 @@ export default function App() {
       <div className="app">
         <header className="app-header">
           <h2>
-            Asset Workbench <span className="app-version">v0.20.0</span>
+            Asset Workbench <span className="app-version">v0.20.1</span>
           </h2>
         </header>
 

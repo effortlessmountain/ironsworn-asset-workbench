@@ -19,6 +19,14 @@ export function RenderImage(props: {
       const render = document.querySelector(".render");
       html2canvas(render.firstChild as HTMLElement, {
         allowTaint: true,
+        onclone: (element) => {
+          const svgElements = element.body.getElementsByTagName("svg");
+          Array.from(svgElements).forEach((svgElement) => {
+            const bBox: any = svgElement.getBoundingClientRect();
+            svgElement.setAttribute("width", bBox.width);
+            svgElement.setAttribute("height", bBox.height);
+          });
+        },
       }).then((canvas) => {
         props.handleImage(canvas.toDataURL());
       });

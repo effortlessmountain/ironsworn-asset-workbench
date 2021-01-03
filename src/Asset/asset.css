@@ -44,6 +44,7 @@
   color: white;
   border: 0.19em solid transparent;
   border-radius: 50%;
+  overflow: hidden;
   width: 4em;
   height: 4em;
   float: right;
@@ -52,6 +53,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.icon > svg {
+  height: 100%;
+  width: 100%;
 }
 
 .details {

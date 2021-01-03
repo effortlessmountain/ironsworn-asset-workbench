@@ -1,5 +1,5 @@
 import React from "react";
-import sanitize from "./sanitize";
+import sanitize, { sanitizeSvg } from "./sanitize";
 
 import { scaleRatio, AssetScale } from "./assetScaling";
 import { FontConfig, makeFontStyles } from "./fonts";
@@ -123,20 +123,19 @@ const TrackDisplay = (props: {
 };
 
 const IconDisplay = (props: { icon: Icon; scale: string }) => {
-  if (props.icon != null) {
-    return (
-      <div
-        className="icon"
-        style={{
-          backgroundImage: `url(${props.icon.dataUri})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "100%",
-        }}
-      ></div>
-    );
-  } else {
+  if (!props.icon || typeof props.icon !== "object") {
     return null;
   }
+
+  let svg = props.icon.dataUri.split(",")[1];
+  svg = atob(svg);
+
+  return (
+    <div
+      className="icon svg-bg"
+      dangerouslySetInnerHTML={{ __html: sanitizeSvg(svg) }}
+    ></div>
+  );
 };
 
 interface Asset {
