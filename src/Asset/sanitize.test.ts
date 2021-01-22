@@ -8,8 +8,9 @@ describe("sanitizing html input", () => {
 
     expect(result).toBe("some text here");
   });
-  it("allows em, ul, and li", () => {
-    const text = "<ul><li>The <em>best</em> ability</li></ul>";
+  it("allows em, u, b, ul, and li", () => {
+    const text =
+      "<ul><li>The <em>best</em> ability <u>underlined</u> and <b>bold</b></li></ul>";
 
     const result = sanitize(text);
 
@@ -33,7 +34,7 @@ describe("sanitizing svg tags", () => {
     expect(result).toBe(svg);
   });
   it("doesn't allow funny business to sneak in", () => {
-    const svg = `<svg><a href="some.website"><img src="some.place"/></a></svg>`;
+    const svg = `<svg><script>console.log("baaad")</script><a href="some.website"><img src="some.place"/></a></svg>`;
 
     const result = sanitizeSvg(svg);
 
