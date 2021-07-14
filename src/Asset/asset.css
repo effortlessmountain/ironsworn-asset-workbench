@@ -96,6 +96,7 @@
 .dot {
   margin: -0.06em 0.27em 0 -0.03em;
   font-size: 1.58em;
+  font-style: normal;
 }
 
 .filled::before {
