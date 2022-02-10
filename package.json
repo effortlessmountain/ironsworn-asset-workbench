@@ -14,7 +14,7 @@
     "gh-pages": "^2.2.0",
     "html2canvas": "^1.0.0-rc.7",
     "lodash": "^4.17.15",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "paper-css": "^0.4.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
